@@ -1,0 +1,13 @@
+[
+  {"id": "cycle-basics", "category": "mine"},
+  {"id": "cycle-phases", "category": "mine"},
+  {"id": "ovulation-fertile", "category": "mine"},
+  {"id": "irregular-cycles", "category": "mine"},
+  {"id": "period-myths", "category": "mine"},
+  {"id": "see-a-doctor", "category": "mine"},
+  {"id": "nutrition-activity", "category": "mine"},
+  {"id": "period-pain", "category": "hygiene"},
+  {"id": "period-hygiene", "category": "hygiene"},
+  {"id": "contraception-overview", "category": "contraception"},
+  {"id": "emergency-contraception", "category": "contraception"}
+]

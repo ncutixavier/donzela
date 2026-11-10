@@ -1,0 +1,412 @@
+{
+  "@@locale": "fr",
+  "appName": "Donzela",
+  "langRw": "Ikinyarwanda",
+  "langEn": "English",
+  "langFr": "Français",
+  "chooseLanguage": "Choisissez une langue",
+  "welcomeTitle": "Connaître votre corps",
+  "welcomeBody": "Une amie qui vous aide à suivre votre cycle, conçue pour chaque femme au Rwanda.",
+  "dataStaysNote": "Vos données restent sur votre téléphone",
+  "continueBtn": "Continuer",
+  "backBtn": "Retour",
+  "skipBtn": "Passer",
+  "stepOf": "{current} sur {total}",
+  "@stepOf": {
+    "placeholders": {
+      "current": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "privacyTitle": "Votre corps, vos données",
+  "privacySubtitle": "Vos données vous appartiennent. Voici notre engagement.",
+  "privacy1Title": "Reste sur votre téléphone",
+  "privacy1Body": "Ce que vous notez sur votre cycle est gardé sur ce téléphone. Rien ne part sur nos serveurs.",
+  "privacy2Title": "Vous choisissez la sauvegarde",
+  "privacy2Body": "Vous pouvez l'activer plus tard dans les Paramètres. Elle est désactivée au départ.",
+  "privacy3Title": "Jamais vendues",
+  "privacy3Body": "Nous ne vendrons jamais vos données de santé. Vous pouvez tout supprimer à tout moment.",
+  "agreeContinue": "J'accepte, continuer",
+  "readPolicy": "Lire la politique de confidentialité",
+  "policyTitle": "Politique de confidentialité",
+  "policyBody": "Donzela garde les données de votre cycle uniquement sur votre téléphone.\n\nAucune information de santé n'est envoyée aux statistiques ni aux rapports d'erreurs.\n\nLa sauvegarde en ligne est désactivée jusqu'à ce que vous l'activiez. Dans ce cas, vos données sont envoyées avec votre accord, et vous pouvez les supprimer à tout moment.\n\nVous pouvez tout supprimer à tout moment dans les Paramètres.",
+  "lastPeriodTitle": "Quand vos dernières règles ont-elles commencé ?",
+  "lastPeriodBody": "Cela aide Donzela à estimer quand vos prochaines règles arriveront. Vous pouvez le modifier à tout moment.",
+  "sinibuka": "Je ne me souviens pas",
+  "sinibukaNote": "Estimation peu fiable : la date est fixée à 14 jours avant aujourd'hui.",
+  "cycleLengthTitle": "Combien de jours dure votre cycle ?",
+  "cycleLengthBody": "Un cycle va du premier jour de vos règles au jour précédant les suivantes. Vous ne savez pas ? Gardez les valeurs habituelles ; Donzela apprendra au fil de vos notes.",
+  "cycleLengthLabel": "Durée du cycle",
+  "periodLengthLabel": "Durée des règles",
+  "daysUnit": "jours",
+  "cycleRangeNote": "La plupart des cycles durent entre 21 et 35 jours",
+  "pinSetupTitle": "Protégez Donzela",
+  "pinSetupBody": "Utile si vous partagez votre téléphone. Vous pourrez le modifier dans les Paramètres.",
+  "pinToggle": "Verrouiller avec un code à 4 chiffres",
+  "pinHint": "Choisissez un code qui n'est pas votre date de naissance.",
+  "remindersTitle": "Rappels",
+  "reminderPeriod": "Règles bientôt",
+  "reminderFertile": "Fenêtre fertile",
+  "reminderPill": "Pilule quotidienne",
+  "reminderNote": "Les notifications n'affichent jamais de détails de santé. Elles disent seulement « Rappel Donzela ».",
+  "startApp": "Commencer à utiliser Donzela",
+  "pinEnterTitle": "Saisissez votre PIN",
+  "pinNewTitle": "Choisissez un nouveau PIN",
+  "pinConfirmTitle": "Ressaisissez le PIN",
+  "pinWrong": "PIN incorrect. Réessayez.",
+  "pinLockedFor": "Réessayez dans {seconds} secondes",
+  "@pinLockedFor": {
+    "placeholders": {
+      "seconds": {
+        "type": "int"
+      }
+    }
+  },
+  "forgotPin": "PIN oublié ?",
+  "resetPinTitle": "PIN oublié ?",
+  "resetPinBody": "Vous pouvez supprimer toutes les données de ce téléphone. Si une sauvegarde en ligne existe, vous pouvez la restaurer.",
+  "deleteBtn": "Supprimer",
+  "cancelBtn": "Annuler",
+  "confirmBtn": "Confirmer",
+  "yes": "Oui",
+  "no": "Non",
+  "saveBtn": "Enregistrer",
+  "greetingMorning": "Bonjour",
+  "greetingAfternoon": "Bon après-midi",
+  "onWeekday": "Le",
+  "todayCycleDay": "Jour du cycle",
+  "phasePeriod": "Règles",
+  "phaseFertile": "Fenêtre fertile",
+  "phaseOvulation": "Ovulation",
+  "phaseNormal": "Normal",
+  "phasePredictedPeriod": "Règles prévues",
+  "nextPeriodIn": "Prochaines règles dans {days} jours · vers le {date}",
+  "@nextPeriodIn": {
+    "placeholders": {
+      "days": {
+        "type": "int"
+      },
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "nextPeriodLate": "Règles en retard · prévues le {date}",
+  "@nextPeriodLate": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "estimateChip": "Estimation",
+  "firstEstimate": "Première estimation",
+  "getStartedTitle": "Premiers pas",
+  "checkOnboarding": "Inscription terminée",
+  "checkFirstCycle": "Date des dernières règles enregistrée",
+  "checkPrediction": "Première estimation prête",
+  "checkLogToday": "Noté aujourd'hui",
+  "firstUseBody": "Notez vos 2 prochaines règles et Donzela apprendra comment fonctionne votre corps.",
+  "upcomingNotice": "Les prévisions gagnent en précision avec le temps",
+  "estimatesOnly": "Les prévisions sont des estimations et ne constituent pas un conseil contraceptif.",
+  "tipTitle": "Conseil du jour",
+  "tipPeriod": "Une bouillotte sur le ventre peut soulager les crampes. Reposez-vous si besoin.",
+  "tipFollicular": "En début de cycle, vous pouvez vous sentir plus d'énergie. C'est un bon moment pour une activité légère.",
+  "tipFertile": "Pendant les jours fertiles, vous pouvez vous sentir plus énergique et remarquer une glaire claire et filante. C'est normal.",
+  "tipLuteal": "Vous pouvez vous sentir fatiguée ou anxieuse. Boire de l'eau et se reposer aide.",
+  "readMore": "Lire la suite",
+  "todayTitle": "Aujourd'hui",
+  "calendarTab": "Calendrier",
+  "learnTab": "Apprendre",
+  "helpTab": "Aide",
+  "calendarTitle": "Calendrier",
+  "legendPeriod": "Règles",
+  "legendPredicted": "Prévues",
+  "legendFertile": "Fertile",
+  "legendOvulation": "Ovulation",
+  "historyTitle": "Historique du cycle",
+  "avgCycle": "Cycle moyen",
+  "avgPeriod": "Règles moyennes",
+  "daysCount": "{n} jours",
+  "@daysCount": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
+  "reportBtn": "Rapport infirmier",
+  "confLow": "Confiance faible",
+  "confMedium": "Confiance moyenne",
+  "confHigh": "Confiance élevée",
+  "flagIrregular": "Vos cycles varient beaucoup. Lisez l'article sur les cycles irréguliers.",
+  "flagLate": "Vos règles ont plus de 7 jours de retard.",
+  "monthPrev": "Mois précédent",
+  "monthNext": "Mois suivant",
+  "dayStartQ": "Vos règles ont-elles commencé aujourd'hui ?",
+  "periodStartHere": "Début des règles ici",
+  "periodEndHere": "Fin des règles ici",
+  "periodEnded": "Règles terminées",
+  "logSheetTitle": "Noter aujourd'hui",
+  "flowTitle": "Flux",
+  "flowNone": "Aucun",
+  "flowSpotting": "Léger",
+  "flowMedium": "Moyen",
+  "flowHeavy": "Abondant",
+  "symptomsTitle": "Symptômes",
+  "moodTitle": "Comment vous vous sentez",
+  "notesTitle": "Notes",
+  "notesHint": "Autre chose à écrire ?",
+  "symptomCramps": "Crampes",
+  "symptomHeadache": "Maux de tête",
+  "symptomBackache": "Mal de dos",
+  "symptomBloating": "Ballonnements",
+  "symptomAcne": "Acné",
+  "symptomBreast": "Seins sensibles",
+  "symptomFatigue": "Fatigue",
+  "moodCalm": "Calme",
+  "moodHappy": "Heureuse",
+  "moodSad": "Triste",
+  "moodIrritable": "Irritable",
+  "moodAnxious": "Anxieuse",
+  "reportTitle": "Rapport pour votre infirmier",
+  "reportSummary": "Résumé du cycle",
+  "reportCycleCol": "Cycle (jours)",
+  "reportPeriodCol": "Règles (jours)",
+  "reportLast": "Dernier",
+  "reportStartCol": "Début",
+  "reportLengthCol": "Durée",
+  "reportPeriodLenCol": "Règles",
+  "reportSymptoms": "Symptômes les plus notés",
+  "reportFooter": "Créé par Donzela. Estimations uniquement, pas un diagnostic médical.",
+  "reportNoData": "Aucunes règles enregistrées pour l'instant.",
+  "sharePdf": "Partager en PDF",
+  "showOnPhone": "Afficher sur le téléphone",
+  "learnTitle": "Apprendre",
+  "learnSubtitle": "Chaque article est relu par une sage-femme",
+  "searchHint": "ex. douleur des règles",
+  "filterAll": "Tout",
+  "filterMine": "Votre cycle",
+  "filterHygiene": "Hygiène menstruelle",
+  "filterContraception": "Contraception",
+  "reviewedBy": "Relu par {name}, {date}",
+  "@reviewedBy": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      },
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "noArticles": "Aucun article relu n'est disponible pour l'instant.",
+  "saveArticle": "Enregistrer l'article",
+  "savedArticle": "Enregistré",
+  "helpTitle": "Trouver de l'aide",
+  "helpSubtitle": "Services gratuits qui respectent votre vie privée, près de vous",
+  "emergencyTitle": "Aide d'urgence",
+  "isangeCentre": "Isange One Stop Centre",
+  "ambulance": "Ambulance (SAMU)",
+  "yourDistrict": "Votre district",
+  "centresNone": "Les centres de santé de ce district ne sont pas encore listés.",
+  "callBtn": "Appeler",
+  "settingsTitle": "Paramètres",
+  "sectionPrefs": "PRÉFÉRENCES",
+  "sectionPrivacy": "CONFIDENTIALITÉ",
+  "languageSetting": "Langue",
+  "pinSetting": "Verrouillage par PIN",
+  "changePin": "Modifier le PIN",
+  "analyticsSetting": "Statistiques d'utilisation",
+  "analyticsNote": "Chiffres sans information de santé, pour aider à améliorer Donzela. Vous pouvez les désactiver.",
+  "backupSetting": "Sauvegarde en ligne",
+  "backupNote": "Vos données de cycle sont uniquement sur ce téléphone. Activez la sauvegarde pour ne pas les perdre si vous changez de téléphone.",
+  "backupExplain": "La sauvegarde envoie les données de votre cycle en ligne. Nous vous demanderons d'abord votre accord.",
+  "backupConsentBtn": "J'accepte",
+  "backupUnavailable": "La sauvegarde en ligne n'est pas encore disponible dans cette version.",
+  "deleteAllBtn": "Supprimer toutes mes données",
+  "deleteAllTitle": "Supprimer toutes les données ?",
+  "deleteAllBody": "Cela supprime toutes les données de ce téléphone et du cloud. Action irréversible.",
+  "privacyPolicyLink": "Politique de confidentialité",
+  "firstNameLabel": "Votre prénom (facultatif)",
+  "setPinBtn": "Définir le PIN",
+  "remindersOff": "Rappels désactivés",
+  "reminderPeriodText": "Rappels des règles",
+  "notifTitle": "Rappel Donzela",
+  "notifBody": "Ouvrez Donzela pour voir",
+  "pillTimeLabel": "Heure de la pilule",
+  "genericError": "Une erreur s'est produite. Réessayez.",
+  "deleteDone": "Données supprimées.",
+  "m1": "janvier",
+  "m2": "février",
+  "m3": "mars",
+  "m4": "avril",
+  "m5": "mai",
+  "m6": "juin",
+  "m7": "juillet",
+  "m8": "août",
+  "m9": "septembre",
+  "m10": "octobre",
+  "m11": "novembre",
+  "m12": "décembre",
+  "w1": "Lu",
+  "w2": "Ma",
+  "w3": "Me",
+  "w4": "Je",
+  "w5": "Ve",
+  "w6": "Sa",
+  "w7": "Di",
+  "d1": "lundi",
+  "d2": "mardi",
+  "d3": "mercredi",
+  "d4": "jeudi",
+  "d5": "vendredi",
+  "d6": "samedi",
+  "d7": "dimanche",
+  "appFooter": "Donzela 1.0 · Conçu à Kigali par Hova AI",
+  "logToday": "Noter aujourd'hui",
+  "draftBadge": "Brouillon, pas encore relu",
+  "logsTitle": "Mes notes",
+  "logsOpenBtn": "Mes notes",
+  "tabLogs": "Journal",
+  "tabInsights": "Statistiques",
+  "noLogs": "Aucune journée notée pour l'instant. Vos notes apparaîtront ici.",
+  "logDeleteTitle": "Supprimer cette note ?",
+  "logDeleteBody": "Ce que vous avez noté pour ce jour sera supprimé. Action irréversible.",
+  "insightsDaysLogged": "Jours notés : {n}",
+  "@insightsDaysLogged": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
+  "insightsCyclesTracked": "Cycles suivis : {n}",
+  "@insightsCyclesTracked": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
+  "insightsCycleRange": "Durée du cycle : {min}–{max} jours",
+  "@insightsCycleRange": {
+    "placeholders": {
+      "min": {
+        "type": "int"
+      },
+      "max": {
+        "type": "int"
+      }
+    }
+  },
+  "insightsSymptoms": "Symptômes les plus fréquents",
+  "insightsMoods": "Humeurs les plus fréquentes",
+  "insightsFlow": "Flux pendant les règles",
+  "insightsByPhase": "Selon la phase du cycle",
+  "insightsCountOf": "{count} jours sur {total}",
+  "@insightsCountOf": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "insightsNoData": "Notez quelques jours pour voir vos tendances.",
+  "insightsDisclaimer": "Ces chiffres ne viennent que de vos notes. Ce n'est pas un diagnostic médical.",
+  "noteEmpty": "Aucune note",
+  "authSignIn": "Se connecter avec Google",
+  "authSignOut": "Se déconnecter",
+  "authSignedInAs": "Connecté en tant que {email}",
+  "authSignInFailed": "La connexion n'a pas abouti. Réessayez.",
+  "cloudUnavailable": "La sauvegarde n'est pas disponible pour le moment. Réessayez plus tard.",
+  "restoreHint": "Vous utilisez déjà Donzela ? Connectez-vous pour restaurer vos données.",
+  "restoreFound": "Vos données sont restaurées.",
+  "restoreNone": "Aucune sauvegarde pour ce compte. Continuez l'inscription.",
+  "backupStarted": "Sauvegarde activée. Les changements sont envoyés au fur et à mesure.",
+  "@authSignedInAs": {
+    "placeholders": {
+      "email": {
+        "type": "String"
+      }
+    }
+  },
+  "legendToday": "Aujourd'hui",
+  "centreNextPeriodLabel": "Règles dans",
+  "centreDaysUnit": "jours",
+  "centreLate": "Règles en retard",
+  "fertileWindowLine": "Fenêtre fertile : {from} – {to}",
+  "@fertileWindowLine": {
+    "placeholders": {
+      "from": {
+        "type": "String"
+      },
+      "to": {
+        "type": "String"
+      }
+    }
+  },
+  "todayLoggedLine": "Notée aujourd'hui : {items}",
+  "@todayLoggedLine": {
+    "placeholders": {
+      "items": {
+        "type": "String"
+      }
+    }
+  },
+  "insightsShortcut": "Voir vos statistiques",
+  "entryTimeLabel": "Heure",
+  "editEntryTitle": "Modifier la note",
+  "entriesToday": "Notes de la journée",
+  "filterByDate": "Filtrer par date",
+  "clearFilter": "Effacer le filtre",
+  "addEntryBtn": "Ajouter",
+  "noEntriesOnDay": "Rien noté ce jour.",
+  "goToday": "Aujourd'hui",
+  "regularCycles": "Cycles réguliers",
+  "irregularCycles": "Cycles irréguliers",
+  "navAccount": "Compte",
+  "accountTitle": "Compte",
+  "accountSignedOutBody": "Connectez-vous avec Google pour sauvegarder vos données, les partager entre téléphones et les restaurer au besoin.",
+  "accountBackupOff": "Sauvegarde désactivée. Vos données restent sur ce téléphone.",
+  "accountBackupOn": "Sauvegarde activée. Les changements sont envoyés au fil de l'eau.",
+  "accountLastSync": "Dernière synchronisation : {when}",
+  "@accountLastSync": {
+    "placeholders": {
+      "when": {
+        "type": "String"
+      }
+    }
+  },
+  "accountNeverSynced": "Pas encore synchronisé",
+  "accountPending": "En attente : {n}",
+  "@accountPending": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
+  "accountSyncNow": "Synchroniser",
+  "accountSyncDone": "Synchronisé.",
+  "accountPull": "Récupérer les mises à jour",
+  "accountPullBody": "Récupère vos notes, cycles et réglages depuis le cloud, ainsi que les derniers articles et centres de santé. Vous choisissez quand.",
+  "accountPulled": "Restauré : {n} éléments",
+  "@accountPulled": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
+  "accountNothingNew": "Rien de nouveau.",
+  "accountTurnOnBackup": "Activer la sauvegarde",
+  "accountBusy": "En cours..."
+}

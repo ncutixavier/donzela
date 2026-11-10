@@ -1,0 +1,412 @@
+{
+  "@@locale": "rw",
+  "appName": "Donzela",
+  "langRw": "Ikinyarwanda",
+  "langEn": "English",
+  "langFr": "Français",
+  "chooseLanguage": "Hitamo ururimi",
+  "welcomeTitle": "Menya umubiri wawe",
+  "welcomeBody": "Inshuti igufasha gukurikirana ukwezi kwawe, yakorewe buri mugore wo mu Rwanda.",
+  "dataStaysNote": "Amakuru yawe aguma muri telefoni yawe",
+  "continueBtn": "Komeza",
+  "backBtn": "Subira inyuma",
+  "skipBtn": "Simbuka",
+  "stepOf": "{current} kuri {total}",
+  "@stepOf": {
+    "placeholders": {
+      "current": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "privacyTitle": "Umubiri wawe, amakuru yawe",
+  "privacySubtitle": "Amakuru yawe ni ayawe. Dore isezerano ryacu.",
+  "privacy1Title": "Aguma muri telefoni yawe",
+  "privacy1Body": "Ibyo wanditse ku kwezi kwawe bibikwa muri iyi telefoni, ntibijya kuri seriveri zacu.",
+  "privacy2Title": "Kubika kopi ni wowe uhitamo",
+  "privacy2Body": "Ushobora kubifungura nyuma mu Igenamiterere. Mu ntangiriro birafunze.",
+  "privacy3Title": "Ntazigera agurishwa",
+  "privacy3Body": "Ntituzigera tugurisha amakuru y'ubuzima bwawe. Ushobora gusiba byose igihe cyose.",
+  "agreeContinue": "Ndemeye, komeza",
+  "readPolicy": "Soma politiki y'ibanga",
+  "policyTitle": "Politiki y'ibanga",
+  "policyBody": "Donzela ibika amakuru y'ukwezi kwawe muri telefoni yawe gusa.\n\nNta makuru y'ubuzima yoherezwa mu bikoresho by'isesengura (analytics) cyangwa mu magambo y'amakosa.\n\nKubika kopi kuri interineti birafunze kugeza ubifunguye. Iyo ubifunguye, amakuru yoherezwa ku mugaragaro ku kwemerera kwawe, kandi ushobora kuyasiba igihe cyose.\n\nUshobora gusiba amakuru yose igihe cyose mu Igenamiterere.",
+  "lastPeriodTitle": "Imihango yawe iheruka yatangiye ryari?",
+  "lastPeriodBody": "Bifasha Donzela kugereranya igihe imihango yawe itaha izazira. Ushobora kubihindura igihe cyose.",
+  "sinibuka": "Sinibuka",
+  "sinibukaNote": "Igereranya rito: itariki ni iminsi 14 uvuye none.",
+  "cycleLengthTitle": "Ukwezi kwawe kumara iminsi ingahe?",
+  "cycleLengthBody": "Ukwezi gutangira ku munsi wa mbere w'imihango kugeza ku munsi ubanziriza imihango ikurikira. Ntubizi neza? Siga imibare isanzwe; Donzela izagenda yiga uko wandika.",
+  "cycleLengthLabel": "Uburebure bw'ukwezi",
+  "periodLengthLabel": "Iminsi y'imihango",
+  "daysUnit": "iminsi",
+  "cycleRangeNote": "Ukwezi kwinshi kumara hagati y'iminsi 21 na 35",
+  "pinSetupTitle": "Rinda ibanga rya Donzela",
+  "pinSetupBody": "Bifasha niba usangira telefoni n'abandi. Ushobora kubihindura nyuma mu Igenamiterere.",
+  "pinToggle": "Funga ukoresheje PIN y'imibare 4",
+  "pinHint": "Hitamo PIN itari itariki y'amavuko yawe.",
+  "remindersTitle": "Ibyibutsa",
+  "reminderPeriod": "Imihango iri hafi",
+  "reminderFertile": "Iminsi y'uburumbuke",
+  "reminderPill": "Ikinini cya buri munsi",
+  "reminderNote": "Ubutumwa ntibugaragaza ibisobanuro: buvuga gusa ngo \"Icyibutsa cya Donzela\".",
+  "startApp": "Tangira gukoresha Donzela",
+  "pinEnterTitle": "Andika PIN yawe",
+  "pinNewTitle": "Shyiraho PIN nshya",
+  "pinConfirmTitle": "Ongera wandike PIN",
+  "pinWrong": "PIN si yo. Gerageza nanone.",
+  "pinLockedFor": "Gerageza nyuma y'amasegonda {seconds}",
+  "@pinLockedFor": {
+    "placeholders": {
+      "seconds": {
+        "type": "int"
+      }
+    }
+  },
+  "forgotPin": "Wibagiwe PIN?",
+  "resetPinTitle": "Wibagiwe PIN?",
+  "resetPinBody": "Ushobora gusiba amakuru yose kuri telefoni. Niba kopi yo kuri interineti iriho, ushobora kuyisubizaho.",
+  "deleteBtn": "Siba",
+  "cancelBtn": "Hagarika",
+  "confirmBtn": "Emeza",
+  "yes": "Yego",
+  "no": "Oya",
+  "saveBtn": "Bika",
+  "greetingMorning": "Mwaramutse",
+  "greetingAfternoon": "Mwiriwe",
+  "onWeekday": "Ku wa",
+  "todayCycleDay": "Umunsi w'ukwezi",
+  "phasePeriod": "Imihango",
+  "phaseFertile": "Iminsi y'uburumbuke",
+  "phaseOvulation": "Irekurwa ry'intanga",
+  "phaseNormal": "Ibisanzwe",
+  "phasePredictedPeriod": "Imihango iteganyijwe",
+  "nextPeriodIn": "Imihango itaha mu minsi {days} · ahagana {date}",
+  "@nextPeriodIn": {
+    "placeholders": {
+      "days": {
+        "type": "int"
+      },
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "nextPeriodLate": "Imihango iratinze · yari iteganyijwe {date}",
+  "@nextPeriodLate": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "estimateChip": "Igereranya",
+  "firstEstimate": "Igereranya rya mbere",
+  "getStartedTitle": "Tangira",
+  "checkOnboarding": "Wujuje kwiyandikisha",
+  "checkFirstCycle": "Itariki y'imihango iheruka yanditswe",
+  "checkPrediction": "Igereranya ryatangiye",
+  "checkLogToday": "Wanditse uyu munsi",
+  "firstUseBody": "Andika imihango yawe 2 itaha, Donzela imenye uko umubiri wawe ugenda.",
+  "upcomingNotice": "Ibiteganywa bizagenda binonoka",
+  "estimatesOnly": "Ibiteganyijwe ni igereranya gusa, ntibigamije kuboneza urubyaro.",
+  "tipTitle": "Inama y'uyu munsi",
+  "tipPeriod": "Shyushya amazi cyangwa ushyire umufuka w'ubushyuhe ku nda ushobora kugabanya uburibwe. Ruhuka igihe ukeneye.",
+  "tipFollicular": "Mu minsi ibanza y'ukwezi ushobora kumva ufite imbaraga. Ni igihe cyiza cyo gukora imyitozo yoroheje.",
+  "tipFertile": "Mu minsi y'uburumbuke ushobora kumva ufite imbaraga nyinshi kandi ukabona ururenda rworoshye rurambuka. Ibyo ni ibisanzwe.",
+  "tipLuteal": "Ushobora kumva unaniwe cyangwa ufite impungenge. Kunywa amazi no kuruhuka bifasha.",
+  "readMore": "Soma birambuye",
+  "todayTitle": "Uyu munsi",
+  "calendarTab": "Kalendari",
+  "learnTab": "Iga",
+  "helpTab": "Ubufasha",
+  "calendarTitle": "Kalendari",
+  "legendPeriod": "Imihango",
+  "legendPredicted": "Iteganyijwe",
+  "legendFertile": "Uburumbuke",
+  "legendOvulation": "Irekurwa ry'intanga",
+  "historyTitle": "Amateka y'ukwezi",
+  "avgCycle": "Ukwezi, ku kigereranyo",
+  "avgPeriod": "Imihango, ku kigereranyo",
+  "daysCount": "{n} iminsi",
+  "@daysCount": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
+  "reportBtn": "Raporo y'umuganga",
+  "confLow": "Igereranya rito",
+  "confMedium": "Igereranya ryo hagati",
+  "confHigh": "Igereranya rihamye",
+  "flagIrregular": "Ukwezi kwawe guhindagurika. Soma inyandiko ku mihango ihindagurika.",
+  "flagLate": "Imihango iratinze kurenza iminsi 7.",
+  "monthPrev": "Ukwezi kubanza",
+  "monthNext": "Ukwezi gutaha",
+  "dayStartQ": "Imihango yawe yatangiye uyu munsi?",
+  "periodStartHere": "Tangira imihango hano",
+  "periodEndHere": "Imihango irangiriye hano",
+  "periodEnded": "Imihango yarangiye",
+  "logSheetTitle": "Andika uyu munsi",
+  "flowTitle": "Ingano y'amaraso",
+  "flowNone": "Nta yo",
+  "flowSpotting": "Make",
+  "flowMedium": "Hagati",
+  "flowHeavy": "Menshi",
+  "symptomsTitle": "Ibimenyetso",
+  "moodTitle": "Uko wiyumva",
+  "notesTitle": "Inyandiko",
+  "notesHint": "Hari ikindi wifuza kwandika?",
+  "symptomCramps": "Kuribwa mu nda",
+  "symptomHeadache": "Kubabara umutwe",
+  "symptomBackache": "Kubabara umugongo",
+  "symptomBloating": "Kubyimba inda",
+  "symptomAcne": "Ibiheri",
+  "symptomBreast": "Amabere aryana",
+  "symptomFatigue": "Umunaniro",
+  "moodCalm": "Ntuje",
+  "moodHappy": "Nishimye",
+  "moodSad": "Mbabaye",
+  "moodIrritable": "Ndarakara vuba",
+  "moodAnxious": "Mfite impungenge",
+  "reportTitle": "Raporo yo kwereka umuganga",
+  "reportSummary": "Incamake y'ukwezi",
+  "reportCycleCol": "Ukwezi (iminsi)",
+  "reportPeriodCol": "Imihango (iminsi)",
+  "reportLast": "Iheruka",
+  "reportStartCol": "Itangiriro",
+  "reportLengthCol": "Uburebure",
+  "reportPeriodLenCol": "Imihango",
+  "reportSymptoms": "Ibimenyetso byanditswe kenshi",
+  "reportFooter": "Byakozwe na Donzela. Ni igereranya gusa, si isuzuma rya muganga.",
+  "reportNoData": "Nta mihango irandikwa irahari.",
+  "sharePdf": "Sangiza nka PDF",
+  "showOnPhone": "Erekana kuri telefoni",
+  "learnTitle": "Iga",
+  "learnSubtitle": "Buri nyandiko isuzumwa n'umuganga",
+  "searchHint": "urugero: uburibwe bw'imihango",
+  "filterAll": "Byose",
+  "filterMine": "Ukwezi kwawe",
+  "filterHygiene": "Isuku mu mihango",
+  "filterContraception": "Kuboneza urubyaro",
+  "reviewedBy": "Byasuzumwe na {name}, {date}",
+  "@reviewedBy": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      },
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "noArticles": "Nta nyandiko zisuzumwe zirahari ubu.",
+  "saveArticle": "Bika inyandiko",
+  "savedArticle": "Yabitswe",
+  "helpTitle": "Shaka ubufasha",
+  "helpSubtitle": "Serivisi z'ubuntu kandi zibika ibanga, hafi yawe",
+  "emergencyTitle": "Ubufasha bwihutirwa",
+  "isangeCentre": "Isange One Stop Centre",
+  "ambulance": "Imbangukiragutabara (SAMU)",
+  "yourDistrict": "Akarere kawe",
+  "centresNone": "Ibigo nderabuzima by'aka karere ntibirashyirwamo ubu.",
+  "callBtn": "Hamagara",
+  "settingsTitle": "Igenamiterere",
+  "sectionPrefs": "IBYIFUZO",
+  "sectionPrivacy": "IBANGA",
+  "languageSetting": "Ururimi",
+  "pinSetting": "Gufunga na PIN",
+  "changePin": "Hindura PIN",
+  "analyticsSetting": "Imibare y'ikoreshwa",
+  "analyticsNote": "Imibare idafite amakuru y'ubuzima, yo gufasha Donzela gutera imbere. Ushobora kuyifunga.",
+  "backupSetting": "Kubika kopi kuri interineti",
+  "backupNote": "Amakuru y'ukwezi kwawe abikwa muri iyi telefoni gusa. Fungura kubika kopi kugira ngo atazabura nuhindura telefoni.",
+  "backupExplain": "Kubika kopi bizohereza ku murongo amakuru y'ukwezi kwawe. Turabanza tukubaze uburenganzira.",
+  "backupConsentBtn": "Ndemeye",
+  "backupUnavailable": "Kubika kopi ntibiraboneka kuri iyi verisiyo.",
+  "deleteAllBtn": "Siba amakuru yanjye yose",
+  "deleteAllTitle": "Siba amakuru yose?",
+  "deleteAllBody": "Ibi bizasiba amakuru yose kuri telefoni n'ayo kuri interineti. Ntibisubira inyuma.",
+  "privacyPolicyLink": "Politiki y'ibanga",
+  "firstNameLabel": "Izina ryawe (ntibiba ngombwa)",
+  "setPinBtn": "Shyiraho PIN",
+  "remindersOff": "Ibyibutsa bizimije",
+  "reminderPeriodText": "Ibyibutsa by'imihango",
+  "notifTitle": "Icyibutsa cya Donzela",
+  "notifBody": "Fungura Donzela urebe",
+  "pillTimeLabel": "Igihe cy'ikinini",
+  "genericError": "Habaye ikibazo. Gerageza nanone.",
+  "deleteDone": "Amakuru yasibwe.",
+  "m1": "Mutarama",
+  "m2": "Gashyantare",
+  "m3": "Werurwe",
+  "m4": "Mata",
+  "m5": "Gicurasi",
+  "m6": "Kamena",
+  "m7": "Nyakanga",
+  "m8": "Kanama",
+  "m9": "Nzeri",
+  "m10": "Ukwakira",
+  "m11": "Ugushyingo",
+  "m12": "Ukuboza",
+  "w1": "Mb",
+  "w2": "Kb",
+  "w3": "Gt",
+  "w4": "Kn",
+  "w5": "Gn",
+  "w6": "Gd",
+  "w7": "Cy",
+  "d1": "mbere",
+  "d2": "kabiri",
+  "d3": "gatatu",
+  "d4": "kane",
+  "d5": "gatanu",
+  "d6": "gatandatu",
+  "d7": "cyumweru",
+  "appFooter": "Donzela 1.0 · Yakozwe i Kigali na Hova AI",
+  "logToday": "Andika uyu munsi",
+  "draftBadge": "Inyandiko y'igerageza, ntirasuzumwa",
+  "logsTitle": "Ibyo nanditse",
+  "logsOpenBtn": "Ibyo nanditse",
+  "tabLogs": "Ibyanditswe",
+  "tabInsights": "Imibare",
+  "noLogs": "Nta munsi wanditse urabona hano.",
+  "logDeleteTitle": "Siba iyi nyandiko?",
+  "logDeleteBody": "Ibyanditswe kuri uyu munsi bizasibwa. Ntibisubira inyuma.",
+  "insightsDaysLogged": "Iminsi wanditse: {n}",
+  "@insightsDaysLogged": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
+  "insightsCyclesTracked": "Imizunguruko yanditswe: {n}",
+  "@insightsCyclesTracked": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
+  "insightsCycleRange": "Uburebure bw'ukwezi: iminsi {min}–{max}",
+  "@insightsCycleRange": {
+    "placeholders": {
+      "min": {
+        "type": "int"
+      },
+      "max": {
+        "type": "int"
+      }
+    }
+  },
+  "insightsSymptoms": "Ibimenyetso bikunze kugaragara",
+  "insightsMoods": "Uko wiyumvaga cyane",
+  "insightsFlow": "Ingano y'amaraso mu mihango",
+  "insightsByPhase": "Ukurikije icyiciro cy'ukwezi",
+  "insightsCountOf": "{count} mu minsi {total}",
+  "@insightsCountOf": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "insightsNoData": "Andika iminsi mike kugira ngo ubone imibare.",
+  "insightsDisclaimer": "Iyi mibare ni iy'ibyo wanditse gusa, si isuzuma rya muganga.",
+  "noteEmpty": "Nta nyandiko",
+  "authSignIn": "Injira ukoresheje Google",
+  "authSignOut": "Sohoka",
+  "authSignedInAs": "Winjiriye nka {email}",
+  "authSignInFailed": "Kwinjira ntibyakunze. Gerageza nanone.",
+  "cloudUnavailable": "Kopi ntiraboneka ubu. Gerageza nyuma.",
+  "restoreHint": "Usanzwe ukoresha Donzela? Injira ugarure amakuru yawe.",
+  "restoreFound": "Amakuru yawe yagaruwe.",
+  "restoreNone": "Nta makuru yabitswe kuri iyi konti. Komeza wiyandikishe.",
+  "backupStarted": "Kopi yatangiye. Amakuru yoherezwa uko ahinduka.",
+  "@authSignedInAs": {
+    "placeholders": {
+      "email": {
+        "type": "String"
+      }
+    }
+  },
+  "legendToday": "Uyu munsi",
+  "centreNextPeriodLabel": "Imihango mu",
+  "centreDaysUnit": "iminsi",
+  "centreLate": "Imihango yatinze",
+  "fertileWindowLine": "Iminsi y'uburumbuke: {from} – {to}",
+  "@fertileWindowLine": {
+    "placeholders": {
+      "from": {
+        "type": "String"
+      },
+      "to": {
+        "type": "String"
+      }
+    }
+  },
+  "todayLoggedLine": "Wanditse uyu munsi: {items}",
+  "@todayLoggedLine": {
+    "placeholders": {
+      "items": {
+        "type": "String"
+      }
+    }
+  },
+  "insightsShortcut": "Reba imibare yawe",
+  "entryTimeLabel": "Igihe",
+  "editEntryTitle": "Hindura ibyanditswe",
+  "entriesToday": "Ibyanditswe uyu munsi",
+  "filterByDate": "Shakisha ukurikije itariki",
+  "clearFilter": "Siba akayunguro",
+  "addEntryBtn": "Ongeraho",
+  "noEntriesOnDay": "Nta munsi wanditse uyu munsi.",
+  "goToday": "Uyu munsi",
+  "regularCycles": "Ukwezi guhoraho",
+  "irregularCycles": "Ukwezi guhindagurika",
+  "navAccount": "Konti",
+  "accountTitle": "Konti",
+  "accountSignedOutBody": "Injira ukoresheje Google kugira ngo ubike kopi y'amakuru yawe, uyasangize hagati ya telefoni, kandi uyagarure igihe ukeneye.",
+  "accountBackupOff": "Kopi ntiriho. Amakuru yawe abikwa kuri telefoni gusa.",
+  "accountBackupOn": "Kopi iriho. Amakuru yoherezwa uko ahinduka.",
+  "accountLastSync": "Byasangijwe bwa nyuma: {when}",
+  "@accountLastSync": {
+    "placeholders": {
+      "when": {
+        "type": "String"
+      }
+    }
+  },
+  "accountNeverSynced": "Ntibirasangizwa na rimwe",
+  "accountPending": "Bitarasangizwa: {n}",
+  "@accountPending": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
+  "accountSyncNow": "Sangiza ubu",
+  "accountSyncDone": "Byasangijwe.",
+  "accountPull": "Gusubiza amakuru mashya",
+  "accountPullBody": "Zana amakuru yawe, ibyanditswe, uburyo wakoresheje n'amakuru mashya ku bigo nderabuzima n'inyandiko. Ubikora wowe ubwawe.",
+  "accountPulled": "Byagarutse: {n}",
+  "@accountPulled": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
+  "accountNothingNew": "Nta kintu gishya.",
+  "accountTurnOnBackup": "Fungura kopi",
+  "accountBusy": "Biragenda..."
+}
