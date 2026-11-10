@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "1049334729562",
+    "project_id": "donzela",
+    "storage_bucket": "donzela.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1049334729562:android:5296acfdba159a172e0163",
+        "android_client_info": {
+          "package_name": "health.donzela.donzela"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1049334729562-jre5l11333c6gk4gcl7nbd3jhtg6r7v2.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "health.donzela.donzela",
+            "certificate_hash": "306f9baeb487d77b3cb5b2da8a26a4304545fa39"
+          }
+        },
+        {
+          "client_id": "1049334729562-vlcsohs0nvjuns7p7inq48o5i9se9ffs.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCypcb2SSC2HrmdbUNd9t_8MxHWJY2Qr4I"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1049334729562-vlcsohs0nvjuns7p7inq48o5i9se9ffs.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "1049334729562-l9nmt26sd4kta8srfmduunsvpl9rjjnc.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "rw.donzela.donzela"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

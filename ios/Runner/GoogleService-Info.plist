@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>1049334729562-qpo7cnhuhdk9eda9vq9o1f7g86k729bl.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.1049334729562-qpo7cnhuhdk9eda9vq9o1f7g86k729bl</string>
+	<key>ANDROID_CLIENT_ID</key>
+	<string>1049334729562-1k09j2netc7247kghr66cq0m3mp4dv1r.apps.googleusercontent.com</string>
+	<key>API_KEY</key>
+	<string>AIzaSyDiVvpRWwyixK76wszBRkrQFPc088AMa84</string>
+	<key>GCM_SENDER_ID</key>
+	<string>1049334729562</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>health.donzela.donzela</string>
+	<key>PROJECT_ID</key>
+	<string>donzela</string>
+	<key>STORAGE_BUCKET</key>
+	<string>donzela.firebasestorage.app</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:1049334729562:ios:d5944cb436c1bf152e0163</string>
+</dict>
+</plist>
