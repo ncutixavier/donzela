@@ -695,7 +695,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get d7 => 'Sunday';
 
   @override
-  String get appFooter => 'Donzela 1.0 · Made in Kigali by Hova AI';
+  String get appFooter => 'Donzela 1.0 · Made in Kigali';
 
   @override
   String get logToday => 'Log today';
@@ -912,4 +912,280 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get accountBusy => 'Working...';
+
+  @override
+  String get adminBadge => 'Super-admin';
+
+  @override
+  String get adminOnlyBadgeBody =>
+      'You are the super-admin: you can add, edit and delete Learn articles and everything in Help.';
+
+  @override
+  String get adminAddArticle => 'Add article';
+
+  @override
+  String get adminEditArticle => 'Edit article';
+
+  @override
+  String get adminDeleteBody => 'This will be removed for everyone.';
+
+  @override
+  String get fieldTitle => 'Title';
+
+  @override
+  String get fieldBody => 'Full text (Markdown)';
+
+  @override
+  String get fieldCategory => 'Category';
+
+  @override
+  String get fieldLanguage => 'Language';
+
+  @override
+  String get fieldReviewer => 'Reviewed by (leave empty if not reviewed)';
+
+  @override
+  String get adminEditHelp => 'Edit emergency numbers';
+
+  @override
+  String get fieldIsangeNumber => 'Isange One Stop Centre number';
+
+  @override
+  String get fieldAmbulanceNumber => 'Ambulance number';
+
+  @override
+  String get adminAddCentre => 'Add health centre';
+
+  @override
+  String get adminEditCentre => 'Edit health centre';
+
+  @override
+  String get fieldDistrict => 'District';
+
+  @override
+  String get fieldSector => 'Sector';
+
+  @override
+  String get fieldName => 'Name';
+
+  @override
+  String get fieldPhone => 'Phone';
+
+  @override
+  String get fieldServices => 'Services';
+
+  @override
+  String get adminSaved => 'Saved.';
+
+  @override
+  String get adminRequired => 'Fill in the title and text.';
+
+  @override
+  String accountProgress(int percent) {
+    return '$percent% done';
+  }
+
+  @override
+  String get backupNotOnTitle => 'Backup is not on';
+
+  @override
+  String get backupNotOnBody =>
+      'Backup could not be turned on because Google sign-in did not finish. Try again.';
+
+  @override
+  String get backupRetryBtn => 'Try again';
+
+  @override
+  String get okBtn => 'OK';
+
+  @override
+  String get adminSavedLocal =>
+      'Saved on this phone. It will go to the cloud when you are online.';
+
+  @override
+  String get newDistrictNote =>
+      'New district. It will be added to the list when you save.';
+
+  @override
+  String get districtPickNote => 'Pick a district, or type another one.';
+
+  @override
+  String get categoryHint => 'Pick a category, or type a new one.';
+
+  @override
+  String get editTab => 'Write';
+
+  @override
+  String get previewTab => 'Preview';
+
+  @override
+  String get previewEmpty => 'Nothing to preview yet.';
+
+  @override
+  String get boldTip => 'Bold';
+
+  @override
+  String get italicTip => 'Italic';
+
+  @override
+  String get headingTip => 'Heading';
+
+  @override
+  String get listTip => 'Bulleted list';
+
+  @override
+  String get quoteTip => 'Quote';
+
+  @override
+  String get linkTip => 'Link';
+
+  @override
+  String get emergencyManage => 'Emergency numbers';
+
+  @override
+  String get emergencyAdd => 'Add number';
+
+  @override
+  String get emergencyEdit => 'Edit number';
+
+  @override
+  String get emergencyNone => 'No emergency numbers yet.';
+
+  @override
+  String get translationsTitle => 'Languages';
+
+  @override
+  String get statusPublished => 'Published';
+
+  @override
+  String get statusDraft => 'Draft';
+
+  @override
+  String get statusMissing => 'Missing';
+
+  @override
+  String get translateNow => 'Translate';
+
+  @override
+  String get translateArticle => 'Translate article';
+
+  @override
+  String get saveDraftBtn => 'Save draft';
+
+  @override
+  String get publishAllBtn => 'Publish in all languages';
+
+  @override
+  String get publishedAll => 'Published in all languages.';
+
+  @override
+  String get publishNotReady => 'Not ready to publish';
+
+  @override
+  String get reviewerLabel => 'Reviewer (this language)';
+
+  @override
+  String get reviewerHint => 'Leave empty to show Donzela Team.';
+
+  @override
+  String writtenBy(String name) {
+    return 'Written by $name';
+  }
+
+  @override
+  String get accountPullPublicBody =>
+      'Get the latest articles and Help numbers from Donzela.';
+
+  @override
+  String get accountContentUpdated =>
+      'Latest articles and Help information are up to date.';
+
+  @override
+  String get adminUsersTitle => 'Admins';
+
+  @override
+  String get adminUsersBody =>
+      'Admins can edit Learn and Help. A person becomes admin when you add their email here.';
+
+  @override
+  String get adminUsersEmailLabel => 'Google email';
+
+  @override
+  String get adminUsersEmailHint => 'For example: name@gmail.com';
+
+  @override
+  String get adminUsersAdd => 'Add admin';
+
+  @override
+  String get adminUsersListTitle => 'People with admin rights';
+
+  @override
+  String get adminUsersNone => 'No other admins yet.';
+
+  @override
+  String get adminUsersRemove => 'Remove admin';
+
+  @override
+  String get adminUsersRemoveTitle => 'Remove this admin?';
+
+  @override
+  String get adminUsersInvalid => 'Enter a valid email';
+
+  @override
+  String get adminUsersOwner =>
+      'This is the owner account and cannot be removed';
+
+  @override
+  String get adminUsersRoleOwner => 'Owner';
+
+  @override
+  String get adminUsersRoleAdmin => 'Admin';
+
+  @override
+  String get adminUsersRoleUser => 'Member';
+
+  @override
+  String get adminUsersMakeAdmin => 'Make admin';
+
+  @override
+  String accountWelcome(String name) {
+    return 'Welcome, $name';
+  }
+
+  @override
+  String createdOn(String date) {
+    return 'Created $date';
+  }
+
+  @override
+  String publishedOn(String date) {
+    return 'Published $date';
+  }
+
+  @override
+  String updatedOn(String date) {
+    return 'Updated $date';
+  }
+
+  @override
+  String get onboardingPullContent => 'Get latest articles and Help info';
+
+  @override
+  String get contentPullFailed =>
+      'Could not get the latest content. Check your connection.';
+
+  @override
+  String get lastPeriodOptional =>
+      'You can skip this and add it later from the calendar.';
+
+  @override
+  String get refreshContent => 'Refresh articles and Help';
+
+  @override
+  String get accountSyncNowBody =>
+      'Your data stays on this phone. Sync now uploads your latest changes to your Google account and records when it finished.';
+
+  @override
+  String get accountSyncOffBody =>
+      'Turn on backup in Settings first. Then your changes can be uploaded to your Google account.';
 }

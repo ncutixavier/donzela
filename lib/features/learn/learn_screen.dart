@@ -7,15 +7,14 @@ import 'package:provider/provider.dart';
 import '../../core/l10n/localization.dart';
 import '../../core/theme/app_theme.dart';
 import '../../core/widgets/imigongo.dart';
+import '../admin/admin_controller.dart';
+import '../admin/article_publish.dart';
+import '../admin/article_editor_screen.dart';
+import '../account/cloud_controller.dart';
+import '../account/content_refresh.dart';
+import 'category_labels.dart';
 import '../../data/database/database.dart';
 import 'learn_controller.dart';
-
-const _categories = [
-  ('all', 'filterAll'),
-  ('mine', 'filterMine'),
-  ('hygiene', 'filterHygiene'),
-  ('contraception', 'filterContraception'),
-];
 
 /// Learn list (screen 12). Cards open the article with a container
 /// transform (OpenContainer).
@@ -38,7 +37,9 @@ class _LearnScreenState extends State<LearnScreen> {
     final lang = Localizations.localeOf(context).languageCode;
     final ctrl = context.read<LearnController>();
     // Loading notifies listeners, which must not happen during build.
-    WidgetsBinding.instance.addPostFrameCallback((_) => ctrl.load(lang: lang));
+    // The super-admin also sees unreviewed articles, so they can finish them.
+    final isAdmin = context.read<AdminController>().isSuperAdmin;
+    WidgetsBinding.instance.addPostFrameCallback((_) => ctrl.load(lang: lang, showDrafts: isAdmin));
   }
 
   @override
@@ -47,12 +48,61 @@ class _LearnScreenState extends State<LearnScreen> {
     super.dispose();
   }
 
-  String _categoryLabel(AppLocalizations l, String key) => switch (key) {
-        'mine' => l.filterMine,
-        'hygiene' => l.filterHygiene,
-        'contraception' => l.filterContraception,
-        _ => l.filterAll,
-      };
+  Future<void> _openEditor(ArticleRow? article) async {
+    final changed = await Navigator.of(context).push<bool>(
+      MaterialPageRoute(
+        builder: (_) => ArticleEditorScreen(
+          existing: article,
+          lang: Localizations.localeOf(context).languageCode,
+          categories: context.read<LearnController>().categories,
+        ),
+      ),
+    );
+    if (changed == true && mounted) _reload();
+  }
+
+  Future<void> _confirmDelete(ArticleRow a) async {
+    final l = AppLocalizations.of(context);
+    final admin = context.read<AdminController>();
+    final ok = await showDialog<bool>(
+      context: context,
+      builder: (ctx) => AlertDialog(
+        title: Text(l.logDeleteTitle),
+        content: Text(l.adminDeleteBody),
+        actions: [
+          TextButton(onPressed: () => Navigator.pop(ctx, false), child: Text(l.cancelBtn)),
+          FilledButton(
+            style: FilledButton.styleFrom(backgroundColor: AppColors.danger),
+            onPressed: () => Navigator.pop(ctx, true),
+            child: Text(l.deleteBtn),
+          ),
+        ],
+      ),
+    );
+    if (ok != true) return;
+    await admin.deleteArticle(a.id, a.lang);
+    if (mounted) _reload();
+  }
+
+  bool _refreshing = false;
+
+  /// Pulls the latest articles, then shows the list again.
+  Future<void> _refresh() async {
+    setState(() => _refreshing = true);
+    final ok = await refreshPublicContent(context);
+    if (!mounted) return;
+    setState(() => _refreshing = false);
+    if (ok) {
+      final lang = Localizations.localeOf(context).languageCode;
+      final isAdmin = context.read<AdminController>().isSuperAdmin;
+      await context.read<LearnController>().load(lang: lang, showDrafts: isAdmin);
+    }
+  }
+
+  void _reload() {
+    final lang = Localizations.localeOf(context).languageCode;
+    context.read<LearnController>().load(lang: lang, showDrafts: true);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -60,12 +110,30 @@ class _LearnScreenState extends State<LearnScreen> {
     final ctrl = context.watch<LearnController>();
     final lang = Localizations.localeOf(context).languageCode;
 
+    // Rebuild when the account changes, so the admin tools appear after sign-in.
+    context.watch<CloudController>();
+    final isAdmin = context.read<AdminController>().isSuperAdmin;
+
     return Scaffold(
+      floatingActionButton: isAdmin
+          ? FloatingActionButton.extended(
+              onPressed: () => _openEditor(null),
+              icon: const Icon(Icons.add),
+              label: Text(l.adminAddArticle),
+            )
+          : null,
       body: SafeArea(
         child: ListView(
           padding: const EdgeInsets.all(AppSpace.lg),
           children: [
-            Text(l.learnTitle, style: Theme.of(context).textTheme.headlineMedium),
+            Row(
+              children: [
+                Expanded(
+                  child: Text(l.learnTitle, style: Theme.of(context).textTheme.headlineMedium),
+                ),
+                RefreshContentButton(busy: _refreshing, onPressed: _refresh),
+              ],
+            ),
             const SizedBox(height: 4),
             Text(l.learnSubtitle, style: Theme.of(context).textTheme.bodyMedium),
             const SizedBox(height: AppSpace.lg),
@@ -83,16 +151,16 @@ class _LearnScreenState extends State<LearnScreen> {
               spacing: AppSpace.sm,
               runSpacing: AppSpace.sm,
               children: [
-                for (final c in _categories)
+                for (final key in ['all', ...ctrl.usedCategories])
                   ChoiceChip(
-                    label: Text(_categoryLabel(l, c.$1)),
-                    selected: ctrl.category == c.$1,
+                    label: Text(categoryLabel(l, key)),
+                    selected: ctrl.category == key,
                     selectedColor: AppColors.brown,
                     labelStyle: TextStyle(
-                      color: ctrl.category == c.$1 ? Colors.white : AppColors.ink,
+                      color: ctrl.category == key ? Colors.white : AppColors.ink,
                       fontWeight: FontWeight.w700,
                     ),
-                    onSelected: (_) => ctrl.setCategory(c.$1),
+                    onSelected: (_) => ctrl.setCategory(key),
                   ),
               ],
             ),
@@ -115,10 +183,11 @@ class _LearnScreenState extends State<LearnScreen> {
                   padding: const EdgeInsets.only(bottom: AppSpace.md),
                   child: _ArticleCard(
                     id: a.id,
-                    category: _categoryLabel(l, a.category),
+                    category: categoryLabel(l, a.category),
                     title: a.title,
                     lang: lang,
-                    draft: a.reviewedBy == null,
+                    onEdit: isAdmin ? () => _openEditor(a) : null,
+                    onDelete: isAdmin ? () => _confirmDelete(a) : null,
                   ),
                 ),
           ],
@@ -134,14 +203,18 @@ class _ArticleCard extends StatelessWidget {
     required this.category,
     required this.title,
     required this.lang,
-    required this.draft,
+    this.onEdit,
+    this.onDelete,
   });
 
   final String id;
   final String category;
   final String title;
   final String lang;
-  final bool draft;
+
+  /// Set only for the super-admin.
+  final VoidCallback? onEdit;
+  final VoidCallback? onDelete;
 
   @override
   Widget build(BuildContext context) {
@@ -177,13 +250,21 @@ class _ArticleCard extends StatelessWidget {
                     Text(title, style: theme.textTheme.titleMedium),
                     const SizedBox(height: 2),
                     Text(category, style: theme.textTheme.bodyMedium),
-                    if (draft) ...[
-                      const SizedBox(height: 4),
-                      _DraftBadge(text: AppLocalizations.of(context).draftBadge),
-                    ],
                   ],
                 ),
               ),
+              if (onEdit != null) ...[
+                IconButton(
+                  tooltip: AppLocalizations.of(context).adminEditArticle,
+                  icon: const Icon(Icons.edit_outlined, color: AppColors.brown),
+                  onPressed: onEdit,
+                ),
+                IconButton(
+                  tooltip: AppLocalizations.of(context).deleteBtn,
+                  icon: const Icon(Icons.delete_outline, color: AppColors.danger),
+                  onPressed: onDelete,
+                ),
+              ],
             ],
           ),
         ),
@@ -228,7 +309,6 @@ class _ArticleScreenState extends State<ArticleScreen> {
     if (a == null) {
       return Scaffold(appBar: AppBar(), body: const SizedBox.shrink());
     }
-    final draft = a.reviewedBy == null;
 
     return Scaffold(
       appBar: AppBar(
@@ -266,24 +346,35 @@ class _ArticleScreenState extends State<ArticleScreen> {
               children: [
                 Text(a.title, style: theme.textTheme.headlineMedium),
                 const SizedBox(height: AppSpace.sm),
-                if (draft)
-                  _DraftBadge(text: l.draftBadge)
-                else
-                  Row(
-                    children: [
-                      const Icon(Icons.verified_outlined, color: AppColors.sage, size: 18),
-                      const SizedBox(width: 6),
-                      Expanded(
-                        child: Text(
-                          l.reviewedBy(
-                            a.reviewedBy!,
-                            a.reviewedOn == null ? '' : l.dayMonthYear(a.reviewedOn!),
-                          ),
-                          style: const TextStyle(color: AppColors.sage, fontWeight: FontWeight.w700),
+                // Every article shown here is reviewed; the default reviewer is the Donzela Team.
+                Row(
+                  children: [
+                    const Icon(Icons.verified_outlined, color: AppColors.sage, size: 18),
+                    const SizedBox(width: 6),
+                    Expanded(
+                      child: Text(
+                        l.reviewedBy(
+                          a.reviewedBy ?? defaultReviewer,
+                          a.reviewedOn == null ? '' : l.dayMonthYear(a.reviewedOn!),
                         ),
+                        style: const TextStyle(color: AppColors.sage, fontWeight: FontWeight.w700),
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
+                ),
+                if (a.author != null) ...[
+                  const SizedBox(height: 4),
+                  Text(l.writtenBy(a.author!), style: theme.textTheme.bodyMedium),
+                ],
+                const SizedBox(height: 4),
+                Text(
+                  [
+                    if (a.createdAt != null) l.createdOn(l.dayMonthYear(a.createdAt!)),
+                    if (a.reviewedOn != null) l.publishedOn(l.dayMonthYear(a.reviewedOn!)),
+                    l.updatedOn(l.dayMonthYear(a.updatedAt)),
+                  ].join(' · '),
+                  style: theme.textTheme.bodySmall,
+                ),
                 const SizedBox(height: AppSpace.lg),
                 MarkdownBody(
                   data: a.body,
@@ -305,27 +396,3 @@ class _ArticleScreenState extends State<ArticleScreen> {
   }
 }
 
-class _DraftBadge extends StatelessWidget {
-  const _DraftBadge({required this.text});
-
-  final String text;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
-      decoration: BoxDecoration(
-        color: AppColors.goldSoft,
-        borderRadius: BorderRadius.circular(AppRadius.chip),
-      ),
-      child: Text(
-        text,
-        style: const TextStyle(
-          color: AppColors.brown,
-          fontSize: 12,
-          fontWeight: FontWeight.w700,
-        ),
-      ),
-    );
-  }
-}

@@ -39,10 +39,15 @@ class RestoreService {
   final DonzelaDatabase _db;
   final RemoteReader _reader;
 
-  Future<RestoreResult> run() async {
+  /// [onProgress] reports 0 at the start, one step per table, and 1 at the end.
+  Future<RestoreResult> run({void Function(double)? onProgress}) async {
+    onProgress?.call(0);
     final cycles = await _restoreCycles();
+    onProgress?.call(1 / 3);
     final logs = await _restoreDailyLogs();
+    onProgress?.call(2 / 3);
     final settingsDone = await _restoreSettings();
+    onProgress?.call(1);
     return RestoreResult(
       cycles: cycles,
       dailyLogs: logs,

@@ -73,7 +73,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
       return;
     }
     if (!cloud.available) {
-      messenger.showSnackBar(SnackBar(content: Text(l.cloudUnavailable)));
+      await _backupNotOn(cloud: false);
       return;
     }
     final consent = await showDialog<bool>(
@@ -86,19 +86,47 @@ class _SettingsScreenState extends State<SettingsScreen> {
         ],
       ),
     );
+    // Declining the explanation is a choice, not a failure, so no popup.
     if (consent != true) return;
     // Backup belongs to a Google account, so sign in before anything uploads.
+    var signedIn = false;
     try {
-      final signedIn = await cloud.signIn();
-      if (!signedIn) return;
+      signedIn = await cloud.signIn();
     } catch (_) {
-      messenger.showSnackBar(SnackBar(content: Text(l.authSignInFailed)));
-      return;
+      signedIn = false;
     }
     if (!mounted) return;
+    if (!signedIn) {
+      await _backupNotOn(cloud: true);
+      return;
+    }
     await settings.setBackup(true, now: DateTime.now());
+    if (!mounted) return;
+    if (!settings.settings.backupOn) {
+      await _backupNotOn(cloud: true);
+      return;
+    }
     await cloud.syncNow();
     messenger.showSnackBar(SnackBar(content: Text(l.backupStarted)));
+  }
+
+  /// Popup shown when backup was asked for but is still off. Retry runs the
+  /// same flow again.
+  Future<void> _backupNotOn({required bool cloud}) async {
+    final l = AppLocalizations.of(context);
+    final retry = await showDialog<bool>(
+      context: context,
+      builder: (ctx) => AlertDialog(
+        title: Text(l.backupNotOnTitle),
+        content: Text(cloud ? l.backupNotOnBody : l.cloudUnavailable),
+        actions: [
+          TextButton(onPressed: () => Navigator.pop(ctx, false), child: Text(l.okBtn)),
+          if (cloud)
+            FilledButton(onPressed: () => Navigator.pop(ctx, true), child: Text(l.backupRetryBtn)),
+        ],
+      ),
+    );
+    if (retry == true && mounted) await _toggleBackup(true);
   }
 
   Future<void> _pickPillTime() async {

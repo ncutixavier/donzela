@@ -1359,6 +1359,37 @@ class $ArticlesTable extends Articles
     type: DriftSqlType.dateTime,
     requiredDuringInsert: false,
   );
+  static const VerificationMeta _createdAtMeta = const VerificationMeta(
+    'createdAt',
+  );
+  @override
+  late final GeneratedColumn<DateTime> createdAt = GeneratedColumn<DateTime>(
+    'created_at',
+    aliasedName,
+    true,
+    type: DriftSqlType.dateTime,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _authorMeta = const VerificationMeta('author');
+  @override
+  late final GeneratedColumn<String> author = GeneratedColumn<String>(
+    'author',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _proposedReviewerMeta = const VerificationMeta(
+    'proposedReviewer',
+  );
+  @override
+  late final GeneratedColumn<String> proposedReviewer = GeneratedColumn<String>(
+    'proposed_reviewer',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+  );
   static const VerificationMeta _updatedAtMeta = const VerificationMeta(
     'updatedAt',
   );
@@ -1392,6 +1423,9 @@ class $ArticlesTable extends Articles
     body,
     reviewedBy,
     reviewedOn,
+    createdAt,
+    author,
+    proposedReviewer,
     updatedAt,
     saved,
   ];
@@ -1456,6 +1490,27 @@ class $ArticlesTable extends Articles
         reviewedOn.isAcceptableOrUnknown(data['reviewed_on']!, _reviewedOnMeta),
       );
     }
+    if (data.containsKey('created_at')) {
+      context.handle(
+        _createdAtMeta,
+        createdAt.isAcceptableOrUnknown(data['created_at']!, _createdAtMeta),
+      );
+    }
+    if (data.containsKey('author')) {
+      context.handle(
+        _authorMeta,
+        author.isAcceptableOrUnknown(data['author']!, _authorMeta),
+      );
+    }
+    if (data.containsKey('proposed_reviewer')) {
+      context.handle(
+        _proposedReviewerMeta,
+        proposedReviewer.isAcceptableOrUnknown(
+          data['proposed_reviewer']!,
+          _proposedReviewerMeta,
+        ),
+      );
+    }
     if (data.containsKey('updated_at')) {
       context.handle(
         _updatedAtMeta,
@@ -1507,6 +1562,18 @@ class $ArticlesTable extends Articles
         DriftSqlType.dateTime,
         data['${effectivePrefix}reviewed_on'],
       ),
+      createdAt: attachedDatabase.typeMapping.read(
+        DriftSqlType.dateTime,
+        data['${effectivePrefix}created_at'],
+      ),
+      author: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}author'],
+      ),
+      proposedReviewer: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}proposed_reviewer'],
+      ),
       updatedAt: attachedDatabase.typeMapping.read(
         DriftSqlType.dateTime,
         data['${effectivePrefix}updated_at'],
@@ -1532,6 +1599,18 @@ class ArticleRow extends DataClass implements Insertable<ArticleRow> {
   final String body;
   final String? reviewedBy;
   final DateTime? reviewedOn;
+
+  /// When the article was first created. Kept when it is edited again.
+  final DateTime? createdAt;
+
+  /// When the article was published. Set by publishing, cleared by a draft save.
+  /// (Stored in the reviewed_on field.)
+  /// Who wrote the article (shown as "Written by").
+  final String? author;
+
+  /// Reviewer named while this language is still a draft. It becomes
+  /// [reviewedBy] only when the whole article is published.
+  final String? proposedReviewer;
   final DateTime updatedAt;
   final bool saved;
   const ArticleRow({
@@ -1542,6 +1621,9 @@ class ArticleRow extends DataClass implements Insertable<ArticleRow> {
     required this.body,
     this.reviewedBy,
     this.reviewedOn,
+    this.createdAt,
+    this.author,
+    this.proposedReviewer,
     required this.updatedAt,
     required this.saved,
   });
@@ -1558,6 +1640,15 @@ class ArticleRow extends DataClass implements Insertable<ArticleRow> {
     }
     if (!nullToAbsent || reviewedOn != null) {
       map['reviewed_on'] = Variable<DateTime>(reviewedOn);
+    }
+    if (!nullToAbsent || createdAt != null) {
+      map['created_at'] = Variable<DateTime>(createdAt);
+    }
+    if (!nullToAbsent || author != null) {
+      map['author'] = Variable<String>(author);
+    }
+    if (!nullToAbsent || proposedReviewer != null) {
+      map['proposed_reviewer'] = Variable<String>(proposedReviewer);
     }
     map['updated_at'] = Variable<DateTime>(updatedAt);
     map['saved'] = Variable<bool>(saved);
@@ -1577,6 +1668,15 @@ class ArticleRow extends DataClass implements Insertable<ArticleRow> {
       reviewedOn: reviewedOn == null && nullToAbsent
           ? const Value.absent()
           : Value(reviewedOn),
+      createdAt: createdAt == null && nullToAbsent
+          ? const Value.absent()
+          : Value(createdAt),
+      author: author == null && nullToAbsent
+          ? const Value.absent()
+          : Value(author),
+      proposedReviewer: proposedReviewer == null && nullToAbsent
+          ? const Value.absent()
+          : Value(proposedReviewer),
       updatedAt: Value(updatedAt),
       saved: Value(saved),
     );
@@ -1595,6 +1695,9 @@ class ArticleRow extends DataClass implements Insertable<ArticleRow> {
       body: serializer.fromJson<String>(json['body']),
       reviewedBy: serializer.fromJson<String?>(json['reviewedBy']),
       reviewedOn: serializer.fromJson<DateTime?>(json['reviewedOn']),
+      createdAt: serializer.fromJson<DateTime?>(json['createdAt']),
+      author: serializer.fromJson<String?>(json['author']),
+      proposedReviewer: serializer.fromJson<String?>(json['proposedReviewer']),
       updatedAt: serializer.fromJson<DateTime>(json['updatedAt']),
       saved: serializer.fromJson<bool>(json['saved']),
     );
@@ -1610,6 +1713,9 @@ class ArticleRow extends DataClass implements Insertable<ArticleRow> {
       'body': serializer.toJson<String>(body),
       'reviewedBy': serializer.toJson<String?>(reviewedBy),
       'reviewedOn': serializer.toJson<DateTime?>(reviewedOn),
+      'createdAt': serializer.toJson<DateTime?>(createdAt),
+      'author': serializer.toJson<String?>(author),
+      'proposedReviewer': serializer.toJson<String?>(proposedReviewer),
       'updatedAt': serializer.toJson<DateTime>(updatedAt),
       'saved': serializer.toJson<bool>(saved),
     };
@@ -1623,6 +1729,9 @@ class ArticleRow extends DataClass implements Insertable<ArticleRow> {
     String? body,
     Value<String?> reviewedBy = const Value.absent(),
     Value<DateTime?> reviewedOn = const Value.absent(),
+    Value<DateTime?> createdAt = const Value.absent(),
+    Value<String?> author = const Value.absent(),
+    Value<String?> proposedReviewer = const Value.absent(),
     DateTime? updatedAt,
     bool? saved,
   }) => ArticleRow(
@@ -1633,6 +1742,11 @@ class ArticleRow extends DataClass implements Insertable<ArticleRow> {
     body: body ?? this.body,
     reviewedBy: reviewedBy.present ? reviewedBy.value : this.reviewedBy,
     reviewedOn: reviewedOn.present ? reviewedOn.value : this.reviewedOn,
+    createdAt: createdAt.present ? createdAt.value : this.createdAt,
+    author: author.present ? author.value : this.author,
+    proposedReviewer: proposedReviewer.present
+        ? proposedReviewer.value
+        : this.proposedReviewer,
     updatedAt: updatedAt ?? this.updatedAt,
     saved: saved ?? this.saved,
   );
@@ -1649,6 +1763,11 @@ class ArticleRow extends DataClass implements Insertable<ArticleRow> {
       reviewedOn: data.reviewedOn.present
           ? data.reviewedOn.value
           : this.reviewedOn,
+      createdAt: data.createdAt.present ? data.createdAt.value : this.createdAt,
+      author: data.author.present ? data.author.value : this.author,
+      proposedReviewer: data.proposedReviewer.present
+          ? data.proposedReviewer.value
+          : this.proposedReviewer,
       updatedAt: data.updatedAt.present ? data.updatedAt.value : this.updatedAt,
       saved: data.saved.present ? data.saved.value : this.saved,
     );
@@ -1664,6 +1783,9 @@ class ArticleRow extends DataClass implements Insertable<ArticleRow> {
           ..write('body: $body, ')
           ..write('reviewedBy: $reviewedBy, ')
           ..write('reviewedOn: $reviewedOn, ')
+          ..write('createdAt: $createdAt, ')
+          ..write('author: $author, ')
+          ..write('proposedReviewer: $proposedReviewer, ')
           ..write('updatedAt: $updatedAt, ')
           ..write('saved: $saved')
           ..write(')'))
@@ -1679,6 +1801,9 @@ class ArticleRow extends DataClass implements Insertable<ArticleRow> {
     body,
     reviewedBy,
     reviewedOn,
+    createdAt,
+    author,
+    proposedReviewer,
     updatedAt,
     saved,
   );
@@ -1693,6 +1818,9 @@ class ArticleRow extends DataClass implements Insertable<ArticleRow> {
           other.body == this.body &&
           other.reviewedBy == this.reviewedBy &&
           other.reviewedOn == this.reviewedOn &&
+          other.createdAt == this.createdAt &&
+          other.author == this.author &&
+          other.proposedReviewer == this.proposedReviewer &&
           other.updatedAt == this.updatedAt &&
           other.saved == this.saved);
 }
@@ -1705,6 +1833,9 @@ class ArticlesCompanion extends UpdateCompanion<ArticleRow> {
   final Value<String> body;
   final Value<String?> reviewedBy;
   final Value<DateTime?> reviewedOn;
+  final Value<DateTime?> createdAt;
+  final Value<String?> author;
+  final Value<String?> proposedReviewer;
   final Value<DateTime> updatedAt;
   final Value<bool> saved;
   final Value<int> rowid;
@@ -1716,6 +1847,9 @@ class ArticlesCompanion extends UpdateCompanion<ArticleRow> {
     this.body = const Value.absent(),
     this.reviewedBy = const Value.absent(),
     this.reviewedOn = const Value.absent(),
+    this.createdAt = const Value.absent(),
+    this.author = const Value.absent(),
+    this.proposedReviewer = const Value.absent(),
     this.updatedAt = const Value.absent(),
     this.saved = const Value.absent(),
     this.rowid = const Value.absent(),
@@ -1728,6 +1862,9 @@ class ArticlesCompanion extends UpdateCompanion<ArticleRow> {
     required String body,
     this.reviewedBy = const Value.absent(),
     this.reviewedOn = const Value.absent(),
+    this.createdAt = const Value.absent(),
+    this.author = const Value.absent(),
+    this.proposedReviewer = const Value.absent(),
     required DateTime updatedAt,
     this.saved = const Value.absent(),
     this.rowid = const Value.absent(),
@@ -1745,6 +1882,9 @@ class ArticlesCompanion extends UpdateCompanion<ArticleRow> {
     Expression<String>? body,
     Expression<String>? reviewedBy,
     Expression<DateTime>? reviewedOn,
+    Expression<DateTime>? createdAt,
+    Expression<String>? author,
+    Expression<String>? proposedReviewer,
     Expression<DateTime>? updatedAt,
     Expression<bool>? saved,
     Expression<int>? rowid,
@@ -1757,6 +1897,9 @@ class ArticlesCompanion extends UpdateCompanion<ArticleRow> {
       if (body != null) 'body': body,
       if (reviewedBy != null) 'reviewed_by': reviewedBy,
       if (reviewedOn != null) 'reviewed_on': reviewedOn,
+      if (createdAt != null) 'created_at': createdAt,
+      if (author != null) 'author': author,
+      if (proposedReviewer != null) 'proposed_reviewer': proposedReviewer,
       if (updatedAt != null) 'updated_at': updatedAt,
       if (saved != null) 'saved': saved,
       if (rowid != null) 'rowid': rowid,
@@ -1771,6 +1914,9 @@ class ArticlesCompanion extends UpdateCompanion<ArticleRow> {
     Value<String>? body,
     Value<String?>? reviewedBy,
     Value<DateTime?>? reviewedOn,
+    Value<DateTime?>? createdAt,
+    Value<String?>? author,
+    Value<String?>? proposedReviewer,
     Value<DateTime>? updatedAt,
     Value<bool>? saved,
     Value<int>? rowid,
@@ -1783,6 +1929,9 @@ class ArticlesCompanion extends UpdateCompanion<ArticleRow> {
       body: body ?? this.body,
       reviewedBy: reviewedBy ?? this.reviewedBy,
       reviewedOn: reviewedOn ?? this.reviewedOn,
+      createdAt: createdAt ?? this.createdAt,
+      author: author ?? this.author,
+      proposedReviewer: proposedReviewer ?? this.proposedReviewer,
       updatedAt: updatedAt ?? this.updatedAt,
       saved: saved ?? this.saved,
       rowid: rowid ?? this.rowid,
@@ -1813,6 +1962,15 @@ class ArticlesCompanion extends UpdateCompanion<ArticleRow> {
     if (reviewedOn.present) {
       map['reviewed_on'] = Variable<DateTime>(reviewedOn.value);
     }
+    if (createdAt.present) {
+      map['created_at'] = Variable<DateTime>(createdAt.value);
+    }
+    if (author.present) {
+      map['author'] = Variable<String>(author.value);
+    }
+    if (proposedReviewer.present) {
+      map['proposed_reviewer'] = Variable<String>(proposedReviewer.value);
+    }
     if (updatedAt.present) {
       map['updated_at'] = Variable<DateTime>(updatedAt.value);
     }
@@ -1835,6 +1993,9 @@ class ArticlesCompanion extends UpdateCompanion<ArticleRow> {
           ..write('body: $body, ')
           ..write('reviewedBy: $reviewedBy, ')
           ..write('reviewedOn: $reviewedOn, ')
+          ..write('createdAt: $createdAt, ')
+          ..write('author: $author, ')
+          ..write('proposedReviewer: $proposedReviewer, ')
           ..write('updatedAt: $updatedAt, ')
           ..write('saved: $saved, ')
           ..write('rowid: $rowid')
@@ -2648,6 +2809,305 @@ class SyncQueueCompanion extends UpdateCompanion<SyncQueueRow> {
   }
 }
 
+class $ContentOutboxTable extends ContentOutbox
+    with TableInfo<$ContentOutboxTable, ContentOutboxRow> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $ContentOutboxTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
+  @override
+  late final GeneratedColumn<int> id = GeneratedColumn<int>(
+    'id',
+    aliasedName,
+    false,
+    hasAutoIncrement: true,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'PRIMARY KEY AUTOINCREMENT',
+    ),
+  );
+  static const VerificationMeta _kindMeta = const VerificationMeta('kind');
+  @override
+  late final GeneratedColumn<String> kind = GeneratedColumn<String>(
+    'kind',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _payloadMeta = const VerificationMeta(
+    'payload',
+  );
+  @override
+  late final GeneratedColumn<String> payload = GeneratedColumn<String>(
+    'payload',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _createdAtMeta = const VerificationMeta(
+    'createdAt',
+  );
+  @override
+  late final GeneratedColumn<DateTime> createdAt = GeneratedColumn<DateTime>(
+    'created_at',
+    aliasedName,
+    false,
+    type: DriftSqlType.dateTime,
+    requiredDuringInsert: true,
+  );
+  @override
+  List<GeneratedColumn> get $columns => [id, kind, payload, createdAt];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'content_outbox';
+  @override
+  VerificationContext validateIntegrity(
+    Insertable<ContentOutboxRow> instance, {
+    bool isInserting = false,
+  }) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    }
+    if (data.containsKey('kind')) {
+      context.handle(
+        _kindMeta,
+        kind.isAcceptableOrUnknown(data['kind']!, _kindMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_kindMeta);
+    }
+    if (data.containsKey('payload')) {
+      context.handle(
+        _payloadMeta,
+        payload.isAcceptableOrUnknown(data['payload']!, _payloadMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_payloadMeta);
+    }
+    if (data.containsKey('created_at')) {
+      context.handle(
+        _createdAtMeta,
+        createdAt.isAcceptableOrUnknown(data['created_at']!, _createdAtMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_createdAtMeta);
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  ContentOutboxRow map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return ContentOutboxRow(
+      id: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}id'],
+      )!,
+      kind: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}kind'],
+      )!,
+      payload: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}payload'],
+      )!,
+      createdAt: attachedDatabase.typeMapping.read(
+        DriftSqlType.dateTime,
+        data['${effectivePrefix}created_at'],
+      )!,
+    );
+  }
+
+  @override
+  $ContentOutboxTable createAlias(String alias) {
+    return $ContentOutboxTable(attachedDatabase, alias);
+  }
+}
+
+class ContentOutboxRow extends DataClass
+    implements Insertable<ContentOutboxRow> {
+  final int id;
+  final String kind;
+  final String payload;
+  final DateTime createdAt;
+  const ContentOutboxRow({
+    required this.id,
+    required this.kind,
+    required this.payload,
+    required this.createdAt,
+  });
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['id'] = Variable<int>(id);
+    map['kind'] = Variable<String>(kind);
+    map['payload'] = Variable<String>(payload);
+    map['created_at'] = Variable<DateTime>(createdAt);
+    return map;
+  }
+
+  ContentOutboxCompanion toCompanion(bool nullToAbsent) {
+    return ContentOutboxCompanion(
+      id: Value(id),
+      kind: Value(kind),
+      payload: Value(payload),
+      createdAt: Value(createdAt),
+    );
+  }
+
+  factory ContentOutboxRow.fromJson(
+    Map<String, dynamic> json, {
+    ValueSerializer? serializer,
+  }) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return ContentOutboxRow(
+      id: serializer.fromJson<int>(json['id']),
+      kind: serializer.fromJson<String>(json['kind']),
+      payload: serializer.fromJson<String>(json['payload']),
+      createdAt: serializer.fromJson<DateTime>(json['createdAt']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'id': serializer.toJson<int>(id),
+      'kind': serializer.toJson<String>(kind),
+      'payload': serializer.toJson<String>(payload),
+      'createdAt': serializer.toJson<DateTime>(createdAt),
+    };
+  }
+
+  ContentOutboxRow copyWith({
+    int? id,
+    String? kind,
+    String? payload,
+    DateTime? createdAt,
+  }) => ContentOutboxRow(
+    id: id ?? this.id,
+    kind: kind ?? this.kind,
+    payload: payload ?? this.payload,
+    createdAt: createdAt ?? this.createdAt,
+  );
+  ContentOutboxRow copyWithCompanion(ContentOutboxCompanion data) {
+    return ContentOutboxRow(
+      id: data.id.present ? data.id.value : this.id,
+      kind: data.kind.present ? data.kind.value : this.kind,
+      payload: data.payload.present ? data.payload.value : this.payload,
+      createdAt: data.createdAt.present ? data.createdAt.value : this.createdAt,
+    );
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('ContentOutboxRow(')
+          ..write('id: $id, ')
+          ..write('kind: $kind, ')
+          ..write('payload: $payload, ')
+          ..write('createdAt: $createdAt')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(id, kind, payload, createdAt);
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is ContentOutboxRow &&
+          other.id == this.id &&
+          other.kind == this.kind &&
+          other.payload == this.payload &&
+          other.createdAt == this.createdAt);
+}
+
+class ContentOutboxCompanion extends UpdateCompanion<ContentOutboxRow> {
+  final Value<int> id;
+  final Value<String> kind;
+  final Value<String> payload;
+  final Value<DateTime> createdAt;
+  const ContentOutboxCompanion({
+    this.id = const Value.absent(),
+    this.kind = const Value.absent(),
+    this.payload = const Value.absent(),
+    this.createdAt = const Value.absent(),
+  });
+  ContentOutboxCompanion.insert({
+    this.id = const Value.absent(),
+    required String kind,
+    required String payload,
+    required DateTime createdAt,
+  }) : kind = Value(kind),
+       payload = Value(payload),
+       createdAt = Value(createdAt);
+  static Insertable<ContentOutboxRow> custom({
+    Expression<int>? id,
+    Expression<String>? kind,
+    Expression<String>? payload,
+    Expression<DateTime>? createdAt,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (kind != null) 'kind': kind,
+      if (payload != null) 'payload': payload,
+      if (createdAt != null) 'created_at': createdAt,
+    });
+  }
+
+  ContentOutboxCompanion copyWith({
+    Value<int>? id,
+    Value<String>? kind,
+    Value<String>? payload,
+    Value<DateTime>? createdAt,
+  }) {
+    return ContentOutboxCompanion(
+      id: id ?? this.id,
+      kind: kind ?? this.kind,
+      payload: payload ?? this.payload,
+      createdAt: createdAt ?? this.createdAt,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<int>(id.value);
+    }
+    if (kind.present) {
+      map['kind'] = Variable<String>(kind.value);
+    }
+    if (payload.present) {
+      map['payload'] = Variable<String>(payload.value);
+    }
+    if (createdAt.present) {
+      map['created_at'] = Variable<DateTime>(createdAt.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('ContentOutboxCompanion(')
+          ..write('id: $id, ')
+          ..write('kind: $kind, ')
+          ..write('payload: $payload, ')
+          ..write('createdAt: $createdAt')
+          ..write(')'))
+        .toString();
+  }
+}
+
 abstract class _$DonzelaDatabase extends GeneratedDatabase {
   _$DonzelaDatabase(QueryExecutor e) : super(e);
   $DonzelaDatabaseManager get managers => $DonzelaDatabaseManager(this);
@@ -2657,11 +3117,15 @@ abstract class _$DonzelaDatabase extends GeneratedDatabase {
   late final $ArticlesTable articles = $ArticlesTable(this);
   late final $HealthCentresTable healthCentres = $HealthCentresTable(this);
   late final $SyncQueueTable syncQueue = $SyncQueueTable(this);
+  late final $ContentOutboxTable contentOutbox = $ContentOutboxTable(this);
   late final CyclesDao cyclesDao = CyclesDao(this as DonzelaDatabase);
   late final DailyLogsDao dailyLogsDao = DailyLogsDao(this as DonzelaDatabase);
   late final SettingsDao settingsDao = SettingsDao(this as DonzelaDatabase);
   late final ContentDao contentDao = ContentDao(this as DonzelaDatabase);
   late final SyncQueueDao syncQueueDao = SyncQueueDao(this as DonzelaDatabase);
+  late final ContentOutboxDao contentOutboxDao = ContentOutboxDao(
+    this as DonzelaDatabase,
+  );
   @override
   Iterable<TableInfo<Table, Object?>> get allTables =>
       allSchemaEntities.whereType<TableInfo<Table, Object?>>();
@@ -2673,6 +3137,7 @@ abstract class _$DonzelaDatabase extends GeneratedDatabase {
     articles,
     healthCentres,
     syncQueue,
+    contentOutbox,
   ];
 }
 
@@ -3357,6 +3822,9 @@ typedef $$ArticlesTableCreateCompanionBuilder =
       required String body,
       Value<String?> reviewedBy,
       Value<DateTime?> reviewedOn,
+      Value<DateTime?> createdAt,
+      Value<String?> author,
+      Value<String?> proposedReviewer,
       required DateTime updatedAt,
       Value<bool> saved,
       Value<int> rowid,
@@ -3370,6 +3838,9 @@ typedef $$ArticlesTableUpdateCompanionBuilder =
       Value<String> body,
       Value<String?> reviewedBy,
       Value<DateTime?> reviewedOn,
+      Value<DateTime?> createdAt,
+      Value<String?> author,
+      Value<String?> proposedReviewer,
       Value<DateTime> updatedAt,
       Value<bool> saved,
       Value<int> rowid,
@@ -3416,6 +3887,21 @@ class $$ArticlesTableFilterComposer
 
   ColumnFilters<DateTime> get reviewedOn => $composableBuilder(
     column: $table.reviewedOn,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<DateTime> get createdAt => $composableBuilder(
+    column: $table.createdAt,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get author => $composableBuilder(
+    column: $table.author,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get proposedReviewer => $composableBuilder(
+    column: $table.proposedReviewer,
     builder: (column) => ColumnFilters(column),
   );
 
@@ -3474,6 +3960,21 @@ class $$ArticlesTableOrderingComposer
     builder: (column) => ColumnOrderings(column),
   );
 
+  ColumnOrderings<DateTime> get createdAt => $composableBuilder(
+    column: $table.createdAt,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get author => $composableBuilder(
+    column: $table.author,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get proposedReviewer => $composableBuilder(
+    column: $table.proposedReviewer,
+    builder: (column) => ColumnOrderings(column),
+  );
+
   ColumnOrderings<DateTime> get updatedAt => $composableBuilder(
     column: $table.updatedAt,
     builder: (column) => ColumnOrderings(column),
@@ -3516,6 +4017,17 @@ class $$ArticlesTableAnnotationComposer
 
   GeneratedColumn<DateTime> get reviewedOn => $composableBuilder(
     column: $table.reviewedOn,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<DateTime> get createdAt =>
+      $composableBuilder(column: $table.createdAt, builder: (column) => column);
+
+  GeneratedColumn<String> get author =>
+      $composableBuilder(column: $table.author, builder: (column) => column);
+
+  GeneratedColumn<String> get proposedReviewer => $composableBuilder(
+    column: $table.proposedReviewer,
     builder: (column) => column,
   );
 
@@ -3564,6 +4076,9 @@ class $$ArticlesTableTableManager
                 Value<String> body = const Value.absent(),
                 Value<String?> reviewedBy = const Value.absent(),
                 Value<DateTime?> reviewedOn = const Value.absent(),
+                Value<DateTime?> createdAt = const Value.absent(),
+                Value<String?> author = const Value.absent(),
+                Value<String?> proposedReviewer = const Value.absent(),
                 Value<DateTime> updatedAt = const Value.absent(),
                 Value<bool> saved = const Value.absent(),
                 Value<int> rowid = const Value.absent(),
@@ -3575,6 +4090,9 @@ class $$ArticlesTableTableManager
                 body: body,
                 reviewedBy: reviewedBy,
                 reviewedOn: reviewedOn,
+                createdAt: createdAt,
+                author: author,
+                proposedReviewer: proposedReviewer,
                 updatedAt: updatedAt,
                 saved: saved,
                 rowid: rowid,
@@ -3588,6 +4106,9 @@ class $$ArticlesTableTableManager
                 required String body,
                 Value<String?> reviewedBy = const Value.absent(),
                 Value<DateTime?> reviewedOn = const Value.absent(),
+                Value<DateTime?> createdAt = const Value.absent(),
+                Value<String?> author = const Value.absent(),
+                Value<String?> proposedReviewer = const Value.absent(),
                 required DateTime updatedAt,
                 Value<bool> saved = const Value.absent(),
                 Value<int> rowid = const Value.absent(),
@@ -3599,6 +4120,9 @@ class $$ArticlesTableTableManager
                 body: body,
                 reviewedBy: reviewedBy,
                 reviewedOn: reviewedOn,
+                createdAt: createdAt,
+                author: author,
+                proposedReviewer: proposedReviewer,
                 updatedAt: updatedAt,
                 saved: saved,
                 rowid: rowid,
@@ -4068,6 +4592,191 @@ typedef $$SyncQueueTableProcessedTableManager =
       SyncQueueRow,
       PrefetchHooks Function()
     >;
+typedef $$ContentOutboxTableCreateCompanionBuilder =
+    ContentOutboxCompanion Function({
+      Value<int> id,
+      required String kind,
+      required String payload,
+      required DateTime createdAt,
+    });
+typedef $$ContentOutboxTableUpdateCompanionBuilder =
+    ContentOutboxCompanion Function({
+      Value<int> id,
+      Value<String> kind,
+      Value<String> payload,
+      Value<DateTime> createdAt,
+    });
+
+class $$ContentOutboxTableFilterComposer
+    extends Composer<_$DonzelaDatabase, $ContentOutboxTable> {
+  $$ContentOutboxTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<int> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get kind => $composableBuilder(
+    column: $table.kind,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get payload => $composableBuilder(
+    column: $table.payload,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<DateTime> get createdAt => $composableBuilder(
+    column: $table.createdAt,
+    builder: (column) => ColumnFilters(column),
+  );
+}
+
+class $$ContentOutboxTableOrderingComposer
+    extends Composer<_$DonzelaDatabase, $ContentOutboxTable> {
+  $$ContentOutboxTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<int> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get kind => $composableBuilder(
+    column: $table.kind,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get payload => $composableBuilder(
+    column: $table.payload,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<DateTime> get createdAt => $composableBuilder(
+    column: $table.createdAt,
+    builder: (column) => ColumnOrderings(column),
+  );
+}
+
+class $$ContentOutboxTableAnnotationComposer
+    extends Composer<_$DonzelaDatabase, $ContentOutboxTable> {
+  $$ContentOutboxTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<int> get id =>
+      $composableBuilder(column: $table.id, builder: (column) => column);
+
+  GeneratedColumn<String> get kind =>
+      $composableBuilder(column: $table.kind, builder: (column) => column);
+
+  GeneratedColumn<String> get payload =>
+      $composableBuilder(column: $table.payload, builder: (column) => column);
+
+  GeneratedColumn<DateTime> get createdAt =>
+      $composableBuilder(column: $table.createdAt, builder: (column) => column);
+}
+
+class $$ContentOutboxTableTableManager
+    extends
+        RootTableManager<
+          _$DonzelaDatabase,
+          $ContentOutboxTable,
+          ContentOutboxRow,
+          $$ContentOutboxTableFilterComposer,
+          $$ContentOutboxTableOrderingComposer,
+          $$ContentOutboxTableAnnotationComposer,
+          $$ContentOutboxTableCreateCompanionBuilder,
+          $$ContentOutboxTableUpdateCompanionBuilder,
+          (
+            ContentOutboxRow,
+            BaseReferences<
+              _$DonzelaDatabase,
+              $ContentOutboxTable,
+              ContentOutboxRow
+            >,
+          ),
+          ContentOutboxRow,
+          PrefetchHooks Function()
+        > {
+  $$ContentOutboxTableTableManager(
+    _$DonzelaDatabase db,
+    $ContentOutboxTable table,
+  ) : super(
+        TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () =>
+              $$ContentOutboxTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $$ContentOutboxTableOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$ContentOutboxTableAnnotationComposer($db: db, $table: table),
+          updateCompanionCallback:
+              ({
+                Value<int> id = const Value.absent(),
+                Value<String> kind = const Value.absent(),
+                Value<String> payload = const Value.absent(),
+                Value<DateTime> createdAt = const Value.absent(),
+              }) => ContentOutboxCompanion(
+                id: id,
+                kind: kind,
+                payload: payload,
+                createdAt: createdAt,
+              ),
+          createCompanionCallback:
+              ({
+                Value<int> id = const Value.absent(),
+                required String kind,
+                required String payload,
+                required DateTime createdAt,
+              }) => ContentOutboxCompanion.insert(
+                id: id,
+                kind: kind,
+                payload: payload,
+                createdAt: createdAt,
+              ),
+          withReferenceMapper: (p0) => p0
+              .map((e) => (e.readTable(table), BaseReferences(db, table, e)))
+              .toList(),
+          prefetchHooksCallback: null,
+        ),
+      );
+}
+
+typedef $$ContentOutboxTableProcessedTableManager =
+    ProcessedTableManager<
+      _$DonzelaDatabase,
+      $ContentOutboxTable,
+      ContentOutboxRow,
+      $$ContentOutboxTableFilterComposer,
+      $$ContentOutboxTableOrderingComposer,
+      $$ContentOutboxTableAnnotationComposer,
+      $$ContentOutboxTableCreateCompanionBuilder,
+      $$ContentOutboxTableUpdateCompanionBuilder,
+      (
+        ContentOutboxRow,
+        BaseReferences<
+          _$DonzelaDatabase,
+          $ContentOutboxTable,
+          ContentOutboxRow
+        >,
+      ),
+      ContentOutboxRow,
+      PrefetchHooks Function()
+    >;
 
 class $DonzelaDatabaseManager {
   final _$DonzelaDatabase _db;
@@ -4084,4 +4793,6 @@ class $DonzelaDatabaseManager {
       $$HealthCentresTableTableManager(_db, _db.healthCentres);
   $$SyncQueueTableTableManager get syncQueue =>
       $$SyncQueueTableTableManager(_db, _db.syncQueue);
+  $$ContentOutboxTableTableManager get contentOutbox =>
+      $$ContentOutboxTableTableManager(_db, _db.contentOutbox);
 }

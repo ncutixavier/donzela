@@ -1,4 +1,5 @@
 import 'package:donzela/data/database/database.dart';
+import 'package:donzela/data/repositories/content_repository.dart';
 import 'package:donzela/main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
@@ -12,7 +13,7 @@ Future<void> settle(WidgetTester tester, {int rounds = 5}) async {
 }
 
 void main() {
-  testWidgets('Learn lists articles and opens one with its draft label',
+  testWidgets('Learn lists articles and opens one reviewed by the Donzela Team',
       (tester) async {
     tester.view.physicalSize = const Size(360 * 2.5, 740 * 2.5);
     tester.view.devicePixelRatio = 2.5;
@@ -20,6 +21,17 @@ void main() {
 
     final db = DonzelaDatabase.memory();
     addTearDown(db.close);
+    // Articles come from the cache (first pulled from Firestore). Put one here.
+    await tester.runAsync(() => ContentRepository(db, includeDrafts: true).applyRemote(articles: [
+          {
+            'id': 'irregular-cycles-rw',
+            'lang': 'rw',
+            'category': 'mine',
+            'title': 'Ukwezi gusanzwe ni ukuhe?',
+            'body': 'Umuzunguruko w imihango usanzwe imara hagati y iminsi 21 na 35.',
+            'reviewed_by': 'Donzela Team',
+          },
+        ], centres: const []));
     // Skip onboarding so the app opens on the tabs.
     await tester.runAsync(() => db.settingsDao.put('onboarding_done', '1'));
     final root = await tester.runAsync(
@@ -47,7 +59,9 @@ void main() {
     await settle(tester);
     await tester.pump(const Duration(milliseconds: 500));
 
-    expect(find.text('Inyandiko y\'igerageza, ntirasuzumwa'), findsWidgets);
+    // Every article is shown as reviewed; the default reviewer is the Donzela Team.
+    expect(find.textContaining('Donzela Team'), findsWidgets);
+    expect(find.textContaining('ntirasuzumwa'), findsNothing);
     // The Markdown body is on screen.
     expect(find.byType(MarkdownBody), findsOneWidget);
     expect(tester.takeException(), isNull);

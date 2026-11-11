@@ -53,6 +53,18 @@ class Articles extends Table {
   TextColumn get body => text()();
   TextColumn get reviewedBy => text().nullable()();
   DateTimeColumn get reviewedOn => dateTime().nullable()();
+
+  /// When the article was first created. Kept when it is edited again.
+  DateTimeColumn get createdAt => dateTime().nullable()();
+
+  /// When the article was published. Set by publishing, cleared by a draft save.
+  /// (Stored in the reviewed_on field.)
+  /// Who wrote the article (shown as "Written by").
+  TextColumn get author => text().nullable()();
+
+  /// Reviewer named while this language is still a draft. It becomes
+  /// [reviewedBy] only when the whole article is published.
+  TextColumn get proposedReviewer => text().nullable()();
   DateTimeColumn get updatedAt => dateTime()();
   BoolColumn get saved => boolean().withDefault(const Constant(false))();
 
@@ -83,4 +95,15 @@ class SyncQueue extends Table {
   TextColumn get action => text()(); // upsert | delete
   DateTimeColumn get createdAt => dateTime()();
   BoolColumn get synced => boolean().withDefault(const Constant(false))();
+}
+
+/// Admin content changes (articles, health centres, emergency numbers) that
+/// are saved on this phone and wait to reach the cloud. Written first, so
+/// the admin can keep working offline; sent in order when online.
+@DataClassName('ContentOutboxRow')
+class ContentOutbox extends Table {
+  IntColumn get id => integer().autoIncrement()();
+  TextColumn get kind => text()(); // article | delete_article | centre | delete_centre | emergency
+  TextColumn get payload => text()(); // JSON
+  DateTimeColumn get createdAt => dateTime()();
 }
