@@ -54,6 +54,18 @@ class ContentDaoManager {
       $$HealthCentresTableTableManager(_db.attachedDatabase, _db.healthCentres);
 }
 
+mixin _$ContentOutboxDaoMixin on DatabaseAccessor<DonzelaDatabase> {
+  $ContentOutboxTable get contentOutbox => attachedDatabase.contentOutbox;
+  ContentOutboxDaoManager get managers => ContentOutboxDaoManager(this);
+}
+
+class ContentOutboxDaoManager {
+  final _$ContentOutboxDaoMixin _db;
+  ContentOutboxDaoManager(this._db);
+  $$ContentOutboxTableTableManager get contentOutbox =>
+      $$ContentOutboxTableTableManager(_db.attachedDatabase, _db.contentOutbox);
+}
+
 mixin _$SyncQueueDaoMixin on DatabaseAccessor<DonzelaDatabase> {
   $SyncQueueTable get syncQueue => attachedDatabase.syncQueue;
   SyncQueueDaoManager get managers => SyncQueueDaoManager(this);

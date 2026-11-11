@@ -910,4 +910,142 @@ class AppLocalizationsRw extends AppLocalizations {
 
   @override
   String get accountBusy => 'Biragenda...';
+
+  @override
+  String get adminBadge => 'Umuyobozi mukuru';
+
+  @override
+  String get adminOnlyBadgeBody =>
+      'Uri umuyobozi mukuru: ushobora kongeramo, guhindura no gusiba inyandiko za Learn n\'ibyo muri Help.';
+
+  @override
+  String get adminAddArticle => 'Ongeraho inyandiko';
+
+  @override
+  String get adminEditArticle => 'Hindura inyandiko';
+
+  @override
+  String get adminDeleteBody => 'Iyi nyandiko izasibwa ku bantu bose.';
+
+  @override
+  String get fieldTitle => 'Umutwe';
+
+  @override
+  String get fieldBody => 'Inyandiko yuzuye';
+
+  @override
+  String get fieldCategory => 'Icyiciro';
+
+  @override
+  String get fieldLanguage => 'Ururimi';
+
+  @override
+  String get fieldReviewer => 'Yasuzumwe na (ubirangiza iyo ari byiza)';
+
+  @override
+  String get adminEditHelp => 'Hindura nimero z\'ihutirwa';
+
+  @override
+  String get fieldIsangeNumber => 'Nimero ya Isange One Stop Centre';
+
+  @override
+  String get fieldAmbulanceNumber => 'Nimero y\'imbangukiragutabara';
+
+  @override
+  String get adminAddCentre => 'Ongeraho ikigo nderabuzima';
+
+  @override
+  String get adminEditCentre => 'Hindura ikigo nderabuzima';
+
+  @override
+  String get fieldDistrict => 'Akarere';
+
+  @override
+  String get fieldSector => 'Umurenge';
+
+  @override
+  String get fieldName => 'Izina';
+
+  @override
+  String get fieldPhone => 'Telefoni';
+
+  @override
+  String get fieldServices => 'Serivisi';
+
+  @override
+  String get adminSaved => 'Byabitswe.';
+
+  @override
+  String get adminRequired => 'Uzuza umutwe n\'inyandiko.';
+
+  @override
+  String accountProgress(int percent) {
+    return 'Bigeze kuri $percent%';
+  }
+
+  @override
+  String get backupNotOnTitle => 'Backup ntiyafunguwe';
+
+  @override
+  String get backupNotOnBody =>
+      'Backup ntiyafunguwe kuko kwinjira muri Google bitarangiye. Ongera ugerageze.';
+
+  @override
+  String get backupRetryBtn => 'Ongera ugerageze';
+
+  @override
+  String get okBtn => 'Sawa';
+
+  @override
+  String get adminSavedLocal =>
+      'Byabitswe kuri telefone. Bizajya kuri cloud igihe uri kuri internet.';
+
+  @override
+  String get newDistrictNote =>
+      'Akarere gashya. Kazongerwa ku rutonde igihe ubitse.';
+
+  @override
+  String get districtPickNote => 'Hitamo akarere cyangwa wandike irindi.';
+
+  @override
+  String get categoryHint => 'Hitamo icyiciro cyangwa wandike gishya.';
+
+  @override
+  String get editTab => 'Andika';
+
+  @override
+  String get previewTab => 'Reba uko bigaragara';
+
+  @override
+  String get previewEmpty => 'Nta nyandiko irimo.';
+
+  @override
+  String get boldTip => 'Mugari';
+
+  @override
+  String get italicTip => 'Iyegamiye';
+
+  @override
+  String get headingTip => 'Umutwe';
+
+  @override
+  String get listTip => 'Urutonde';
+
+  @override
+  String get quoteTip => 'Interuro';
+
+  @override
+  String get linkTip => 'Ihuza';
+
+  @override
+  String get emergencyManage => 'Nimero z\'ihutirwa';
+
+  @override
+  String get emergencyAdd => 'Ongeraho nimero';
+
+  @override
+  String get emergencyEdit => 'Hindura nimero';
+
+  @override
+  String get emergencyNone => 'Nta nimero z\'ihutirwa zirahari.';
 }

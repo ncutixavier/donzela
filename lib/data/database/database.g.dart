@@ -2648,6 +2648,305 @@ class SyncQueueCompanion extends UpdateCompanion<SyncQueueRow> {
   }
 }
 
+class $ContentOutboxTable extends ContentOutbox
+    with TableInfo<$ContentOutboxTable, ContentOutboxRow> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $ContentOutboxTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
+  @override
+  late final GeneratedColumn<int> id = GeneratedColumn<int>(
+    'id',
+    aliasedName,
+    false,
+    hasAutoIncrement: true,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'PRIMARY KEY AUTOINCREMENT',
+    ),
+  );
+  static const VerificationMeta _kindMeta = const VerificationMeta('kind');
+  @override
+  late final GeneratedColumn<String> kind = GeneratedColumn<String>(
+    'kind',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _payloadMeta = const VerificationMeta(
+    'payload',
+  );
+  @override
+  late final GeneratedColumn<String> payload = GeneratedColumn<String>(
+    'payload',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _createdAtMeta = const VerificationMeta(
+    'createdAt',
+  );
+  @override
+  late final GeneratedColumn<DateTime> createdAt = GeneratedColumn<DateTime>(
+    'created_at',
+    aliasedName,
+    false,
+    type: DriftSqlType.dateTime,
+    requiredDuringInsert: true,
+  );
+  @override
+  List<GeneratedColumn> get $columns => [id, kind, payload, createdAt];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'content_outbox';
+  @override
+  VerificationContext validateIntegrity(
+    Insertable<ContentOutboxRow> instance, {
+    bool isInserting = false,
+  }) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    }
+    if (data.containsKey('kind')) {
+      context.handle(
+        _kindMeta,
+        kind.isAcceptableOrUnknown(data['kind']!, _kindMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_kindMeta);
+    }
+    if (data.containsKey('payload')) {
+      context.handle(
+        _payloadMeta,
+        payload.isAcceptableOrUnknown(data['payload']!, _payloadMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_payloadMeta);
+    }
+    if (data.containsKey('created_at')) {
+      context.handle(
+        _createdAtMeta,
+        createdAt.isAcceptableOrUnknown(data['created_at']!, _createdAtMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_createdAtMeta);
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  ContentOutboxRow map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return ContentOutboxRow(
+      id: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}id'],
+      )!,
+      kind: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}kind'],
+      )!,
+      payload: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}payload'],
+      )!,
+      createdAt: attachedDatabase.typeMapping.read(
+        DriftSqlType.dateTime,
+        data['${effectivePrefix}created_at'],
+      )!,
+    );
+  }
+
+  @override
+  $ContentOutboxTable createAlias(String alias) {
+    return $ContentOutboxTable(attachedDatabase, alias);
+  }
+}
+
+class ContentOutboxRow extends DataClass
+    implements Insertable<ContentOutboxRow> {
+  final int id;
+  final String kind;
+  final String payload;
+  final DateTime createdAt;
+  const ContentOutboxRow({
+    required this.id,
+    required this.kind,
+    required this.payload,
+    required this.createdAt,
+  });
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['id'] = Variable<int>(id);
+    map['kind'] = Variable<String>(kind);
+    map['payload'] = Variable<String>(payload);
+    map['created_at'] = Variable<DateTime>(createdAt);
+    return map;
+  }
+
+  ContentOutboxCompanion toCompanion(bool nullToAbsent) {
+    return ContentOutboxCompanion(
+      id: Value(id),
+      kind: Value(kind),
+      payload: Value(payload),
+      createdAt: Value(createdAt),
+    );
+  }
+
+  factory ContentOutboxRow.fromJson(
+    Map<String, dynamic> json, {
+    ValueSerializer? serializer,
+  }) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return ContentOutboxRow(
+      id: serializer.fromJson<int>(json['id']),
+      kind: serializer.fromJson<String>(json['kind']),
+      payload: serializer.fromJson<String>(json['payload']),
+      createdAt: serializer.fromJson<DateTime>(json['createdAt']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'id': serializer.toJson<int>(id),
+      'kind': serializer.toJson<String>(kind),
+      'payload': serializer.toJson<String>(payload),
+      'createdAt': serializer.toJson<DateTime>(createdAt),
+    };
+  }
+
+  ContentOutboxRow copyWith({
+    int? id,
+    String? kind,
+    String? payload,
+    DateTime? createdAt,
+  }) => ContentOutboxRow(
+    id: id ?? this.id,
+    kind: kind ?? this.kind,
+    payload: payload ?? this.payload,
+    createdAt: createdAt ?? this.createdAt,
+  );
+  ContentOutboxRow copyWithCompanion(ContentOutboxCompanion data) {
+    return ContentOutboxRow(
+      id: data.id.present ? data.id.value : this.id,
+      kind: data.kind.present ? data.kind.value : this.kind,
+      payload: data.payload.present ? data.payload.value : this.payload,
+      createdAt: data.createdAt.present ? data.createdAt.value : this.createdAt,
+    );
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('ContentOutboxRow(')
+          ..write('id: $id, ')
+          ..write('kind: $kind, ')
+          ..write('payload: $payload, ')
+          ..write('createdAt: $createdAt')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(id, kind, payload, createdAt);
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is ContentOutboxRow &&
+          other.id == this.id &&
+          other.kind == this.kind &&
+          other.payload == this.payload &&
+          other.createdAt == this.createdAt);
+}
+
+class ContentOutboxCompanion extends UpdateCompanion<ContentOutboxRow> {
+  final Value<int> id;
+  final Value<String> kind;
+  final Value<String> payload;
+  final Value<DateTime> createdAt;
+  const ContentOutboxCompanion({
+    this.id = const Value.absent(),
+    this.kind = const Value.absent(),
+    this.payload = const Value.absent(),
+    this.createdAt = const Value.absent(),
+  });
+  ContentOutboxCompanion.insert({
+    this.id = const Value.absent(),
+    required String kind,
+    required String payload,
+    required DateTime createdAt,
+  }) : kind = Value(kind),
+       payload = Value(payload),
+       createdAt = Value(createdAt);
+  static Insertable<ContentOutboxRow> custom({
+    Expression<int>? id,
+    Expression<String>? kind,
+    Expression<String>? payload,
+    Expression<DateTime>? createdAt,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (kind != null) 'kind': kind,
+      if (payload != null) 'payload': payload,
+      if (createdAt != null) 'created_at': createdAt,
+    });
+  }
+
+  ContentOutboxCompanion copyWith({
+    Value<int>? id,
+    Value<String>? kind,
+    Value<String>? payload,
+    Value<DateTime>? createdAt,
+  }) {
+    return ContentOutboxCompanion(
+      id: id ?? this.id,
+      kind: kind ?? this.kind,
+      payload: payload ?? this.payload,
+      createdAt: createdAt ?? this.createdAt,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<int>(id.value);
+    }
+    if (kind.present) {
+      map['kind'] = Variable<String>(kind.value);
+    }
+    if (payload.present) {
+      map['payload'] = Variable<String>(payload.value);
+    }
+    if (createdAt.present) {
+      map['created_at'] = Variable<DateTime>(createdAt.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('ContentOutboxCompanion(')
+          ..write('id: $id, ')
+          ..write('kind: $kind, ')
+          ..write('payload: $payload, ')
+          ..write('createdAt: $createdAt')
+          ..write(')'))
+        .toString();
+  }
+}
+
 abstract class _$DonzelaDatabase extends GeneratedDatabase {
   _$DonzelaDatabase(QueryExecutor e) : super(e);
   $DonzelaDatabaseManager get managers => $DonzelaDatabaseManager(this);
@@ -2657,11 +2956,15 @@ abstract class _$DonzelaDatabase extends GeneratedDatabase {
   late final $ArticlesTable articles = $ArticlesTable(this);
   late final $HealthCentresTable healthCentres = $HealthCentresTable(this);
   late final $SyncQueueTable syncQueue = $SyncQueueTable(this);
+  late final $ContentOutboxTable contentOutbox = $ContentOutboxTable(this);
   late final CyclesDao cyclesDao = CyclesDao(this as DonzelaDatabase);
   late final DailyLogsDao dailyLogsDao = DailyLogsDao(this as DonzelaDatabase);
   late final SettingsDao settingsDao = SettingsDao(this as DonzelaDatabase);
   late final ContentDao contentDao = ContentDao(this as DonzelaDatabase);
   late final SyncQueueDao syncQueueDao = SyncQueueDao(this as DonzelaDatabase);
+  late final ContentOutboxDao contentOutboxDao = ContentOutboxDao(
+    this as DonzelaDatabase,
+  );
   @override
   Iterable<TableInfo<Table, Object?>> get allTables =>
       allSchemaEntities.whereType<TableInfo<Table, Object?>>();
@@ -2673,6 +2976,7 @@ abstract class _$DonzelaDatabase extends GeneratedDatabase {
     articles,
     healthCentres,
     syncQueue,
+    contentOutbox,
   ];
 }
 
@@ -4068,6 +4372,191 @@ typedef $$SyncQueueTableProcessedTableManager =
       SyncQueueRow,
       PrefetchHooks Function()
     >;
+typedef $$ContentOutboxTableCreateCompanionBuilder =
+    ContentOutboxCompanion Function({
+      Value<int> id,
+      required String kind,
+      required String payload,
+      required DateTime createdAt,
+    });
+typedef $$ContentOutboxTableUpdateCompanionBuilder =
+    ContentOutboxCompanion Function({
+      Value<int> id,
+      Value<String> kind,
+      Value<String> payload,
+      Value<DateTime> createdAt,
+    });
+
+class $$ContentOutboxTableFilterComposer
+    extends Composer<_$DonzelaDatabase, $ContentOutboxTable> {
+  $$ContentOutboxTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<int> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get kind => $composableBuilder(
+    column: $table.kind,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get payload => $composableBuilder(
+    column: $table.payload,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<DateTime> get createdAt => $composableBuilder(
+    column: $table.createdAt,
+    builder: (column) => ColumnFilters(column),
+  );
+}
+
+class $$ContentOutboxTableOrderingComposer
+    extends Composer<_$DonzelaDatabase, $ContentOutboxTable> {
+  $$ContentOutboxTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<int> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get kind => $composableBuilder(
+    column: $table.kind,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get payload => $composableBuilder(
+    column: $table.payload,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<DateTime> get createdAt => $composableBuilder(
+    column: $table.createdAt,
+    builder: (column) => ColumnOrderings(column),
+  );
+}
+
+class $$ContentOutboxTableAnnotationComposer
+    extends Composer<_$DonzelaDatabase, $ContentOutboxTable> {
+  $$ContentOutboxTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<int> get id =>
+      $composableBuilder(column: $table.id, builder: (column) => column);
+
+  GeneratedColumn<String> get kind =>
+      $composableBuilder(column: $table.kind, builder: (column) => column);
+
+  GeneratedColumn<String> get payload =>
+      $composableBuilder(column: $table.payload, builder: (column) => column);
+
+  GeneratedColumn<DateTime> get createdAt =>
+      $composableBuilder(column: $table.createdAt, builder: (column) => column);
+}
+
+class $$ContentOutboxTableTableManager
+    extends
+        RootTableManager<
+          _$DonzelaDatabase,
+          $ContentOutboxTable,
+          ContentOutboxRow,
+          $$ContentOutboxTableFilterComposer,
+          $$ContentOutboxTableOrderingComposer,
+          $$ContentOutboxTableAnnotationComposer,
+          $$ContentOutboxTableCreateCompanionBuilder,
+          $$ContentOutboxTableUpdateCompanionBuilder,
+          (
+            ContentOutboxRow,
+            BaseReferences<
+              _$DonzelaDatabase,
+              $ContentOutboxTable,
+              ContentOutboxRow
+            >,
+          ),
+          ContentOutboxRow,
+          PrefetchHooks Function()
+        > {
+  $$ContentOutboxTableTableManager(
+    _$DonzelaDatabase db,
+    $ContentOutboxTable table,
+  ) : super(
+        TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () =>
+              $$ContentOutboxTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $$ContentOutboxTableOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$ContentOutboxTableAnnotationComposer($db: db, $table: table),
+          updateCompanionCallback:
+              ({
+                Value<int> id = const Value.absent(),
+                Value<String> kind = const Value.absent(),
+                Value<String> payload = const Value.absent(),
+                Value<DateTime> createdAt = const Value.absent(),
+              }) => ContentOutboxCompanion(
+                id: id,
+                kind: kind,
+                payload: payload,
+                createdAt: createdAt,
+              ),
+          createCompanionCallback:
+              ({
+                Value<int> id = const Value.absent(),
+                required String kind,
+                required String payload,
+                required DateTime createdAt,
+              }) => ContentOutboxCompanion.insert(
+                id: id,
+                kind: kind,
+                payload: payload,
+                createdAt: createdAt,
+              ),
+          withReferenceMapper: (p0) => p0
+              .map((e) => (e.readTable(table), BaseReferences(db, table, e)))
+              .toList(),
+          prefetchHooksCallback: null,
+        ),
+      );
+}
+
+typedef $$ContentOutboxTableProcessedTableManager =
+    ProcessedTableManager<
+      _$DonzelaDatabase,
+      $ContentOutboxTable,
+      ContentOutboxRow,
+      $$ContentOutboxTableFilterComposer,
+      $$ContentOutboxTableOrderingComposer,
+      $$ContentOutboxTableAnnotationComposer,
+      $$ContentOutboxTableCreateCompanionBuilder,
+      $$ContentOutboxTableUpdateCompanionBuilder,
+      (
+        ContentOutboxRow,
+        BaseReferences<
+          _$DonzelaDatabase,
+          $ContentOutboxTable,
+          ContentOutboxRow
+        >,
+      ),
+      ContentOutboxRow,
+      PrefetchHooks Function()
+    >;
 
 class $DonzelaDatabaseManager {
   final _$DonzelaDatabase _db;
@@ -4084,4 +4573,6 @@ class $DonzelaDatabaseManager {
       $$HealthCentresTableTableManager(_db, _db.healthCentres);
   $$SyncQueueTableTableManager get syncQueue =>
       $$SyncQueueTableTableManager(_db, _db.syncQueue);
+  $$ContentOutboxTableTableManager get contentOutbox =>
+      $$ContentOutboxTableTableManager(_db, _db.contentOutbox);
 }

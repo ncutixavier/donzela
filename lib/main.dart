@@ -13,6 +13,7 @@ import 'data/repositories/content_repository.dart';
 import 'data/repositories/daily_log_repository.dart';
 import 'data/repositories/settings_repository.dart';
 import 'features/account/cloud_controller.dart';
+import 'features/admin/admin_controller.dart';
 import 'features/help/help_controller.dart';
 import 'features/learn/learn_controller.dart';
 import 'features/logs/logs_controller.dart';
@@ -23,6 +24,7 @@ import 'features/today/cycle_controller.dart';
 import 'firebase_options.dart';
 import 'services/analytics/analytics_service.dart';
 import 'services/auth/auth_service.dart';
+import 'services/cloud/content_admin_store.dart';
 import 'services/cloud/firestore_cloud_store.dart';
 import 'services/notifications/notification_service.dart';
 import 'services/security/pin_service.dart';
@@ -152,6 +154,13 @@ Future<Widget> buildRoot({
     content: contentRepo,
     sync: sync,
   );
+  final admin = AdminController(
+    auth: auth,
+    store: firestore == null ? null : ContentAdminStore(firestore),
+    content: contentRepo,
+    outbox: db.contentOutboxDao,
+    isOnline: isDeviceOnline,
+  );
   if (firebaseReady) {
     // Public content and the daily check-in run in the background.
     cloud.pullPublicContent().catchError((_) {});
@@ -183,6 +192,7 @@ Future<Widget> buildRoot({
       ChangeNotifierProvider<HelpController>.value(value: help),
       ChangeNotifierProvider<LogsController>.value(value: logs),
       ChangeNotifierProvider<CloudController>.value(value: cloud),
+      Provider<AdminController>.value(value: admin),
     ],
     child: DonzelaApp(settings: settings, lock: lock),
   );

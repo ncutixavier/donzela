@@ -7,15 +7,12 @@ import 'package:provider/provider.dart';
 import '../../core/l10n/localization.dart';
 import '../../core/theme/app_theme.dart';
 import '../../core/widgets/imigongo.dart';
+import '../admin/admin_controller.dart';
+import '../admin/article_editor_screen.dart';
+import '../account/cloud_controller.dart';
+import 'category_labels.dart';
 import '../../data/database/database.dart';
 import 'learn_controller.dart';
-
-const _categories = [
-  ('all', 'filterAll'),
-  ('mine', 'filterMine'),
-  ('hygiene', 'filterHygiene'),
-  ('contraception', 'filterContraception'),
-];
 
 /// Learn list (screen 12). Cards open the article with a container
 /// transform (OpenContainer).
@@ -38,7 +35,9 @@ class _LearnScreenState extends State<LearnScreen> {
     final lang = Localizations.localeOf(context).languageCode;
     final ctrl = context.read<LearnController>();
     // Loading notifies listeners, which must not happen during build.
-    WidgetsBinding.instance.addPostFrameCallback((_) => ctrl.load(lang: lang));
+    // The super-admin also sees unreviewed articles, so they can finish them.
+    final isAdmin = context.read<AdminController>().isSuperAdmin;
+    WidgetsBinding.instance.addPostFrameCallback((_) => ctrl.load(lang: lang, showDrafts: isAdmin));
   }
 
   @override
@@ -47,12 +46,46 @@ class _LearnScreenState extends State<LearnScreen> {
     super.dispose();
   }
 
-  String _categoryLabel(AppLocalizations l, String key) => switch (key) {
-        'mine' => l.filterMine,
-        'hygiene' => l.filterHygiene,
-        'contraception' => l.filterContraception,
-        _ => l.filterAll,
-      };
+  Future<void> _openEditor(ArticleRow? article) async {
+    final changed = await Navigator.of(context).push<bool>(
+      MaterialPageRoute(
+        builder: (_) => ArticleEditorScreen(
+          existing: article,
+          lang: Localizations.localeOf(context).languageCode,
+          categories: context.read<LearnController>().categories,
+        ),
+      ),
+    );
+    if (changed == true && mounted) _reload();
+  }
+
+  Future<void> _confirmDelete(ArticleRow a) async {
+    final l = AppLocalizations.of(context);
+    final admin = context.read<AdminController>();
+    final ok = await showDialog<bool>(
+      context: context,
+      builder: (ctx) => AlertDialog(
+        title: Text(l.logDeleteTitle),
+        content: Text(l.adminDeleteBody),
+        actions: [
+          TextButton(onPressed: () => Navigator.pop(ctx, false), child: Text(l.cancelBtn)),
+          FilledButton(
+            style: FilledButton.styleFrom(backgroundColor: AppColors.danger),
+            onPressed: () => Navigator.pop(ctx, true),
+            child: Text(l.deleteBtn),
+          ),
+        ],
+      ),
+    );
+    if (ok != true) return;
+    await admin.deleteArticle(a.id, a.lang);
+    if (mounted) _reload();
+  }
+
+  void _reload() {
+    final lang = Localizations.localeOf(context).languageCode;
+    context.read<LearnController>().load(lang: lang, showDrafts: true);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -60,7 +93,18 @@ class _LearnScreenState extends State<LearnScreen> {
     final ctrl = context.watch<LearnController>();
     final lang = Localizations.localeOf(context).languageCode;
 
+    // Rebuild when the account changes, so the admin tools appear after sign-in.
+    context.watch<CloudController>();
+    final isAdmin = context.read<AdminController>().isSuperAdmin;
+
     return Scaffold(
+      floatingActionButton: isAdmin
+          ? FloatingActionButton.extended(
+              onPressed: () => _openEditor(null),
+              icon: const Icon(Icons.add),
+              label: Text(l.adminAddArticle),
+            )
+          : null,
       body: SafeArea(
         child: ListView(
           padding: const EdgeInsets.all(AppSpace.lg),
@@ -83,16 +127,16 @@ class _LearnScreenState extends State<LearnScreen> {
               spacing: AppSpace.sm,
               runSpacing: AppSpace.sm,
               children: [
-                for (final c in _categories)
+                for (final key in ['all', ...ctrl.categories])
                   ChoiceChip(
-                    label: Text(_categoryLabel(l, c.$1)),
-                    selected: ctrl.category == c.$1,
+                    label: Text(categoryLabel(l, key)),
+                    selected: ctrl.category == key,
                     selectedColor: AppColors.brown,
                     labelStyle: TextStyle(
-                      color: ctrl.category == c.$1 ? Colors.white : AppColors.ink,
+                      color: ctrl.category == key ? Colors.white : AppColors.ink,
                       fontWeight: FontWeight.w700,
                     ),
-                    onSelected: (_) => ctrl.setCategory(c.$1),
+                    onSelected: (_) => ctrl.setCategory(key),
                   ),
               ],
             ),
@@ -115,10 +159,12 @@ class _LearnScreenState extends State<LearnScreen> {
                   padding: const EdgeInsets.only(bottom: AppSpace.md),
                   child: _ArticleCard(
                     id: a.id,
-                    category: _categoryLabel(l, a.category),
+                    category: categoryLabel(l, a.category),
                     title: a.title,
                     lang: lang,
                     draft: a.reviewedBy == null,
+                    onEdit: isAdmin ? () => _openEditor(a) : null,
+                    onDelete: isAdmin ? () => _confirmDelete(a) : null,
                   ),
                 ),
           ],
@@ -135,6 +181,8 @@ class _ArticleCard extends StatelessWidget {
     required this.title,
     required this.lang,
     required this.draft,
+    this.onEdit,
+    this.onDelete,
   });
 
   final String id;
@@ -142,6 +190,10 @@ class _ArticleCard extends StatelessWidget {
   final String title;
   final String lang;
   final bool draft;
+
+  /// Set only for the super-admin.
+  final VoidCallback? onEdit;
+  final VoidCallback? onDelete;
 
   @override
   Widget build(BuildContext context) {
@@ -184,6 +236,18 @@ class _ArticleCard extends StatelessWidget {
                   ],
                 ),
               ),
+              if (onEdit != null) ...[
+                IconButton(
+                  tooltip: AppLocalizations.of(context).adminEditArticle,
+                  icon: const Icon(Icons.edit_outlined, color: AppColors.brown),
+                  onPressed: onEdit,
+                ),
+                IconButton(
+                  tooltip: AppLocalizations.of(context).deleteBtn,
+                  icon: const Icon(Icons.delete_outline, color: AppColors.danger),
+                  onPressed: onDelete,
+                ),
+              ],
             ],
           ),
         ),

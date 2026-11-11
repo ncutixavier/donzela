@@ -13,8 +13,8 @@ part 'database.g.dart';
 /// Local source of truth (F2). All user data lives here on the phone.
 /// Schema version 1 is the MVP; later changes add a migration step below.
 @DriftDatabase(
-  tables: [Cycles, DailyLogs, Settings, Articles, HealthCentres, SyncQueue],
-  daos: [CyclesDao, DailyLogsDao, SettingsDao, ContentDao, SyncQueueDao],
+  tables: [Cycles, DailyLogs, Settings, Articles, HealthCentres, SyncQueue, ContentOutbox],
+  daos: [CyclesDao, DailyLogsDao, SettingsDao, ContentDao, SyncQueueDao, ContentOutboxDao],
 )
 class DonzelaDatabase extends _$DonzelaDatabase {
   DonzelaDatabase(super.e);
@@ -32,7 +32,7 @@ class DonzelaDatabase extends _$DonzelaDatabase {
   factory DonzelaDatabase.memory() => DonzelaDatabase(NativeDatabase.memory());
 
   @override
-  int get schemaVersion => 2;
+  int get schemaVersion => 3;
 
   @override
   MigrationStrategy get migration => MigrationStrategy(
@@ -44,6 +44,10 @@ class DonzelaDatabase extends _$DonzelaDatabase {
           );
         },
         onUpgrade: (m, from, to) async {
+          if (from < 3) {
+            // v3: the content outbox for admin changes waiting for the cloud.
+            await m.createTable(contentOutbox);
+          }
           if (from < 2) {
             // v2: many log entries per day. The old unique date is removed and
             // each existing entry gets its time from updated_at.

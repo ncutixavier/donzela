@@ -18,23 +18,33 @@ class LearnController extends ChangeNotifier {
 
   List<ArticleRow> _articles = const [];
   String _category = 'all';
+  bool _showDrafts = false;
   String _query = '';
   String _lang = 'rw';
   bool _loading = true;
 
+  List<String> _categories = ContentRepository.defaultCategories;
+
   List<ArticleRow> get articles => _articles;
+
+  /// Default categories plus any category an article uses.
+  List<String> get categories => _categories;
   String get category => _category;
   String get query => _query;
   bool get loading => _loading;
 
-  Future<void> load({required String lang}) async {
+  /// [showDrafts] is set for the super-admin, who sees unreviewed articles.
+  Future<void> load({required String lang, bool? showDrafts}) async {
     _lang = lang;
+    if (showDrafts != null) _showDrafts = showDrafts;
     _loading = true;
     notifyListeners();
+    _categories = await _content.categories();
     _articles = await _content.visibleArticles(
       lang,
       category: _category,
       query: _query,
+      showDrafts: _showDrafts,
     );
     _loading = false;
     notifyListeners();

@@ -71,6 +71,16 @@ class FirestoreCloudStore implements CloudStore, RemoteReader {
         'language': language,
       }, SetOptions(merge: true));
 
+  /// One public document, or null when it does not exist.
+  static Future<Map<String, dynamic>?> publicDoc(
+    FirebaseFirestore db,
+    String collection,
+    String id,
+  ) async {
+    final snap = await db.collection(collection).doc(id).get();
+    return snap.data();
+  }
+
   /// Public content (articles or health centres). Read-only from the app.
   static Future<List<Map<String, dynamic>>> publicCollection(
     FirebaseFirestore db,
