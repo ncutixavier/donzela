@@ -38,6 +38,8 @@ class CloudController extends ChangeNotifier {
   bool get available => _auth.available && _firestore != null;
   bool get signedIn => _auth.isSignedIn;
   String? get email => _auth.email;
+  String? get displayName => _auth.displayName;
+  String? get photoUrl => _auth.photoUrl;
 
   /// Signs in with Google. Returns false when the user cancelled.
   Future<bool> signIn() async {
@@ -70,7 +72,8 @@ class CloudController extends ChangeNotifier {
     final centres =
         await FirestoreCloudStore.publicCollection(db, 'health_centres');
     onProgress?.call(2 / 3);
-    await _content.applyRemote(articles: articles, centres: centres);
+    // The phone's articles follow Firestore exactly, so old bundled copies go.
+    await _content.applyRemote(articles: articles, centres: centres, replaceArticles: true);
     final emergency = await FirestoreCloudStore.publicDoc(db, 'config', 'emergency');
     if (emergency != null) {
       final list = emergency['contacts'];

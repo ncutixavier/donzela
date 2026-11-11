@@ -701,7 +701,7 @@ class AppLocalizationsFr extends AppLocalizations {
   String get d7 => 'dimanche';
 
   @override
-  String get appFooter => 'Donzela 1.0 · Conçu à Kigali par Hova AI';
+  String get appFooter => 'Donzela 1.0 · Conçu à Kigali';
 
   @override
   String get logToday => 'Noter aujourd\'hui';
@@ -1058,4 +1058,144 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get emergencyNone => 'Aucun numéro d\'urgence pour l\'instant.';
+
+  @override
+  String get translationsTitle => 'Langues';
+
+  @override
+  String get statusPublished => 'Publié';
+
+  @override
+  String get statusDraft => 'Brouillon';
+
+  @override
+  String get statusMissing => 'Manquant';
+
+  @override
+  String get translateNow => 'Traduire';
+
+  @override
+  String get translateArticle => 'Traduire l\'article';
+
+  @override
+  String get saveDraftBtn => 'Enregistrer le brouillon';
+
+  @override
+  String get publishAllBtn => 'Publier dans toutes les langues';
+
+  @override
+  String get publishedAll => 'Publié dans toutes les langues.';
+
+  @override
+  String get publishNotReady => 'Pas prêt à publier';
+
+  @override
+  String get reviewerLabel => 'Relecteur (cette langue)';
+
+  @override
+  String get reviewerHint => 'Laisser vide pour afficher l\'équipe Donzela.';
+
+  @override
+  String writtenBy(String name) {
+    return 'Écrit par $name';
+  }
+
+  @override
+  String get accountPullPublicBody =>
+      'Récupérez les derniers articles et numéros d\'aide de Donzela.';
+
+  @override
+  String get accountContentUpdated =>
+      'Les derniers articles et informations d\'aide sont à jour.';
+
+  @override
+  String get adminUsersTitle => 'Administrateurs';
+
+  @override
+  String get adminUsersBody =>
+      'Les administrateurs peuvent modifier Apprendre et Aide. Une personne le devient quand vous ajoutez son e-mail ici.';
+
+  @override
+  String get adminUsersEmailLabel => 'E-mail Google';
+
+  @override
+  String get adminUsersEmailHint => 'Par exemple : nom@gmail.com';
+
+  @override
+  String get adminUsersAdd => 'Ajouter un administrateur';
+
+  @override
+  String get adminUsersListTitle =>
+      'Personnes avec des droits d\'administration';
+
+  @override
+  String get adminUsersNone => 'Aucun autre administrateur pour l\'instant.';
+
+  @override
+  String get adminUsersRemove => 'Retirer l\'administrateur';
+
+  @override
+  String get adminUsersRemoveTitle => 'Retirer cet administrateur ?';
+
+  @override
+  String get adminUsersInvalid => 'Saisissez un e-mail valide';
+
+  @override
+  String get adminUsersOwner =>
+      'C\'est le compte propriétaire, il ne peut pas être retiré';
+
+  @override
+  String get adminUsersRoleOwner => 'Propriétaire';
+
+  @override
+  String get adminUsersRoleAdmin => 'Administrateur';
+
+  @override
+  String get adminUsersRoleUser => 'Membre';
+
+  @override
+  String get adminUsersMakeAdmin => 'Rendre administrateur';
+
+  @override
+  String accountWelcome(String name) {
+    return 'Bienvenue, $name';
+  }
+
+  @override
+  String createdOn(String date) {
+    return 'Créé le $date';
+  }
+
+  @override
+  String publishedOn(String date) {
+    return 'Publié le $date';
+  }
+
+  @override
+  String updatedOn(String date) {
+    return 'Mis à jour le $date';
+  }
+
+  @override
+  String get onboardingPullContent =>
+      'Télécharger les derniers articles et l\'aide';
+
+  @override
+  String get contentPullFailed =>
+      'Impossible de récupérer le contenu. Vérifiez votre connexion.';
+
+  @override
+  String get lastPeriodOptional =>
+      'Vous pouvez passer cette étape et l\'ajouter plus tard depuis le calendrier.';
+
+  @override
+  String get refreshContent => 'Actualiser les articles et l\'aide';
+
+  @override
+  String get accountSyncNowBody =>
+      'Vos données restent sur ce téléphone. Synchroniser envoie vos dernières modifications sur votre compte Google et enregistre l\'heure de fin.';
+
+  @override
+  String get accountSyncOffBody =>
+      'Activez d\'abord la sauvegarde dans les Réglages. Vos modifications pourront ensuite être envoyées sur votre compte Google.';
 }

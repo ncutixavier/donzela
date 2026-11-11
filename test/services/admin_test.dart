@@ -6,22 +6,17 @@ import 'package:donzela/services/auth/auth_service.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
-  group('super-admin check', () {
-    test('the super-admin with a verified address is admin', () {
-      expect(isSuperAdminEmail(superAdminEmail, emailVerified: true), isTrue);
+  group('roles come from Firestore', () {
+    test('owner and admin roles grant admin rights, users do not', () {
+      expect(roleFromData({'role': 'owner'}), AppRole.owner);
+      expect(roleFromData({'role': 'admin'}), AppRole.admin);
+      expect(roleFromData({'role': 'user'}), AppRole.user);
     });
 
-    test('the check ignores letter case', () {
-      expect(isSuperAdminEmail('NCUTI60@Gmail.com', emailVerified: true), isTrue);
-    });
-
-    test('an unverified address is not admin', () {
-      expect(isSuperAdminEmail(superAdminEmail, emailVerified: false), isFalse);
-    });
-
-    test('any other account is not admin', () {
-      expect(isSuperAdminEmail('someone@example.com', emailVerified: true), isFalse);
-      expect(isSuperAdminEmail(null, emailVerified: true), isFalse);
+    test('a missing or unknown role is a normal user', () {
+      expect(roleFromData(null), AppRole.user);
+      expect(roleFromData({'role': 'Admin'}), AppRole.user);
+      expect(roleFromData({'role': 'superuser'}), AppRole.user);
     });
 
     test('without Firebase nobody is admin, and writes are refused', () async {
@@ -38,7 +33,7 @@ void main() {
       expect(admin.isSuperAdmin, isFalse);
       expect(admin.canWrite, isFalse);
       expect(
-        () => admin.saveArticle(
+        () => admin.saveDraft(
           lang: 'en',
           category: 'mine',
           title: 'T',

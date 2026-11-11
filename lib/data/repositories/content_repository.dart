@@ -2,10 +2,12 @@ import 'dart:convert';
 
 import 'package:drift/drift.dart';
 import 'package:flutter/foundation.dart';
-import 'package:flutter/services.dart';
 
 import '../database/database.dart';
-import '../seed/seed_content.dart';
+
+/// Languages every article is written in. An article is published only when
+/// all of them are ready.
+const contentLanguages = ['rw', 'en', 'fr'];
 
 /// One emergency number on Help. An empty [name] means the app's translated
 /// name for the built-in ids ('isange', 'ambulance') is used.
@@ -39,44 +41,31 @@ class ContentRepository {
   /// Release builds never show them (plan: unreviewed articles never ship).
   final bool includeDrafts;
 
-  /// Loads the bundled articles into SQLite. Runs on every launch: it is
-  /// cheap, it brings in new or edited articles, and it keeps the saved flag
-  /// because the companion leaves that column out.
-  Future<void> syncBundledContent({AssetBundle? bundle}) async {
-    final articles = await loadBundledArticles(bundle ?? rootBundle);
-    for (final a in articles) {
-      await _db.contentDao.upsertArticle(ArticlesCompanion(
-        id: Value(a.id),
-        lang: Value(a.lang),
-        category: Value(a.category),
-        title: Value(a.title),
-        body: Value(a.body),
-        reviewedBy: Value(a.reviewedBy),
-        reviewedOn: Value(a.reviewedOn),
-        updatedAt: Value(DateTime.now()),
-      ));
-      await _db.contentDao.indexArticle(a.id, a.lang, a.title, a.body);
-    }
-    for (final c in seedCentres) {
-      await _db.contentDao.upsertCentre(HealthCentresCompanion(
-        id: Value(c.id),
-        district: Value(c.district),
-        sector: Value(c.sector),
-        name: Value(c.name),
-        phone: Value(c.phone),
-        services: Value(c.services),
-      ));
-    }
-  }
-
   /// Applies articles and health centres pulled from Firestore (public, read
   /// only). Remote content replaces local content with the same id and
   /// language. An article without a reviewer is still stored, but release
   /// builds never show it.
+  /// With [replaceArticles], the articles on this phone become exactly the
+  /// ones in Firestore: anything removed there, or left over from an older app
+  /// version, is deleted here. Articles with an unsent local change are kept.
   Future<int> applyRemote({
     required List<Map<String, dynamic>> articles,
     required List<Map<String, dynamic>> centres,
+    bool replaceArticles = false,
   }) async {
+    if (replaceArticles) {
+      final keep = {
+        for (final a in articles) '${a['id']}|${a['lang']}',
+        for (final row in await _db.contentOutboxDao.pending())
+          if (row.kind == 'article' || row.kind == 'delete_article')
+            '${(jsonDecode(row.payload) as Map)['id']}|${(jsonDecode(row.payload) as Map)['lang']}',
+      };
+      for (final local in await _db.contentDao.everyArticle()) {
+        if (!keep.contains('${local.id}|${local.lang}')) {
+          await _db.contentDao.deleteArticle(local.id, local.lang);
+        }
+      }
+    }
     var count = 0;
     for (final a in articles) {
       final id = a['id'] as String?;
@@ -89,10 +78,18 @@ class ContentRepository {
         continue;
       }
       final title = a['title'] as String?;
-      final body = a['body'] as String?;
+      // Articles written in the Firebase console use `content` for the text
+      // and `date` for the publish date; the app's own saves use body and reviewed_on.
+      final body = (a['body'] ?? a['content']) as String?;
       if (title == null || body == null) continue;
       final reviewedBy = a['reviewed_by'] as String?;
-      final reviewedOn = DateTime.tryParse((a['reviewed_on'] ?? '').toString());
+      // Dates from Firestore arrive as ISO strings (see FirestoreCloudStore).
+      DateTime? dateOf(String key) => DateTime.tryParse((a[key] ?? '').toString());
+      final reviewedOn = dateOf('published_at') ?? dateOf('reviewed_on') ?? dateOf('date');
+      final createdAt = dateOf('created_at');
+      final updatedAt = dateOf('updated_at') ?? DateTime.now();
+      final author = a['author'] as String?;
+      final proposed = a['proposed_reviewer'] as String?;
       await _db.contentDao.upsertArticle(ArticlesCompanion(
         id: Value(id),
         lang: Value(lang),
@@ -101,7 +98,10 @@ class ContentRepository {
         body: Value(body),
         reviewedBy: Value(reviewedBy == null || reviewedBy.isEmpty ? null : reviewedBy),
         reviewedOn: Value(reviewedOn),
-        updatedAt: Value(DateTime.now()),
+        proposedReviewer: Value(proposed == null || proposed.isEmpty ? null : proposed),
+        author: Value(author == null || author.trim().isEmpty ? null : author.trim()),
+        createdAt: Value(createdAt),
+        updatedAt: Value(updatedAt),
       ));
       await _db.contentDao.indexArticle(id, lang, title, body);
       count++;
@@ -225,6 +225,16 @@ class ContentRepository {
       if (d.isNotEmpty && !out.contains(d)) out.add(d);
     }
     return out;
+  }
+
+  /// The rows of one article, by language. One article is one id with one
+  /// row per language, so a translation is the same id in another language.
+  Future<Map<String, ArticleRow>> articlesOf(String id) async {
+    final rows = <String, ArticleRow>{};
+    for (final a in await _db.contentDao.everyArticle()) {
+      if (a.id == id) rows[a.lang] = a;
+    }
+    return rows;
   }
 
   /// Default categories plus any category an article already uses.

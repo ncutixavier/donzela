@@ -1,4 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'features/admin/admin_users_controller.dart';
+import 'services/cloud/profile_store.dart';
+import 'services/cloud/role_store.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -63,8 +66,13 @@ Future<Widget> buildRoot({
     crash.install();
     await FirebaseCrashlytics.instance.setCrashlyticsCollectionEnabled(true);
   }
-  final auth = AuthService(auth: firebaseReady ? FirebaseAuth.instance : null);
   final firestore = firebaseReady ? FirebaseFirestore.instance : null;
+  final auth = AuthService(
+    auth: firebaseReady ? FirebaseAuth.instance : null,
+    firestore: firestore,
+  );
+  // The admin role comes from Firestore, so it is read once at start.
+  await auth.loadAccount();
 
   // Repositories and services are created once here and passed down.
   final db = database ?? DonzelaDatabase.open();
@@ -72,7 +80,6 @@ Future<Widget> buildRoot({
   final cycleRepo = CycleRepository(db);
   final dailyRepo = DailyLogRepository(db);
   final contentRepo = ContentRepository(db);
-  await contentRepo.syncBundledContent();
 
   final analytics = AnalyticsService(
     sink: firebaseReady
@@ -193,6 +200,13 @@ Future<Widget> buildRoot({
       ChangeNotifierProvider<LogsController>.value(value: logs),
       ChangeNotifierProvider<CloudController>.value(value: cloud),
       Provider<AdminController>.value(value: admin),
+      ChangeNotifierProvider<AdminUsersController>(
+        create: (_) => AdminUsersController(
+          auth: auth,
+          roles: firestore == null ? null : RoleStore(firestore),
+          profiles: firestore == null ? null : ProfileStore(firestore),
+        ),
+      ),
     ],
     child: DonzelaApp(settings: settings, lock: lock),
   );

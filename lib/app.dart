@@ -69,6 +69,8 @@ class _DonzelaAppState extends State<DonzelaApp> with WidgetsBindingObserver {
         // Sync whenever the app comes back to the foreground.
         final cloud = context.read<CloudController>();
         cloud.syncNow().ignore();
+        // Latest articles and Help information, so the cache stays current.
+        cloud.pullPublicContent().catchError((_) {});
         // Admin content saved while offline goes up now that the app is back.
         context.read<AdminController>().flush().ignore();
         cloud.checkIn().ignore();

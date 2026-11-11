@@ -267,7 +267,7 @@
   "d5": "vendredi",
   "d6": "samedi",
   "d7": "dimanche",
-  "appFooter": "Donzela 1.0 · Conçu à Kigali par Hova AI",
+  "appFooter": "Donzela 1.0 · Conçu à Kigali",
   "logToday": "Noter aujourd'hui",
   "draftBadge": "Brouillon, pas encore relu",
   "logsTitle": "Mes notes",
@@ -459,5 +459,80 @@
   "emergencyManage": "Numéros d'urgence",
   "emergencyAdd": "Ajouter un numéro",
   "emergencyEdit": "Modifier le numéro",
-  "emergencyNone": "Aucun numéro d'urgence pour l'instant."
+  "emergencyNone": "Aucun numéro d'urgence pour l'instant.",
+  "translationsTitle": "Langues",
+  "statusPublished": "Publié",
+  "statusDraft": "Brouillon",
+  "statusMissing": "Manquant",
+  "translateNow": "Traduire",
+  "translateArticle": "Traduire l'article",
+  "saveDraftBtn": "Enregistrer le brouillon",
+  "publishAllBtn": "Publier dans toutes les langues",
+  "publishedAll": "Publié dans toutes les langues.",
+  "publishNotReady": "Pas prêt à publier",
+  "reviewerLabel": "Relecteur (cette langue)",
+  "reviewerHint": "Laisser vide pour afficher l'équipe Donzela.",
+  "writtenBy": "Écrit par {name}",
+  "@writtenBy": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "accountPullPublicBody": "Récupérez les derniers articles et numéros d'aide de Donzela.",
+  "accountContentUpdated": "Les derniers articles et informations d'aide sont à jour.",
+  "adminUsersTitle": "Administrateurs",
+  "adminUsersBody": "Les administrateurs peuvent modifier Apprendre et Aide. Une personne le devient quand vous ajoutez son e-mail ici.",
+  "adminUsersEmailLabel": "E-mail Google",
+  "adminUsersEmailHint": "Par exemple : nom@gmail.com",
+  "adminUsersAdd": "Ajouter un administrateur",
+  "adminUsersListTitle": "Personnes avec des droits d'administration",
+  "adminUsersNone": "Aucun autre administrateur pour l'instant.",
+  "adminUsersRemove": "Retirer l'administrateur",
+  "adminUsersRemoveTitle": "Retirer cet administrateur ?",
+  "adminUsersInvalid": "Saisissez un e-mail valide",
+  "adminUsersOwner": "C'est le compte propriétaire, il ne peut pas être retiré",
+  "adminUsersRoleOwner": "Propriétaire",
+  "adminUsersRoleAdmin": "Administrateur",
+  "adminUsersRoleUser": "Membre",
+  "adminUsersMakeAdmin": "Rendre administrateur",
+  "accountWelcome": "Bienvenue, {name}",
+  "@accountWelcome": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "createdOn": "Créé le {date}",
+  "@createdOn": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "publishedOn": "Publié le {date}",
+  "@publishedOn": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "updatedOn": "Mis à jour le {date}",
+  "@updatedOn": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "onboardingPullContent": "Télécharger les derniers articles et l'aide",
+  "contentPullFailed": "Impossible de récupérer le contenu. Vérifiez votre connexion.",
+  "lastPeriodOptional": "Vous pouvez passer cette étape et l'ajouter plus tard depuis le calendrier.",
+  "refreshContent": "Actualiser les articles et l'aide",
+  "accountSyncNowBody": "Vos données restent sur ce téléphone. Synchroniser envoie vos dernières modifications sur votre compte Google et enregistre l'heure de fin.",
+  "accountSyncOffBody": "Activez d'abord la sauvegarde dans les Réglages. Vos modifications pourront ensuite être envoyées sur votre compte Google."
 }

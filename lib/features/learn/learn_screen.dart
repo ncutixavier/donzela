@@ -8,8 +8,10 @@ import '../../core/l10n/localization.dart';
 import '../../core/theme/app_theme.dart';
 import '../../core/widgets/imigongo.dart';
 import '../admin/admin_controller.dart';
+import '../admin/article_publish.dart';
 import '../admin/article_editor_screen.dart';
 import '../account/cloud_controller.dart';
+import '../account/content_refresh.dart';
 import 'category_labels.dart';
 import '../../data/database/database.dart';
 import 'learn_controller.dart';
@@ -82,6 +84,21 @@ class _LearnScreenState extends State<LearnScreen> {
     if (mounted) _reload();
   }
 
+  bool _refreshing = false;
+
+  /// Pulls the latest articles, then shows the list again.
+  Future<void> _refresh() async {
+    setState(() => _refreshing = true);
+    final ok = await refreshPublicContent(context);
+    if (!mounted) return;
+    setState(() => _refreshing = false);
+    if (ok) {
+      final lang = Localizations.localeOf(context).languageCode;
+      final isAdmin = context.read<AdminController>().isSuperAdmin;
+      await context.read<LearnController>().load(lang: lang, showDrafts: isAdmin);
+    }
+  }
+
   void _reload() {
     final lang = Localizations.localeOf(context).languageCode;
     context.read<LearnController>().load(lang: lang, showDrafts: true);
@@ -109,7 +126,14 @@ class _LearnScreenState extends State<LearnScreen> {
         child: ListView(
           padding: const EdgeInsets.all(AppSpace.lg),
           children: [
-            Text(l.learnTitle, style: Theme.of(context).textTheme.headlineMedium),
+            Row(
+              children: [
+                Expanded(
+                  child: Text(l.learnTitle, style: Theme.of(context).textTheme.headlineMedium),
+                ),
+                RefreshContentButton(busy: _refreshing, onPressed: _refresh),
+              ],
+            ),
             const SizedBox(height: 4),
             Text(l.learnSubtitle, style: Theme.of(context).textTheme.bodyMedium),
             const SizedBox(height: AppSpace.lg),
@@ -127,7 +151,7 @@ class _LearnScreenState extends State<LearnScreen> {
               spacing: AppSpace.sm,
               runSpacing: AppSpace.sm,
               children: [
-                for (final key in ['all', ...ctrl.categories])
+                for (final key in ['all', ...ctrl.usedCategories])
                   ChoiceChip(
                     label: Text(categoryLabel(l, key)),
                     selected: ctrl.category == key,
@@ -162,7 +186,6 @@ class _LearnScreenState extends State<LearnScreen> {
                     category: categoryLabel(l, a.category),
                     title: a.title,
                     lang: lang,
-                    draft: a.reviewedBy == null,
                     onEdit: isAdmin ? () => _openEditor(a) : null,
                     onDelete: isAdmin ? () => _confirmDelete(a) : null,
                   ),
@@ -180,7 +203,6 @@ class _ArticleCard extends StatelessWidget {
     required this.category,
     required this.title,
     required this.lang,
-    required this.draft,
     this.onEdit,
     this.onDelete,
   });
@@ -189,7 +211,6 @@ class _ArticleCard extends StatelessWidget {
   final String category;
   final String title;
   final String lang;
-  final bool draft;
 
   /// Set only for the super-admin.
   final VoidCallback? onEdit;
@@ -229,10 +250,6 @@ class _ArticleCard extends StatelessWidget {
                     Text(title, style: theme.textTheme.titleMedium),
                     const SizedBox(height: 2),
                     Text(category, style: theme.textTheme.bodyMedium),
-                    if (draft) ...[
-                      const SizedBox(height: 4),
-                      _DraftBadge(text: AppLocalizations.of(context).draftBadge),
-                    ],
                   ],
                 ),
               ),
@@ -292,7 +309,6 @@ class _ArticleScreenState extends State<ArticleScreen> {
     if (a == null) {
       return Scaffold(appBar: AppBar(), body: const SizedBox.shrink());
     }
-    final draft = a.reviewedBy == null;
 
     return Scaffold(
       appBar: AppBar(
@@ -330,24 +346,35 @@ class _ArticleScreenState extends State<ArticleScreen> {
               children: [
                 Text(a.title, style: theme.textTheme.headlineMedium),
                 const SizedBox(height: AppSpace.sm),
-                if (draft)
-                  _DraftBadge(text: l.draftBadge)
-                else
-                  Row(
-                    children: [
-                      const Icon(Icons.verified_outlined, color: AppColors.sage, size: 18),
-                      const SizedBox(width: 6),
-                      Expanded(
-                        child: Text(
-                          l.reviewedBy(
-                            a.reviewedBy!,
-                            a.reviewedOn == null ? '' : l.dayMonthYear(a.reviewedOn!),
-                          ),
-                          style: const TextStyle(color: AppColors.sage, fontWeight: FontWeight.w700),
+                // Every article shown here is reviewed; the default reviewer is the Donzela Team.
+                Row(
+                  children: [
+                    const Icon(Icons.verified_outlined, color: AppColors.sage, size: 18),
+                    const SizedBox(width: 6),
+                    Expanded(
+                      child: Text(
+                        l.reviewedBy(
+                          a.reviewedBy ?? defaultReviewer,
+                          a.reviewedOn == null ? '' : l.dayMonthYear(a.reviewedOn!),
                         ),
+                        style: const TextStyle(color: AppColors.sage, fontWeight: FontWeight.w700),
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
+                ),
+                if (a.author != null) ...[
+                  const SizedBox(height: 4),
+                  Text(l.writtenBy(a.author!), style: theme.textTheme.bodyMedium),
+                ],
+                const SizedBox(height: 4),
+                Text(
+                  [
+                    if (a.createdAt != null) l.createdOn(l.dayMonthYear(a.createdAt!)),
+                    if (a.reviewedOn != null) l.publishedOn(l.dayMonthYear(a.reviewedOn!)),
+                    l.updatedOn(l.dayMonthYear(a.updatedAt)),
+                  ].join(' · '),
+                  style: theme.textTheme.bodySmall,
+                ),
                 const SizedBox(height: AppSpace.lg),
                 MarkdownBody(
                   data: a.body,
@@ -369,27 +396,3 @@ class _ArticleScreenState extends State<ArticleScreen> {
   }
 }
 
-class _DraftBadge extends StatelessWidget {
-  const _DraftBadge({required this.text});
-
-  final String text;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
-      decoration: BoxDecoration(
-        color: AppColors.goldSoft,
-        borderRadius: BorderRadius.circular(AppRadius.chip),
-      ),
-      child: Text(
-        text,
-        style: const TextStyle(
-          color: AppColors.brown,
-          fontSize: 12,
-          fontWeight: FontWeight.w700,
-        ),
-      ),
-    );
-  }
-}
