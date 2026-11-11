@@ -5,7 +5,7 @@ import 'package:provider/provider.dart';
 import '../../core/l10n/localization.dart';
 import '../../core/theme/app_theme.dart';
 import '../../data/database/database.dart';
-import '../../data/seed/seed_content.dart';
+import '../../data/repositories/content_repository.dart';
 import '../learn/category_labels.dart';
 import '../learn/learn_controller.dart';
 import 'admin_controller.dart';

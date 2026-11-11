@@ -11,6 +11,7 @@ import '../admin/admin_controller.dart';
 import '../admin/article_publish.dart';
 import '../admin/article_editor_screen.dart';
 import '../account/cloud_controller.dart';
+import '../account/content_refresh.dart';
 import 'category_labels.dart';
 import '../../data/database/database.dart';
 import 'learn_controller.dart';
@@ -83,6 +84,21 @@ class _LearnScreenState extends State<LearnScreen> {
     if (mounted) _reload();
   }
 
+  bool _refreshing = false;
+
+  /// Pulls the latest articles, then shows the list again.
+  Future<void> _refresh() async {
+    setState(() => _refreshing = true);
+    final ok = await refreshPublicContent(context);
+    if (!mounted) return;
+    setState(() => _refreshing = false);
+    if (ok) {
+      final lang = Localizations.localeOf(context).languageCode;
+      final isAdmin = context.read<AdminController>().isSuperAdmin;
+      await context.read<LearnController>().load(lang: lang, showDrafts: isAdmin);
+    }
+  }
+
   void _reload() {
     final lang = Localizations.localeOf(context).languageCode;
     context.read<LearnController>().load(lang: lang, showDrafts: true);
@@ -110,7 +126,14 @@ class _LearnScreenState extends State<LearnScreen> {
         child: ListView(
           padding: const EdgeInsets.all(AppSpace.lg),
           children: [
-            Text(l.learnTitle, style: Theme.of(context).textTheme.headlineMedium),
+            Row(
+              children: [
+                Expanded(
+                  child: Text(l.learnTitle, style: Theme.of(context).textTheme.headlineMedium),
+                ),
+                RefreshContentButton(busy: _refreshing, onPressed: _refresh),
+              ],
+            ),
             const SizedBox(height: 4),
             Text(l.learnSubtitle, style: Theme.of(context).textTheme.bodyMedium),
             const SizedBox(height: AppSpace.lg),
@@ -128,7 +151,7 @@ class _LearnScreenState extends State<LearnScreen> {
               spacing: AppSpace.sm,
               runSpacing: AppSpace.sm,
               children: [
-                for (final key in ['all', ...ctrl.categories])
+                for (final key in ['all', ...ctrl.usedCategories])
                   ChoiceChip(
                     label: Text(categoryLabel(l, key)),
                     selected: ctrl.category == key,
@@ -338,6 +361,19 @@ class _ArticleScreenState extends State<ArticleScreen> {
                       ),
                     ),
                   ],
+                ),
+                if (a.author != null) ...[
+                  const SizedBox(height: 4),
+                  Text(l.writtenBy(a.author!), style: theme.textTheme.bodyMedium),
+                ],
+                const SizedBox(height: 4),
+                Text(
+                  [
+                    if (a.createdAt != null) l.createdOn(l.dayMonthYear(a.createdAt!)),
+                    if (a.reviewedOn != null) l.publishedOn(l.dayMonthYear(a.reviewedOn!)),
+                    l.updatedOn(l.dayMonthYear(a.updatedAt)),
+                  ].join(' · '),
+                  style: theme.textTheme.bodySmall,
                 ),
                 const SizedBox(height: AppSpace.lg),
                 MarkdownBody(

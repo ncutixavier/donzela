@@ -19,8 +19,10 @@ void main() {
     await fresh.close();
 
     final old = sqlite3.open(path);
-    // Version 1 had no proposed_reviewer column (added in version 4).
+    // Version 1 had none of proposed_reviewer (v4), author (v5) or created_at (v6).
     old.execute('ALTER TABLE articles DROP COLUMN proposed_reviewer');
+    old.execute('ALTER TABLE articles DROP COLUMN author');
+    old.execute('ALTER TABLE articles DROP COLUMN created_at');
     old.execute('DROP TABLE daily_logs');
     old.execute('''
       CREATE TABLE daily_logs (

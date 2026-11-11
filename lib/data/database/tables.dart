@@ -54,6 +54,14 @@ class Articles extends Table {
   TextColumn get reviewedBy => text().nullable()();
   DateTimeColumn get reviewedOn => dateTime().nullable()();
 
+  /// When the article was first created. Kept when it is edited again.
+  DateTimeColumn get createdAt => dateTime().nullable()();
+
+  /// When the article was published. Set by publishing, cleared by a draft save.
+  /// (Stored in the reviewed_on field.)
+  /// Who wrote the article (shown as "Written by").
+  TextColumn get author => text().nullable()();
+
   /// Reviewer named while this language is still a draft. It becomes
   /// [reviewedBy] only when the whole article is published.
   TextColumn get proposedReviewer => text().nullable()();

@@ -134,15 +134,6 @@ class TodayScreen extends StatelessWidget {
                 ),
               ],
               const SizedBox(height: AppSpace.lg),
-              if (firstUse) ...[
-                _GetStartedCard(
-                  hasOnboarding: settings.onboardingDone,
-                  hasCycle: cycles.cycleRows.isNotEmpty,
-                  hasPrediction: prediction.nextPeriodStart != null,
-                  hasLogToday: cycles.logsFor(today).isNotEmpty,
-                ),
-                const SizedBox(height: AppSpace.md),
-              ],
               const SizedBox(height: AppSpace.lg),
               _TipCard(phase: phase),
             ],
@@ -253,56 +244,6 @@ class _NextPeriodLine extends StatelessWidget {
       text,
       textAlign: TextAlign.center,
       style: const TextStyle(fontWeight: FontWeight.w700, color: AppColors.ink),
-    );
-  }
-}
-
-class _GetStartedCard extends StatelessWidget {
-  const _GetStartedCard({
-    required this.hasOnboarding,
-    required this.hasCycle,
-    required this.hasPrediction,
-    required this.hasLogToday,
-  });
-
-  final bool hasOnboarding;
-  final bool hasCycle;
-  final bool hasPrediction;
-  final bool hasLogToday;
-
-  @override
-  Widget build(BuildContext context) {
-    final l = AppLocalizations.of(context);
-    Widget item(bool done, String text) => Padding(
-          padding: const EdgeInsets.symmetric(vertical: 4),
-          child: Row(
-            children: [
-              Icon(
-                done ? Icons.check_circle : Icons.radio_button_unchecked,
-                color: done ? AppColors.sage : AppColors.sandDark,
-              ),
-              const SizedBox(width: AppSpace.sm),
-              Expanded(child: Text(text)),
-            ],
-          ),
-        );
-    return Card(
-      child: Padding(
-        padding: const EdgeInsets.all(AppSpace.lg),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(l.getStartedTitle, style: Theme.of(context).textTheme.titleMedium),
-            const SizedBox(height: AppSpace.sm),
-            item(hasOnboarding, l.checkOnboarding),
-            item(hasCycle, l.checkFirstCycle),
-            item(hasPrediction, l.checkPrediction),
-            item(hasLogToday, l.checkLogToday),
-            const SizedBox(height: AppSpace.sm),
-            Text(l.firstUseBody, style: Theme.of(context).textTheme.bodyMedium),
-          ],
-        ),
-      ),
     );
   }
 }

@@ -4,7 +4,10 @@ rules_version = '2';
 // - A signed-in user reads and writes only her own users/{uid} tree.
 // - Daily check-in (checkins/{uid}) is written only by that user.
 // - Public content (articles, health_centres, config) is readable by everyone.
-//   Only the super-admin (verified Google account) can write it.
+//   Only admins can write it.
+// - Roles live in roles/{email} with role 'owner', 'admin' or 'user'. No
+//   document means a normal user. The owner document is created once by hand;
+//   after that only the owner can change roles. No email is hardcoded here.
 service cloud.firestore {
   match /databases/{database}/documents {
 
@@ -16,13 +19,40 @@ service cloud.firestore {
       return signedIn() && request.auth.uid == uid;
     }
 
-    function isSuperAdmin() {
-      return signedIn()
-        && request.auth.token.email == 'ncuti60@gmail.com'
-        && request.auth.token.email_verified == true;
+    function verified() {
+      return signedIn() && request.auth.token.email_verified == true;
     }
 
-    match /users/{uid}/{document=**} {
+    function roleOf() {
+      return verified()
+        && exists(/databases/$(database)/documents/roles/$(request.auth.token.email))
+        ? get(/databases/$(database)/documents/roles/$(request.auth.token.email)).data.role
+        : 'user';
+    }
+
+    // The owner manages roles.
+    function isRootAdmin() {
+      return roleOf() == 'owner';
+    }
+
+    // Owner or admin edits the public content.
+    function isAdmin() {
+      return roleOf() == 'owner' || roleOf() == 'admin';
+    }
+
+    // Profile (name, email, photo). Owner and admins can read it; only the
+    // owner writes it, and only with the profile fields (never a role or
+    // health data).
+    match /users/{uid} {
+      allow read: if isOwner(uid) || isAdmin();
+      allow create, update: if isOwner(uid)
+        && request.resource.data.keys().hasOnly(['uid', 'email', 'name', 'photo_url', 'provider', 'created_at', 'last_sign_in']);
+      allow delete: if isOwner(uid);
+    }
+
+    // Health data: one document per record, owner only. It is not readable by
+    // admins.
+    match /users/{uid}/{table}/{recordId} {
       allow read, write: if isOwner(uid);
     }
 
@@ -32,17 +62,24 @@ service cloud.firestore {
 
     match /articles/{id} {
       allow read: if true;
-      allow write: if isSuperAdmin();
+      allow write: if isAdmin();
     }
 
     match /health_centres/{id} {
       allow read: if true;
-      allow write: if isSuperAdmin();
+      allow write: if isAdmin();
     }
 
     match /config/{id} {
       allow read: if true;
-      allow write: if isSuperAdmin();
+      allow write: if isAdmin();
+    }
+
+    // Roles. Each person can read their own entry (so the app knows its role);
+    // only the owner reads the whole list or changes it.
+    match /roles/{email} {
+      allow read: if isRootAdmin() || (verified() && request.auth.token.email == email);
+      allow write: if isRootAdmin();
     }
 
     match /{document=**} {

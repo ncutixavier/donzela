@@ -1399,7 +1399,7 @@ abstract class AppLocalizations {
   /// No description provided for @appFooter.
   ///
   /// In rw, this message translates to:
-  /// **'Donzela 1.0 · Yakozwe i Kigali na Hova AI'**
+  /// **'Donzela 1.0 · Yakozwe i Kigali'**
   String get appFooter;
 
   /// No description provided for @logToday.
@@ -1729,7 +1729,7 @@ abstract class AppLocalizations {
   /// No description provided for @accountSyncNow.
   ///
   /// In rw, this message translates to:
-  /// **'Sangiza ubu'**
+  /// **'Ohereza amakuru'**
   String get accountSyncNow;
 
   /// No description provided for @accountSyncDone.
@@ -1741,7 +1741,7 @@ abstract class AppLocalizations {
   /// No description provided for @accountPull.
   ///
   /// In rw, this message translates to:
-  /// **'Gusubiza amakuru mashya'**
+  /// **'Kurura amakuru mashya'**
   String get accountPull;
 
   /// No description provided for @accountPullBody.
@@ -1765,7 +1765,7 @@ abstract class AppLocalizations {
   /// No description provided for @accountTurnOnBackup.
   ///
   /// In rw, this message translates to:
-  /// **'Fungura kopi'**
+  /// **'Ohereza amakuru mu bubiko'**
   String get accountTurnOnBackup;
 
   /// No description provided for @accountBusy.
@@ -2109,6 +2109,174 @@ abstract class AppLocalizations {
   /// In rw, this message translates to:
   /// **'Ntugire icyo wandika: ni Donzela Team.'**
   String get reviewerHint;
+
+  /// No description provided for @writtenBy.
+  ///
+  /// In rw, this message translates to:
+  /// **'Yanditswe na {name}'**
+  String writtenBy(String name);
+
+  /// No description provided for @accountPullPublicBody.
+  ///
+  /// In rw, this message translates to:
+  /// **'Fata amakuru mashya ku ngingo z\'ubufasha no ku nyandiko'**
+  String get accountPullPublicBody;
+
+  /// No description provided for @accountContentUpdated.
+  ///
+  /// In rw, this message translates to:
+  /// **'Amakuru mashya y\'inyandiko n\'ubufasha yamaze kuzanwa.'**
+  String get accountContentUpdated;
+
+  /// No description provided for @adminUsersTitle.
+  ///
+  /// In rw, this message translates to:
+  /// **'Abayobozi'**
+  String get adminUsersTitle;
+
+  /// No description provided for @adminUsersBody.
+  ///
+  /// In rw, this message translates to:
+  /// **'Abayobozi bashobora guhindura Learn na Help. Umuntu ahabwa ubu burenganzira igihe wanditse imeri ye hano.'**
+  String get adminUsersBody;
+
+  /// No description provided for @adminUsersEmailLabel.
+  ///
+  /// In rw, this message translates to:
+  /// **'Imeri ya Google'**
+  String get adminUsersEmailLabel;
+
+  /// No description provided for @adminUsersEmailHint.
+  ///
+  /// In rw, this message translates to:
+  /// **'Urugero: izina@gmail.com'**
+  String get adminUsersEmailHint;
+
+  /// No description provided for @adminUsersAdd.
+  ///
+  /// In rw, this message translates to:
+  /// **'Ongeraho umuyobozi'**
+  String get adminUsersAdd;
+
+  /// No description provided for @adminUsersListTitle.
+  ///
+  /// In rw, this message translates to:
+  /// **'Abafite uburenganzira'**
+  String get adminUsersListTitle;
+
+  /// No description provided for @adminUsersNone.
+  ///
+  /// In rw, this message translates to:
+  /// **'Nta bandi bayobozi bongeweho.'**
+  String get adminUsersNone;
+
+  /// No description provided for @adminUsersRemove.
+  ///
+  /// In rw, this message translates to:
+  /// **'Kuramo umuyobozi'**
+  String get adminUsersRemove;
+
+  /// No description provided for @adminUsersRemoveTitle.
+  ///
+  /// In rw, this message translates to:
+  /// **'Kuramo uyu muyobozi?'**
+  String get adminUsersRemoveTitle;
+
+  /// No description provided for @adminUsersInvalid.
+  ///
+  /// In rw, this message translates to:
+  /// **'Andika imeri nyayo'**
+  String get adminUsersInvalid;
+
+  /// No description provided for @adminUsersOwner.
+  ///
+  /// In rw, this message translates to:
+  /// **'Iyi ni imeri ya nyirubwite, ntishobora gukurwaho'**
+  String get adminUsersOwner;
+
+  /// No description provided for @adminUsersRoleOwner.
+  ///
+  /// In rw, this message translates to:
+  /// **'Nyir\'urugo'**
+  String get adminUsersRoleOwner;
+
+  /// No description provided for @adminUsersRoleAdmin.
+  ///
+  /// In rw, this message translates to:
+  /// **'Umuyobozi'**
+  String get adminUsersRoleAdmin;
+
+  /// No description provided for @adminUsersRoleUser.
+  ///
+  /// In rw, this message translates to:
+  /// **'Umunyamuryango'**
+  String get adminUsersRoleUser;
+
+  /// No description provided for @adminUsersMakeAdmin.
+  ///
+  /// In rw, this message translates to:
+  /// **'Shyira umuyobozi'**
+  String get adminUsersMakeAdmin;
+
+  /// No description provided for @accountWelcome.
+  ///
+  /// In rw, this message translates to:
+  /// **'Murakaza neza, {name}'**
+  String accountWelcome(String name);
+
+  /// No description provided for @createdOn.
+  ///
+  /// In rw, this message translates to:
+  /// **'Yatangiwe {date}'**
+  String createdOn(String date);
+
+  /// No description provided for @publishedOn.
+  ///
+  /// In rw, this message translates to:
+  /// **'Yasohotse {date}'**
+  String publishedOn(String date);
+
+  /// No description provided for @updatedOn.
+  ///
+  /// In rw, this message translates to:
+  /// **'Yavuguruwe {date}'**
+  String updatedOn(String date);
+
+  /// No description provided for @onboardingPullContent.
+  ///
+  /// In rw, this message translates to:
+  /// **'Kuramo inyandiko n\'ubufasha bya none'**
+  String get onboardingPullContent;
+
+  /// No description provided for @contentPullFailed.
+  ///
+  /// In rw, this message translates to:
+  /// **'Ntibyakunze kuramo amakuru. Reba internet yawe.'**
+  String get contentPullFailed;
+
+  /// No description provided for @lastPeriodOptional.
+  ///
+  /// In rw, this message translates to:
+  /// **'Ushobora kubisiga none cyangwa ukabyongera nyuma kuri kalendari.'**
+  String get lastPeriodOptional;
+
+  /// No description provided for @refreshContent.
+  ///
+  /// In rw, this message translates to:
+  /// **'Kuvugurura inyandiko n\'ubufasha'**
+  String get refreshContent;
+
+  /// No description provided for @accountSyncNowBody.
+  ///
+  /// In rw, this message translates to:
+  /// **'Ibyo wanditse bisigara kuri telefone yawe. Kanda hano ubu bioherezwa kuri konte yawe ya Google, kandi igihe byarangiriye kirandikwa.'**
+  String get accountSyncNowBody;
+
+  /// No description provided for @accountSyncOffBody.
+  ///
+  /// In rw, this message translates to:
+  /// **'Kugira ngo ibyo ukora byoherezwe kuri konte yawe, banza ushyireho backup muri Igenamiterere.'**
+  String get accountSyncOffBody;
 }
 
 class _AppLocalizationsDelegate

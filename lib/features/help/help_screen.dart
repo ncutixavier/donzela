@@ -7,6 +7,7 @@ import '../../core/theme/app_theme.dart';
 import '../../data/database/database.dart';
 import '../account/cloud_controller.dart';
 import '../admin/admin_controller.dart';
+import '../account/content_refresh.dart';
 import 'centre_sheet.dart';
 import 'emergency_sheet.dart';
 import 'help_controller.dart';
@@ -29,6 +30,17 @@ class _HelpScreenState extends State<HelpScreen> {
     if (_started) return;
     _started = true;
     context.read<HelpController>().load();
+  }
+
+  bool _refreshing = false;
+
+  /// Pulls the latest Help information (centres and numbers), then shows it.
+  Future<void> _refresh() async {
+    setState(() => _refreshing = true);
+    final ok = await refreshPublicContent(context);
+    if (!mounted) return;
+    setState(() => _refreshing = false);
+    if (ok) await context.read<HelpController>().reload();
   }
 
   static Future<void> _call(String number) =>
@@ -76,7 +88,12 @@ class _HelpScreenState extends State<HelpScreen> {
         child: ListView(
           padding: const EdgeInsets.all(AppSpace.lg),
           children: [
-            Text(l.helpTitle, style: theme.textTheme.headlineMedium),
+            Row(
+              children: [
+                Expanded(child: Text(l.helpTitle, style: theme.textTheme.headlineMedium)),
+                RefreshContentButton(busy: _refreshing, onPressed: _refresh),
+              ],
+            ),
             const SizedBox(height: 4),
             Text(l.helpSubtitle, style: theme.textTheme.bodyMedium),
             const SizedBox(height: AppSpace.lg),

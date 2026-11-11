@@ -5,7 +5,6 @@ import '../../data/repositories/content_repository.dart';
 export '../../data/repositories/content_repository.dart' show EmergencyContact;
 import '../../services/auth/auth_service.dart';
 import '../../services/cloud/content_admin_store.dart';
-import '../../data/seed/seed_content.dart';
 import 'article_publish.dart';
 
 /// Thrown when an article cannot be published yet. [problems] maps each
@@ -43,6 +42,9 @@ class AdminController {
 
   bool get isSuperAdmin => _auth.isSuperAdmin;
 
+  /// The owner account, which alone can add or remove other admins.
+  bool get isRootAdmin => _auth.isRootAdmin;
+
   /// Admin can edit here. Edits are always saved on the phone, even without a
   /// cloud connection, so this only needs the admin account.
   bool get canWrite => isSuperAdmin;
@@ -69,6 +71,9 @@ class AdminController {
   }) async {
     _requireAdmin();
     final articleId = id ?? _newId(title);
+    final now = DateTime.now();
+    // Keep the first creation time; only a brand-new article gets a new one.
+    final existing = id == null ? null : (await _content.articlesOf(id))[lang];
     final data = <String, dynamic>{
       'id': articleId,
       'lang': lang,
@@ -78,6 +83,8 @@ class AdminController {
       'reviewed_by': null,
       'reviewed_on': null,
       'proposed_reviewer': _reviewerName(reviewer),
+      'created_at': (existing?.createdAt ?? now).toIso8601String(),
+      'updated_at': now.toIso8601String(),
     };
     await _content.applyRemote(articles: [data], centres: const []);
     await _enqueue('article', data);
@@ -118,6 +125,9 @@ class AdminController {
           'body': rows[lang]!.body,
           'reviewed_by': _reviewerName(rows[lang]!.proposedReviewer),
           'reviewed_on': now.toIso8601String(),
+          'published_at': now.toIso8601String(),
+          'updated_at': now.toIso8601String(),
+          'created_at': (rows[lang]!.createdAt ?? now).toIso8601String(),
           'proposed_reviewer': _reviewerName(rows[lang]!.proposedReviewer),
         },
     ];

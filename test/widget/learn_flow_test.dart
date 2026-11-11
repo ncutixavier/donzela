@@ -1,4 +1,5 @@
 import 'package:donzela/data/database/database.dart';
+import 'package:donzela/data/repositories/content_repository.dart';
 import 'package:donzela/main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
@@ -20,6 +21,17 @@ void main() {
 
     final db = DonzelaDatabase.memory();
     addTearDown(db.close);
+    // Articles come from the cache (first pulled from Firestore). Put one here.
+    await tester.runAsync(() => ContentRepository(db, includeDrafts: true).applyRemote(articles: [
+          {
+            'id': 'irregular-cycles-rw',
+            'lang': 'rw',
+            'category': 'mine',
+            'title': 'Ukwezi gusanzwe ni ukuhe?',
+            'body': 'Umuzunguruko w imihango usanzwe imara hagati y iminsi 21 na 35.',
+            'reviewed_by': 'Donzela Team',
+          },
+        ], centres: const []));
     // Skip onboarding so the app opens on the tabs.
     await tester.runAsync(() => db.settingsDao.put('onboarding_done', '1'));
     final root = await tester.runAsync(

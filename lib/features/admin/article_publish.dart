@@ -1,4 +1,4 @@
-import '../../data/seed/seed_content.dart';
+import '../../data/repositories/content_repository.dart';
 
 /// Reviewer shown when none is named. Articles are reviewed by the Donzela
 /// Team unless the admin names a specific health professional.
