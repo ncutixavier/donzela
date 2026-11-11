@@ -6,8 +6,10 @@ import '../../features/account/cloud_controller.dart';
 import '../l10n/localization.dart';
 import 'profile_avatar.dart';
 
-/// Bottom tabs: Today, Calendar, Learn, Help. Each tab keeps its own scroll
-/// position through the indexed stack.
+/// Widest the content gets on a large screen, so text lines stay readable.
+const maxContentWidth = 900.0;
+
+/// Bottom tabs on every screen size: Today, Calendar, Learn, Help, Account. Each tab keeps its own scroll position through the indexed stack.
 class MainShell extends StatelessWidget {
   const MainShell({super.key, required this.navigationShell});
 
@@ -22,48 +24,47 @@ class MainShell extends StatelessWidget {
     // The tab label is at most five characters, so long names stay short.
     final firstName = name.trim().split(' ').first;
     final shortName = firstName.length > 5 ? firstName.substring(0, 5) : firstName;
-    final accountIcon = cloud.signedIn
-        ? ProfileAvatar(photoUrl: cloud.photoUrl, name: name, radius: 12)
-        : const Icon(Icons.account_circle_outlined);
-    final accountSelected = cloud.signedIn
-        ? ProfileAvatar(photoUrl: cloud.photoUrl, name: name, radius: 12)
-        : const Icon(Icons.account_circle);
+    final accountLabel = cloud.signedIn && shortName.isNotEmpty ? shortName : l.navAccount;
+
+    final destinations = <_Tab>[
+      _Tab(const Icon(Icons.circle_outlined), const Icon(Icons.circle), l.todayTitle),
+      _Tab(const Icon(Icons.calendar_month_outlined), const Icon(Icons.calendar_month), l.calendarTab),
+      _Tab(const Icon(Icons.menu_book_outlined), const Icon(Icons.menu_book), l.learnTab),
+      _Tab(const Icon(Icons.place_outlined), const Icon(Icons.place), l.helpTab),
+      _Tab(
+        cloud.signedIn
+            ? ProfileAvatar(photoUrl: cloud.photoUrl, name: name, radius: 12)
+            : const Icon(Icons.account_circle_outlined),
+        cloud.signedIn
+            ? ProfileAvatar(photoUrl: cloud.photoUrl, name: name, radius: 12)
+            : const Icon(Icons.account_circle),
+        accountLabel,
+      ),
+    ];
+
+    void select(int i) => navigationShell.goBranch(
+          i,
+          initialLocation: i == navigationShell.currentIndex,
+        );
+
     return Scaffold(
       body: navigationShell,
       bottomNavigationBar: NavigationBar(
         selectedIndex: navigationShell.currentIndex,
-        onDestinationSelected: (i) => navigationShell.goBranch(
-          i,
-          initialLocation: i == navigationShell.currentIndex,
-        ),
+        onDestinationSelected: select,
         destinations: [
-          NavigationDestination(
-            icon: const Icon(Icons.circle_outlined),
-            selectedIcon: const Icon(Icons.circle),
-            label: l.todayTitle,
-          ),
-          NavigationDestination(
-            icon: const Icon(Icons.calendar_month_outlined),
-            selectedIcon: const Icon(Icons.calendar_month),
-            label: l.calendarTab,
-          ),
-          NavigationDestination(
-            icon: const Icon(Icons.menu_book_outlined),
-            selectedIcon: const Icon(Icons.menu_book),
-            label: l.learnTab,
-          ),
-          NavigationDestination(
-            icon: const Icon(Icons.place_outlined),
-            selectedIcon: const Icon(Icons.place),
-            label: l.helpTab,
-          ),
-          NavigationDestination(
-            icon: accountIcon,
-            selectedIcon: accountSelected,
-            label: cloud.signedIn && shortName.isNotEmpty ? shortName : l.navAccount,
-          ),
+          for (final t in destinations)
+            NavigationDestination(icon: t.icon, selectedIcon: t.selectedIcon, label: t.label),
         ],
       ),
     );
   }
+}
+
+class _Tab {
+  const _Tab(this.icon, this.selectedIcon, this.label);
+
+  final Widget icon;
+  final Widget selectedIcon;
+  final String label;
 }

@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 import 'core/l10n/localization.dart';
 import 'core/router/app_router.dart';
 import 'core/theme/app_theme.dart';
+import 'core/widgets/main_shell.dart' show maxContentWidth;
 import 'features/account/cloud_controller.dart';
 import 'features/admin/admin_controller.dart';
 import 'features/lock/lock_controller.dart';
@@ -93,6 +94,13 @@ class _DonzelaAppState extends State<DonzelaApp> with WidgetsBindingObserver {
           supportedLocales: supportedLocales,
           localizationsDelegates: localizationDelegates,
           routerConfig: _router,
+          // On large screens (web, tablets) the whole app is one readable column.
+          builder: (context, child) => Center(
+            child: ConstrainedBox(
+              constraints: const BoxConstraints(maxWidth: maxContentWidth),
+              child: child,
+            ),
+          ),
         );
       },
     );

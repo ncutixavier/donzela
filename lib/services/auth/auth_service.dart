@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:google_sign_in/google_sign_in.dart';
 
 import '../../core/config/admin.dart';
@@ -78,6 +79,7 @@ class AuthService {
   Future<User?> signInWithGoogle() async {
     final auth = _auth;
     if (auth == null) throw StateError('Firebase is not available');
+    if (kIsWeb) return _signInWithPopup(auth);
     await init();
     try {
       final account = await GoogleSignIn.instance.authenticate();
@@ -89,6 +91,18 @@ class AuthService {
       return result.user;
     } on GoogleSignInException catch (e) {
       if (e.code == GoogleSignInExceptionCode.canceled) return null;
+      rethrow;
+    }
+  }
+
+  /// Browsers use Firebase's Google popup, not the phone's account picker.
+  Future<User?> _signInWithPopup(FirebaseAuth auth) async {
+    try {
+      final result = await auth.signInWithPopup(GoogleAuthProvider());
+      await loadAccount();
+      return result.user;
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'popup-closed-by-user' || e.code == 'cancelled-popup-request') return null;
       rethrow;
     }
   }

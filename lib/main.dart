@@ -6,6 +6,7 @@ import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
+import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -58,11 +59,13 @@ Future<Widget> buildRoot({
       firebaseReady = false;
     }
   }
-  final crash = CrashReporter(sink: firebaseReady
+  // Crashlytics has no web support, so crash reports are sent from phones only.
+  final crashOn = firebaseReady && !kIsWeb;
+  final crash = CrashReporter(sink: crashOn
       ? (type, message) => FirebaseCrashlytics.instance
           .recordError(Exception('$type: $message'), null, fatal: false)
       : null);
-  if (firebaseReady) {
+  if (crashOn) {
     crash.install();
     await FirebaseCrashlytics.instance.setCrashlyticsCollectionEnabled(true);
   }
@@ -91,7 +94,8 @@ Future<Widget> buildRoot({
   );
   final notifications = NotificationService();
   try {
-    if (initNotifications) await notifications.init();
+    // Local reminders are phone-only; browsers have no notification scheduler here.
+    if (initNotifications && !kIsWeb) await notifications.init();
   } catch (e) {
     // Reminders are optional; the rest of the app must still start.
     crash.record(e, null);

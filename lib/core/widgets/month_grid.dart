@@ -53,14 +53,21 @@ class MonthGrid extends StatelessWidget {
         _dayCell(context, DateTime(month.year, month.month, d), now),
     ];
 
-    return GridView.count(
-      crossAxisCount: 7,
-      shrinkWrap: true,
-      physics: const NeverScrollableScrollPhysics(),
-      mainAxisSpacing: 4,
-      crossAxisSpacing: 4,
-      childAspectRatio: 1,
-      children: cells,
+    // Cells are square, so the grid is capped at phone width. On a wide screen
+    // it stays the same size instead of growing into large circles.
+    return Center(
+      child: ConstrainedBox(
+        constraints: const BoxConstraints(maxWidth: 380),
+        child: GridView.count(
+          crossAxisCount: 7,
+          shrinkWrap: true,
+          physics: const NeverScrollableScrollPhysics(),
+          mainAxisSpacing: 4,
+          crossAxisSpacing: 4,
+          childAspectRatio: 1,
+          children: cells,
+        ),
+      ),
     );
   }
 
