@@ -1,0 +1,463 @@
+{
+  "@@locale": "en",
+  "appName": "Donzela",
+  "langRw": "Ikinyarwanda",
+  "langEn": "English",
+  "langFr": "Français",
+  "chooseLanguage": "Choose a language",
+  "welcomeTitle": "Know your body",
+  "welcomeBody": "A friend that helps you follow your cycle, made for every woman in Rwanda.",
+  "dataStaysNote": "Your data stays on your phone",
+  "continueBtn": "Continue",
+  "backBtn": "Back",
+  "skipBtn": "Skip",
+  "stepOf": "{current} of {total}",
+  "@stepOf": {
+    "placeholders": {
+      "current": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "privacyTitle": "Your body, your data",
+  "privacySubtitle": "Your data belongs to you. Here is our promise.",
+  "privacy1Title": "Stays on your phone",
+  "privacy1Body": "What you record about your cycle is kept on this phone. It does not go to our servers.",
+  "privacy2Title": "You choose whether to back up",
+  "privacy2Body": "You can turn it on later in Settings. It starts off.",
+  "privacy3Title": "Never sold",
+  "privacy3Body": "We will never sell your health data. You can delete everything at any time.",
+  "agreeContinue": "I agree, continue",
+  "readPolicy": "Read the privacy policy",
+  "policyTitle": "Privacy policy",
+  "policyBody": "Donzela keeps your cycle data on your phone only.\n\nNo health information is sent to analytics events or crash reports.\n\nCloud backup is off until you turn it on. When you do, your data is uploaded with your consent, and you can delete it at any time.\n\nYou can delete all data at any time in Settings.",
+  "lastPeriodTitle": "When did your last period start?",
+  "lastPeriodBody": "This helps Donzela estimate when your next period will come. You can change it at any time.",
+  "sinibuka": "I don't remember",
+  "sinibukaNote": "Low confidence estimate: the date is 14 days before today.",
+  "cycleLengthTitle": "How many days is your cycle?",
+  "cycleLengthBody": "A cycle runs from the first day of your period to the day before the next one. Not sure? Keep the usual numbers; Donzela will learn as you log.",
+  "cycleLengthLabel": "Cycle length",
+  "periodLengthLabel": "Period length",
+  "daysUnit": "days",
+  "cycleRangeNote": "Most cycles last between 21 and 35 days",
+  "pinSetupTitle": "Protect Donzela",
+  "pinSetupBody": "Helpful if you share your phone. You can change this later in Settings.",
+  "pinToggle": "Lock with a 4-digit PIN",
+  "pinHint": "Choose a PIN that is not your birthday.",
+  "remindersTitle": "Reminders",
+  "reminderPeriod": "Period coming",
+  "reminderFertile": "Fertile window",
+  "reminderPill": "Daily pill",
+  "reminderNote": "Notifications never show health details. They only say \"Donzela reminder\".",
+  "startApp": "Start using Donzela",
+  "pinEnterTitle": "Enter your PIN",
+  "pinNewTitle": "Set a new PIN",
+  "pinConfirmTitle": "Enter the PIN again",
+  "pinWrong": "Wrong PIN. Try again.",
+  "pinLockedFor": "Try again in {seconds} seconds",
+  "@pinLockedFor": {
+    "placeholders": {
+      "seconds": {
+        "type": "int"
+      }
+    }
+  },
+  "forgotPin": "Forgot PIN?",
+  "resetPinTitle": "Forgot PIN?",
+  "resetPinBody": "You can delete all data on this phone. If a cloud backup exists, you can restore it.",
+  "deleteBtn": "Delete",
+  "cancelBtn": "Cancel",
+  "confirmBtn": "Confirm",
+  "yes": "Yes",
+  "no": "No",
+  "saveBtn": "Save",
+  "greetingMorning": "Good morning",
+  "greetingAfternoon": "Good afternoon",
+  "onWeekday": "On",
+  "todayCycleDay": "Cycle day",
+  "phasePeriod": "Period",
+  "phaseFertile": "Fertile window",
+  "phaseOvulation": "Ovulation",
+  "phaseNormal": "Normal",
+  "phasePredictedPeriod": "Predicted period",
+  "nextPeriodIn": "Next period in {days} days · around {date}",
+  "@nextPeriodIn": {
+    "placeholders": {
+      "days": {
+        "type": "int"
+      },
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "nextPeriodLate": "Period is late · expected {date}",
+  "@nextPeriodLate": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "estimateChip": "Estimate",
+  "firstEstimate": "First estimate",
+  "getStartedTitle": "Get started",
+  "checkOnboarding": "Finished setup",
+  "checkFirstCycle": "Last period date saved",
+  "checkPrediction": "First estimate ready",
+  "checkLogToday": "Logged today",
+  "firstUseBody": "Log your next 2 periods and Donzela will learn how your body works.",
+  "upcomingNotice": "Predictions get sharper over time",
+  "estimatesOnly": "Predictions are estimates only and are not contraception advice.",
+  "tipTitle": "Tip for today",
+  "tipPeriod": "A warm compress on your belly can ease cramps. Rest when you need to.",
+  "tipFollicular": "Early in the cycle you may feel more energy. It is a good time for light exercise.",
+  "tipFertile": "In the fertile days you may feel more energy and notice clear, slippery discharge. This is normal.",
+  "tipLuteal": "You may feel tired or anxious. Drinking water and resting helps.",
+  "readMore": "Read more",
+  "todayTitle": "Today",
+  "calendarTab": "Calendar",
+  "learnTab": "Learn",
+  "helpTab": "Help",
+  "calendarTitle": "Calendar",
+  "legendPeriod": "Period",
+  "legendPredicted": "Predicted",
+  "legendFertile": "Fertile",
+  "legendOvulation": "Ovulation",
+  "historyTitle": "Cycle history",
+  "avgCycle": "Average cycle",
+  "avgPeriod": "Average period",
+  "daysCount": "{n} days",
+  "@daysCount": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
+  "reportBtn": "Nurse report",
+  "confLow": "Low confidence",
+  "confMedium": "Medium confidence",
+  "confHigh": "High confidence",
+  "flagIrregular": "Your cycles vary a lot. Read about irregular cycles.",
+  "flagLate": "Your period is more than 7 days late.",
+  "monthPrev": "Previous month",
+  "monthNext": "Next month",
+  "dayStartQ": "Did your period start today?",
+  "periodStartHere": "Period starts here",
+  "periodEndHere": "Period ends here",
+  "periodEnded": "Period ended",
+  "logSheetTitle": "Log today",
+  "flowTitle": "Flow",
+  "flowNone": "None",
+  "flowSpotting": "Spotting",
+  "flowMedium": "Medium",
+  "flowHeavy": "Heavy",
+  "symptomsTitle": "Symptoms",
+  "moodTitle": "How you feel",
+  "notesTitle": "Notes",
+  "notesHint": "Anything else you want to write?",
+  "symptomCramps": "Cramps",
+  "symptomHeadache": "Headache",
+  "symptomBackache": "Backache",
+  "symptomBloating": "Bloating",
+  "symptomAcne": "Acne",
+  "symptomBreast": "Sore breasts",
+  "symptomFatigue": "Fatigue",
+  "moodCalm": "Calm",
+  "moodHappy": "Happy",
+  "moodSad": "Sad",
+  "moodIrritable": "Irritable",
+  "moodAnxious": "Anxious",
+  "reportTitle": "Report for your nurse",
+  "reportSummary": "Cycle summary",
+  "reportCycleCol": "Cycle (days)",
+  "reportPeriodCol": "Period (days)",
+  "reportLast": "Last",
+  "reportStartCol": "Start",
+  "reportLengthCol": "Length",
+  "reportPeriodLenCol": "Period",
+  "reportSymptoms": "Most logged symptoms",
+  "reportFooter": "Made by Donzela. Estimates only, not a medical diagnosis.",
+  "reportNoData": "No periods logged yet.",
+  "sharePdf": "Share as PDF",
+  "showOnPhone": "Show on phone",
+  "learnTitle": "Learn",
+  "learnSubtitle": "Every article is reviewed by a midwife",
+  "searchHint": "e.g. period pain",
+  "filterAll": "All",
+  "filterMine": "Your cycle",
+  "filterHygiene": "Period hygiene",
+  "filterContraception": "Contraception",
+  "reviewedBy": "Reviewed by {name}, {date}",
+  "@reviewedBy": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      },
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "noArticles": "No reviewed articles are available yet.",
+  "saveArticle": "Save article",
+  "savedArticle": "Saved",
+  "helpTitle": "Find help",
+  "helpSubtitle": "Free services that keep your privacy, near you",
+  "emergencyTitle": "Emergency help",
+  "isangeCentre": "Isange One Stop Centre",
+  "ambulance": "Ambulance (SAMU)",
+  "yourDistrict": "Your district",
+  "centresNone": "Health centres for this district are not listed yet.",
+  "callBtn": "Call",
+  "settingsTitle": "Settings",
+  "sectionPrefs": "PREFERENCES",
+  "sectionPrivacy": "PRIVACY",
+  "languageSetting": "Language",
+  "pinSetting": "Lock with PIN",
+  "changePin": "Change PIN",
+  "analyticsSetting": "Usage numbers",
+  "analyticsNote": "Numbers with no health information, to help improve Donzela. You can turn this off.",
+  "backupSetting": "Cloud backup",
+  "backupNote": "Your cycle data is stored only on this phone. Turn on backup so it is not lost if you change phones.",
+  "backupExplain": "Backup uploads your cycle data to the cloud. We will ask for your consent first.",
+  "backupConsentBtn": "I agree",
+  "backupUnavailable": "Cloud backup is not available in this version yet.",
+  "deleteAllBtn": "Delete all my data",
+  "deleteAllTitle": "Delete all data?",
+  "deleteAllBody": "This deletes all data on this phone and in the cloud. It cannot be undone.",
+  "privacyPolicyLink": "Privacy policy",
+  "firstNameLabel": "Your first name (optional)",
+  "setPinBtn": "Set PIN",
+  "remindersOff": "Reminders are off",
+  "reminderPeriodText": "Period reminders",
+  "notifTitle": "Donzela reminder",
+  "notifBody": "Open Donzela to see",
+  "pillTimeLabel": "Pill time",
+  "genericError": "Something went wrong. Try again.",
+  "deleteDone": "Data deleted.",
+  "m1": "January",
+  "m2": "February",
+  "m3": "March",
+  "m4": "April",
+  "m5": "May",
+  "m6": "June",
+  "m7": "July",
+  "m8": "August",
+  "m9": "September",
+  "m10": "October",
+  "m11": "November",
+  "m12": "December",
+  "w1": "Mo",
+  "w2": "Tu",
+  "w3": "We",
+  "w4": "Th",
+  "w5": "Fr",
+  "w6": "Sa",
+  "w7": "Su",
+  "d1": "Monday",
+  "d2": "Tuesday",
+  "d3": "Wednesday",
+  "d4": "Thursday",
+  "d5": "Friday",
+  "d6": "Saturday",
+  "d7": "Sunday",
+  "appFooter": "Donzela 1.0 · Made in Kigali by Hova AI",
+  "logToday": "Log today",
+  "draftBadge": "Draft, not yet reviewed",
+  "logsTitle": "Your logs",
+  "logsOpenBtn": "Your logs",
+  "tabLogs": "Logs",
+  "tabInsights": "Insights",
+  "noLogs": "No days logged yet. Days you log will appear here.",
+  "logDeleteTitle": "Delete this entry?",
+  "logDeleteBody": "What you logged for this day will be deleted. This cannot be undone.",
+  "insightsDaysLogged": "Days logged: {n}",
+  "@insightsDaysLogged": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
+  "insightsCyclesTracked": "Cycles tracked: {n}",
+  "@insightsCyclesTracked": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
+  "insightsCycleRange": "Cycle length: {min}–{max} days",
+  "@insightsCycleRange": {
+    "placeholders": {
+      "min": {
+        "type": "int"
+      },
+      "max": {
+        "type": "int"
+      }
+    }
+  },
+  "insightsSymptoms": "Most common symptoms",
+  "insightsMoods": "Most common moods",
+  "insightsFlow": "Flow during periods",
+  "insightsByPhase": "By cycle phase",
+  "insightsCountOf": "{count} of {total} days",
+  "@insightsCountOf": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "insightsNoData": "Log a few days to see your patterns.",
+  "insightsDisclaimer": "These numbers come only from what you logged. They are not a medical diagnosis.",
+  "noteEmpty": "No note",
+  "authSignIn": "Sign in with Google",
+  "authSignOut": "Sign out",
+  "authSignedInAs": "Signed in as {email}",
+  "authSignInFailed": "Sign-in did not work. Try again.",
+  "cloudUnavailable": "Backup is not available right now. Try again later.",
+  "restoreHint": "Already use Donzela? Sign in to restore your data.",
+  "restoreFound": "Your data is back.",
+  "restoreNone": "No backup was found for this account. Continue setting up.",
+  "backupStarted": "Backup is on. Changes are uploaded as you make them.",
+  "@authSignedInAs": {
+    "placeholders": {
+      "email": {
+        "type": "String"
+      }
+    }
+  },
+  "legendToday": "Today",
+  "centreNextPeriodLabel": "Period in",
+  "centreDaysUnit": "days",
+  "centreLate": "Period is late",
+  "fertileWindowLine": "Fertile window: {from} – {to}",
+  "@fertileWindowLine": {
+    "placeholders": {
+      "from": {
+        "type": "String"
+      },
+      "to": {
+        "type": "String"
+      }
+    }
+  },
+  "todayLoggedLine": "Logged today: {items}",
+  "@todayLoggedLine": {
+    "placeholders": {
+      "items": {
+        "type": "String"
+      }
+    }
+  },
+  "insightsShortcut": "See your insights",
+  "entryTimeLabel": "Time",
+  "editEntryTitle": "Edit entry",
+  "entriesToday": "Entries for this day",
+  "filterByDate": "Filter by date",
+  "clearFilter": "Clear filter",
+  "addEntryBtn": "Add entry",
+  "noEntriesOnDay": "Nothing logged on this day.",
+  "goToday": "Today",
+  "regularCycles": "Regular cycles",
+  "irregularCycles": "Irregular cycles",
+  "navAccount": "Account",
+  "accountTitle": "Account",
+  "accountSignedOutBody": "Sign in with Google to back up your data, share it between phones, and restore it when you need it.",
+  "accountBackupOff": "Backup is off. Your data stays on this phone only.",
+  "accountBackupOn": "Backup is on. Changes upload as you make them.",
+  "accountLastSync": "Last synced: {when}",
+  "@accountLastSync": {
+    "placeholders": {
+      "when": {
+        "type": "String"
+      }
+    }
+  },
+  "accountNeverSynced": "Not synced yet",
+  "accountPending": "Waiting to sync: {n}",
+  "@accountPending": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
+  "accountSyncNow": "Sync now",
+  "accountSyncDone": "Synced.",
+  "accountPull": "Pull recent updates",
+  "accountPullBody": "Bring back your logs, cycles and settings from the cloud, plus the latest articles and health centres. You choose when.",
+  "accountPulled": "Restored: {n} records",
+  "@accountPulled": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
+  "accountNothingNew": "Nothing new.",
+  "accountTurnOnBackup": "Turn on backup",
+  "accountBusy": "Working...",
+  "adminBadge": "Super-admin",
+  "adminOnlyBadgeBody": "You are the super-admin: you can add, edit and delete Learn articles and everything in Help.",
+  "adminAddArticle": "Add article",
+  "adminEditArticle": "Edit article",
+  "adminDeleteBody": "This will be removed for everyone.",
+  "fieldTitle": "Title",
+  "fieldBody": "Full text (Markdown)",
+  "fieldCategory": "Category",
+  "fieldLanguage": "Language",
+  "fieldReviewer": "Reviewed by (leave empty if not reviewed)",
+  "adminEditHelp": "Edit emergency numbers",
+  "fieldIsangeNumber": "Isange One Stop Centre number",
+  "fieldAmbulanceNumber": "Ambulance number",
+  "adminAddCentre": "Add health centre",
+  "adminEditCentre": "Edit health centre",
+  "fieldDistrict": "District",
+  "fieldSector": "Sector",
+  "fieldName": "Name",
+  "fieldPhone": "Phone",
+  "fieldServices": "Services",
+  "adminSaved": "Saved.",
+  "adminRequired": "Fill in the title and text.",
+  "accountProgress": "{percent}% done",
+  "backupNotOnTitle": "Backup is not on",
+  "backupNotOnBody": "Backup could not be turned on because Google sign-in did not finish. Try again.",
+  "backupRetryBtn": "Try again",
+  "okBtn": "OK",
+  "adminSavedLocal": "Saved on this phone. It will go to the cloud when you are online.",
+  "newDistrictNote": "New district. It will be added to the list when you save.",
+  "districtPickNote": "Pick a district, or type another one.",
+  "categoryHint": "Pick a category, or type a new one.",
+  "editTab": "Write",
+  "previewTab": "Preview",
+  "previewEmpty": "Nothing to preview yet.",
+  "boldTip": "Bold",
+  "italicTip": "Italic",
+  "headingTip": "Heading",
+  "listTip": "Bulleted list",
+  "quoteTip": "Quote",
+  "linkTip": "Link",
+  "@accountProgress": {
+    "placeholders": {
+      "percent": {
+        "type": "int"
+      }
+    }
+  },
+  "emergencyManage": "Emergency numbers",
+  "emergencyAdd": "Add number",
+  "emergencyEdit": "Edit number",
+  "emergencyNone": "No emergency numbers yet."
+}

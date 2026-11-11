@@ -1,0 +1,52 @@
+rules_version = '2';
+
+// Donzela security rules.
+// - A signed-in user reads and writes only her own users/{uid} tree.
+// - Daily check-in (checkins/{uid}) is written only by that user.
+// - Public content (articles, health_centres, config) is readable by everyone.
+//   Only the super-admin (verified Google account) can write it.
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    function signedIn() {
+      return request.auth != null;
+    }
+
+    function isOwner(uid) {
+      return signedIn() && request.auth.uid == uid;
+    }
+
+    function isSuperAdmin() {
+      return signedIn()
+        && request.auth.token.email == 'ncuti60@gmail.com'
+        && request.auth.token.email_verified == true;
+    }
+
+    match /users/{uid}/{document=**} {
+      allow read, write: if isOwner(uid);
+    }
+
+    match /checkins/{uid} {
+      allow read, write: if isOwner(uid);
+    }
+
+    match /articles/{id} {
+      allow read: if true;
+      allow write: if isSuperAdmin();
+    }
+
+    match /health_centres/{id} {
+      allow read: if true;
+      allow write: if isSuperAdmin();
+    }
+
+    match /config/{id} {
+      allow read: if true;
+      allow write: if isSuperAdmin();
+    }
+
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}
