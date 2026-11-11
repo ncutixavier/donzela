@@ -4,7 +4,6 @@ import 'package:google_sign_in/google_sign_in.dart';
 
 import '../../../firebase_options.dart' show googleWebClientId;
 import '../../core/config/admin.dart';
-import '../../core/config/google_client.dart';
 import '../cloud/profile_store.dart';
 
 /// Google sign-in for backup and restore (plan F2). Firebase is optional: when
