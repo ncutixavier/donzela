@@ -24,9 +24,12 @@ const _defaults = {
   'FIREBASE_PROJECT_ID': 'donzela',
   'FIREBASE_ANDROID_PACKAGE': 'health.donzela.donzela',
   'FIREBASE_IOS_BUNDLE_ID': 'health.donzela.donzela',
+  'FIREBASE_AUTH_DOMAIN': 'donzela.firebaseapp.com',
 };
 
 const _required = [
+  'FIREBASE_WEB_APP_ID',
+  'FIREBASE_WEB_API_KEY',
   'FIREBASE_MESSAGING_SENDER_ID',
   'FIREBASE_STORAGE_BUCKET',
   'FIREBASE_ANDROID_APP_ID',
@@ -109,7 +112,7 @@ const googleWebClientId = ${_str(v('GOOGLE_WEB_CLIENT_ID'))};
 class DefaultFirebaseOptions {
   static FirebaseOptions get currentPlatform {
     if (kIsWeb) {
-      throw UnsupportedError('Firebase is not configured for web.');
+      return web;
     }
     switch (defaultTargetPlatform) {
       case TargetPlatform.android:
@@ -128,6 +131,16 @@ class DefaultFirebaseOptions {
     projectId: ${_str(v('FIREBASE_PROJECT_ID'))},
     storageBucket: ${_str(v('FIREBASE_STORAGE_BUCKET'))},
     androidClientId: ${_str(v('FIREBASE_ANDROID_CLIENT_ID'))},
+  );
+
+  // The web app is the Hosting site. kIsWeb is checked first in currentPlatform.
+  static const FirebaseOptions web = FirebaseOptions(
+    apiKey: ${_str(v('FIREBASE_WEB_API_KEY'))},
+    appId: ${_str(v('FIREBASE_WEB_APP_ID'))},
+    messagingSenderId: ${_str(v('FIREBASE_MESSAGING_SENDER_ID'))},
+    projectId: ${_str(v('FIREBASE_PROJECT_ID'))},
+    authDomain: ${_str(v('FIREBASE_AUTH_DOMAIN'))},
+    storageBucket: ${_str(v('FIREBASE_STORAGE_BUCKET'))},
   );
 
   static const FirebaseOptions ios = FirebaseOptions(

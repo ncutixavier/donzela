@@ -203,7 +203,11 @@ class _CalendarScreenState extends State<CalendarScreen> {
                         onPressed: _goToday,
                         child: Text(l.goToday),
                       ),
-                    SizedBox(
+                    // A calendar keeps a phone-sized grid on wide screens too.
+                    Center(
+                      child: ConstrainedBox(
+                        constraints: const BoxConstraints(maxWidth: 380),
+                        child: SizedBox(
                       height: 340,
                       child: PageView.builder(
                         controller: _pages,
@@ -218,6 +222,8 @@ class _CalendarScreenState extends State<CalendarScreen> {
                             onTap: (day) => setState(() => _selected = day),
                             onLongPress: (day) => _longPress(context, day),
                           ),
+                        ),
+                      ),
                         ),
                       ),
                     ),
