@@ -58,12 +58,15 @@ class SyncService {
   static const batchSize = 500;
 
   /// Runs only when backup is on. Returns the number of queue rows handled.
-  Future<int> run({required bool backupOn}) async {
+  /// [onProgress] gets a value from 0 to 1: 0 when it starts, 1 when it ends.
+  Future<int> run({required bool backupOn, void Function(double)? onProgress}) async {
     if (!backupOn) return 0;
     if (!await _isOnline()) return 0;
     final store = await _storeProvider();
     if (store == null) return 0;
 
+    onProgress?.call(0);
+    final planned = await pendingCount();
     var total = 0;
     while (true) {
       final batch = await _db.syncQueueDao.pending(limit: batchSize);
@@ -80,6 +83,8 @@ class SyncService {
       }
       await _db.syncQueueDao.markSynced(batch.map((r) => r.id).toList());
       total += batch.length;
+      // The last 5% is kept for the settings snapshot below.
+      if (planned > 0) onProgress?.call(0.95 * (total / planned).clamp(0, 1));
       if (batch.length < batchSize) break;
     }
 
@@ -94,6 +99,7 @@ class SyncService {
     } catch (_) {
       // Settings catch up on the next run.
     }
+    onProgress?.call(1);
     return total;
   }
 

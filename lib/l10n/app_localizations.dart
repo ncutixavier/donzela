@@ -1773,6 +1773,270 @@ abstract class AppLocalizations {
   /// In rw, this message translates to:
   /// **'Biragenda...'**
   String get accountBusy;
+
+  /// No description provided for @adminBadge.
+  ///
+  /// In rw, this message translates to:
+  /// **'Umuyobozi mukuru'**
+  String get adminBadge;
+
+  /// No description provided for @adminOnlyBadgeBody.
+  ///
+  /// In rw, this message translates to:
+  /// **'Uri umuyobozi mukuru: ushobora kongeramo, guhindura no gusiba inyandiko za Learn n\'ibyo muri Help.'**
+  String get adminOnlyBadgeBody;
+
+  /// No description provided for @adminAddArticle.
+  ///
+  /// In rw, this message translates to:
+  /// **'Ongeraho inyandiko'**
+  String get adminAddArticle;
+
+  /// No description provided for @adminEditArticle.
+  ///
+  /// In rw, this message translates to:
+  /// **'Hindura inyandiko'**
+  String get adminEditArticle;
+
+  /// No description provided for @adminDeleteBody.
+  ///
+  /// In rw, this message translates to:
+  /// **'Iyi nyandiko izasibwa ku bantu bose.'**
+  String get adminDeleteBody;
+
+  /// No description provided for @fieldTitle.
+  ///
+  /// In rw, this message translates to:
+  /// **'Umutwe'**
+  String get fieldTitle;
+
+  /// No description provided for @fieldBody.
+  ///
+  /// In rw, this message translates to:
+  /// **'Inyandiko yuzuye'**
+  String get fieldBody;
+
+  /// No description provided for @fieldCategory.
+  ///
+  /// In rw, this message translates to:
+  /// **'Icyiciro'**
+  String get fieldCategory;
+
+  /// No description provided for @fieldLanguage.
+  ///
+  /// In rw, this message translates to:
+  /// **'Ururimi'**
+  String get fieldLanguage;
+
+  /// No description provided for @fieldReviewer.
+  ///
+  /// In rw, this message translates to:
+  /// **'Yasuzumwe na (ubirangiza iyo ari byiza)'**
+  String get fieldReviewer;
+
+  /// No description provided for @adminEditHelp.
+  ///
+  /// In rw, this message translates to:
+  /// **'Hindura nimero z\'ihutirwa'**
+  String get adminEditHelp;
+
+  /// No description provided for @fieldIsangeNumber.
+  ///
+  /// In rw, this message translates to:
+  /// **'Nimero ya Isange One Stop Centre'**
+  String get fieldIsangeNumber;
+
+  /// No description provided for @fieldAmbulanceNumber.
+  ///
+  /// In rw, this message translates to:
+  /// **'Nimero y\'imbangukiragutabara'**
+  String get fieldAmbulanceNumber;
+
+  /// No description provided for @adminAddCentre.
+  ///
+  /// In rw, this message translates to:
+  /// **'Ongeraho ikigo nderabuzima'**
+  String get adminAddCentre;
+
+  /// No description provided for @adminEditCentre.
+  ///
+  /// In rw, this message translates to:
+  /// **'Hindura ikigo nderabuzima'**
+  String get adminEditCentre;
+
+  /// No description provided for @fieldDistrict.
+  ///
+  /// In rw, this message translates to:
+  /// **'Akarere'**
+  String get fieldDistrict;
+
+  /// No description provided for @fieldSector.
+  ///
+  /// In rw, this message translates to:
+  /// **'Umurenge'**
+  String get fieldSector;
+
+  /// No description provided for @fieldName.
+  ///
+  /// In rw, this message translates to:
+  /// **'Izina'**
+  String get fieldName;
+
+  /// No description provided for @fieldPhone.
+  ///
+  /// In rw, this message translates to:
+  /// **'Telefoni'**
+  String get fieldPhone;
+
+  /// No description provided for @fieldServices.
+  ///
+  /// In rw, this message translates to:
+  /// **'Serivisi'**
+  String get fieldServices;
+
+  /// No description provided for @adminSaved.
+  ///
+  /// In rw, this message translates to:
+  /// **'Byabitswe.'**
+  String get adminSaved;
+
+  /// No description provided for @adminRequired.
+  ///
+  /// In rw, this message translates to:
+  /// **'Uzuza umutwe n\'inyandiko.'**
+  String get adminRequired;
+
+  /// No description provided for @accountProgress.
+  ///
+  /// In rw, this message translates to:
+  /// **'Bigeze kuri {percent}%'**
+  String accountProgress(int percent);
+
+  /// No description provided for @backupNotOnTitle.
+  ///
+  /// In rw, this message translates to:
+  /// **'Backup ntiyafunguwe'**
+  String get backupNotOnTitle;
+
+  /// No description provided for @backupNotOnBody.
+  ///
+  /// In rw, this message translates to:
+  /// **'Backup ntiyafunguwe kuko kwinjira muri Google bitarangiye. Ongera ugerageze.'**
+  String get backupNotOnBody;
+
+  /// No description provided for @backupRetryBtn.
+  ///
+  /// In rw, this message translates to:
+  /// **'Ongera ugerageze'**
+  String get backupRetryBtn;
+
+  /// No description provided for @okBtn.
+  ///
+  /// In rw, this message translates to:
+  /// **'Sawa'**
+  String get okBtn;
+
+  /// No description provided for @adminSavedLocal.
+  ///
+  /// In rw, this message translates to:
+  /// **'Byabitswe kuri telefone. Bizajya kuri cloud igihe uri kuri internet.'**
+  String get adminSavedLocal;
+
+  /// No description provided for @newDistrictNote.
+  ///
+  /// In rw, this message translates to:
+  /// **'Akarere gashya. Kazongerwa ku rutonde igihe ubitse.'**
+  String get newDistrictNote;
+
+  /// No description provided for @districtPickNote.
+  ///
+  /// In rw, this message translates to:
+  /// **'Hitamo akarere cyangwa wandike irindi.'**
+  String get districtPickNote;
+
+  /// No description provided for @categoryHint.
+  ///
+  /// In rw, this message translates to:
+  /// **'Hitamo icyiciro cyangwa wandike gishya.'**
+  String get categoryHint;
+
+  /// No description provided for @editTab.
+  ///
+  /// In rw, this message translates to:
+  /// **'Andika'**
+  String get editTab;
+
+  /// No description provided for @previewTab.
+  ///
+  /// In rw, this message translates to:
+  /// **'Reba uko bigaragara'**
+  String get previewTab;
+
+  /// No description provided for @previewEmpty.
+  ///
+  /// In rw, this message translates to:
+  /// **'Nta nyandiko irimo.'**
+  String get previewEmpty;
+
+  /// No description provided for @boldTip.
+  ///
+  /// In rw, this message translates to:
+  /// **'Mugari'**
+  String get boldTip;
+
+  /// No description provided for @italicTip.
+  ///
+  /// In rw, this message translates to:
+  /// **'Iyegamiye'**
+  String get italicTip;
+
+  /// No description provided for @headingTip.
+  ///
+  /// In rw, this message translates to:
+  /// **'Umutwe'**
+  String get headingTip;
+
+  /// No description provided for @listTip.
+  ///
+  /// In rw, this message translates to:
+  /// **'Urutonde'**
+  String get listTip;
+
+  /// No description provided for @quoteTip.
+  ///
+  /// In rw, this message translates to:
+  /// **'Interuro'**
+  String get quoteTip;
+
+  /// No description provided for @linkTip.
+  ///
+  /// In rw, this message translates to:
+  /// **'Ihuza'**
+  String get linkTip;
+
+  /// No description provided for @emergencyManage.
+  ///
+  /// In rw, this message translates to:
+  /// **'Nimero z\'ihutirwa'**
+  String get emergencyManage;
+
+  /// No description provided for @emergencyAdd.
+  ///
+  /// In rw, this message translates to:
+  /// **'Ongeraho nimero'**
+  String get emergencyAdd;
+
+  /// No description provided for @emergencyEdit.
+  ///
+  /// In rw, this message translates to:
+  /// **'Hindura nimero'**
+  String get emergencyEdit;
+
+  /// No description provided for @emergencyNone.
+  ///
+  /// In rw, this message translates to:
+  /// **'Nta nimero z\'ihutirwa zirahari.'**
+  String get emergencyNone;
 }
 
 class _AppLocalizationsDelegate

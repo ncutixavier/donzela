@@ -1,10 +1,10 @@
 rules_version = '2';
 
-// Donzela security rules (implementation plan F2 / F7).
+// Donzela security rules.
 // - A signed-in user reads and writes only her own users/{uid} tree.
-// - Public content (articles, health_centres) is read-only for everyone.
 // - Daily check-in (checkins/{uid}) is written only by that user.
-// Nothing else is accessible.
+// - Public content (articles, health_centres, config) is readable by everyone.
+//   Only the super-admin (verified Google account) can write it.
 service cloud.firestore {
   match /databases/{database}/documents {
 
@@ -14,6 +14,12 @@ service cloud.firestore {
 
     function isOwner(uid) {
       return signedIn() && request.auth.uid == uid;
+    }
+
+    function isSuperAdmin() {
+      return signedIn()
+        && request.auth.token.email == 'ncuti60@gmail.com'
+        && request.auth.token.email_verified == true;
     }
 
     match /users/{uid}/{document=**} {
@@ -26,12 +32,17 @@ service cloud.firestore {
 
     match /articles/{id} {
       allow read: if true;
-      allow write: if false;
+      allow write: if isSuperAdmin();
     }
 
     match /health_centres/{id} {
       allow read: if true;
-      allow write: if false;
+      allow write: if isSuperAdmin();
+    }
+
+    match /config/{id} {
+      allow read: if true;
+      allow write: if isSuperAdmin();
     }
 
     match /{document=**} {

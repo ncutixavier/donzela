@@ -6,6 +6,7 @@ import 'core/l10n/localization.dart';
 import 'core/router/app_router.dart';
 import 'core/theme/app_theme.dart';
 import 'features/account/cloud_controller.dart';
+import 'features/admin/admin_controller.dart';
 import 'features/lock/lock_controller.dart';
 import 'features/settings/settings_controller.dart';
 import 'features/today/cycle_controller.dart';
@@ -68,6 +69,8 @@ class _DonzelaAppState extends State<DonzelaApp> with WidgetsBindingObserver {
         // Sync whenever the app comes back to the foreground.
         final cloud = context.read<CloudController>();
         cloud.syncNow().ignore();
+        // Admin content saved while offline goes up now that the app is back.
+        context.read<AdminController>().flush().ignore();
         cloud.checkIn().ignore();
         context.read<CycleController>().refresh();
       case AppLifecycleState.detached:

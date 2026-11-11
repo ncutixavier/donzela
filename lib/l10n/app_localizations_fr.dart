@@ -919,4 +919,143 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get accountBusy => 'En cours...';
+
+  @override
+  String get adminBadge => 'Super-administrateur';
+
+  @override
+  String get adminOnlyBadgeBody =>
+      'Vous êtes super-administrateur : vous pouvez ajouter, modifier et supprimer les articles Apprendre et tout le contenu Aide.';
+
+  @override
+  String get adminAddArticle => 'Ajouter un article';
+
+  @override
+  String get adminEditArticle => 'Modifier l\'article';
+
+  @override
+  String get adminDeleteBody => 'Cela sera supprimé pour tout le monde.';
+
+  @override
+  String get fieldTitle => 'Titre';
+
+  @override
+  String get fieldBody => 'Texte complet (Markdown)';
+
+  @override
+  String get fieldCategory => 'Catégorie';
+
+  @override
+  String get fieldLanguage => 'Langue';
+
+  @override
+  String get fieldReviewer => 'Relu par (vide si non relu)';
+
+  @override
+  String get adminEditHelp => 'Modifier les numéros d\'urgence';
+
+  @override
+  String get fieldIsangeNumber => 'Numéro d\'Isange One Stop Centre';
+
+  @override
+  String get fieldAmbulanceNumber => 'Numéro de l\'ambulance';
+
+  @override
+  String get adminAddCentre => 'Ajouter un centre de santé';
+
+  @override
+  String get adminEditCentre => 'Modifier le centre de santé';
+
+  @override
+  String get fieldDistrict => 'District';
+
+  @override
+  String get fieldSector => 'Secteur';
+
+  @override
+  String get fieldName => 'Nom';
+
+  @override
+  String get fieldPhone => 'Téléphone';
+
+  @override
+  String get fieldServices => 'Services';
+
+  @override
+  String get adminSaved => 'Enregistré.';
+
+  @override
+  String get adminRequired => 'Remplissez le titre et le texte.';
+
+  @override
+  String accountProgress(int percent) {
+    return '$percent % terminé';
+  }
+
+  @override
+  String get backupNotOnTitle => 'La sauvegarde n\'est pas activée';
+
+  @override
+  String get backupNotOnBody =>
+      'La sauvegarde n\'a pas pu être activée car la connexion Google n\'a pas abouti. Réessayez.';
+
+  @override
+  String get backupRetryBtn => 'Réessayer';
+
+  @override
+  String get okBtn => 'OK';
+
+  @override
+  String get adminSavedLocal =>
+      'Enregistré sur ce téléphone. Il sera envoyé dans le cloud dès que vous serez en ligne.';
+
+  @override
+  String get newDistrictNote =>
+      'Nouveau district. Il sera ajouté à la liste à l\'enregistrement.';
+
+  @override
+  String get districtPickNote => 'Choisissez un district ou tapez-en un autre.';
+
+  @override
+  String get categoryHint =>
+      'Choisissez une catégorie ou tapez-en une nouvelle.';
+
+  @override
+  String get editTab => 'Écrire';
+
+  @override
+  String get previewTab => 'Aperçu';
+
+  @override
+  String get previewEmpty => 'Rien à afficher pour l\'instant.';
+
+  @override
+  String get boldTip => 'Gras';
+
+  @override
+  String get italicTip => 'Italique';
+
+  @override
+  String get headingTip => 'Titre';
+
+  @override
+  String get listTip => 'Liste à puces';
+
+  @override
+  String get quoteTip => 'Citation';
+
+  @override
+  String get linkTip => 'Lien';
+
+  @override
+  String get emergencyManage => 'Numéros d\'urgence';
+
+  @override
+  String get emergencyAdd => 'Ajouter un numéro';
+
+  @override
+  String get emergencyEdit => 'Modifier le numéro';
+
+  @override
+  String get emergencyNone => 'Aucun numéro d\'urgence pour l\'instant.';
 }

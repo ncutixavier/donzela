@@ -107,6 +107,23 @@ class ContentDao extends DatabaseAccessor<DonzelaDatabase>
       (update(articles)..where((a) => a.id.equals(id) & a.lang.equals(lang)))
           .write(ArticlesCompanion(saved: Value(saved)));
 
+  Future<void> deleteArticle(String id, String lang) async {
+    await (delete(articles)..where((a) => a.id.equals(id) & a.lang.equals(lang))).go();
+    await customStatement(
+      'DELETE FROM articles_fts WHERE id = ? AND lang = ?',
+      [id, lang],
+    );
+  }
+
+  Future<void> deleteCentre(String id) =>
+      (delete(healthCentres)..where((h) => h.id.equals(id))).go();
+
+  /// Every health centre, for building the district list and the "All" view.
+  Future<List<HealthCentreRow>> allCentres() => select(healthCentres).get();
+
+  /// Every article in every language, for building the category list.
+  Future<List<ArticleRow>> everyArticle() => select(articles).get();
+
   Future<List<HealthCentreRow>> centresIn(String district) =>
       (select(healthCentres)
             ..where((h) => h.district.equals(district))
@@ -147,6 +164,32 @@ class ContentDao extends DatabaseAccessor<DonzelaDatabase>
       'INSERT INTO articles_fts (id, lang, title, body) VALUES (?, ?, ?, ?)',
       [id, lang, title, body],
     );
+  }
+}
+
+@DriftAccessor(tables: [ContentOutbox])
+class ContentOutboxDao extends DatabaseAccessor<DonzelaDatabase>
+    with _$ContentOutboxDaoMixin {
+  ContentOutboxDao(super.db);
+
+  Future<void> add(String kind, String payload, DateTime now) =>
+      into(contentOutbox).insert(ContentOutboxCompanion.insert(
+        kind: kind,
+        payload: payload,
+        createdAt: now,
+      ));
+
+  /// Oldest first, so changes reach the cloud in the order they were made.
+  Future<List<ContentOutboxRow>> pending() =>
+      (select(contentOutbox)..orderBy([(o) => OrderingTerm.asc(o.id)])).get();
+
+  Future<void> remove(int id) =>
+      (delete(contentOutbox)..where((o) => o.id.equals(id))).go();
+
+  Future<int> count() async {
+    final c = contentOutbox.id.count();
+    final q = selectOnly(contentOutbox)..addColumns([c]);
+    return (await q.map((r) => r.read(c)).getSingle()) ?? 0;
   }
 }
 

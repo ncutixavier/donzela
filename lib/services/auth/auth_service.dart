@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
+import '../../core/config/admin.dart';
 import '../../core/config/google_client.dart';
 
 /// Google sign-in for backup and restore (plan F2). Firebase is optional: when
@@ -18,6 +19,12 @@ class AuthService {
   String? get uid => currentUser?.uid;
   String? get email => currentUser?.email;
   bool get isSignedIn => currentUser != null;
+
+  /// True when the signed-in account is the super-admin (verified address).
+  bool get isSuperAdmin => isSuperAdminEmail(
+        currentUser?.email,
+        emailVerified: currentUser?.emailVerified ?? false,
+      );
 
   /// Must run once before the first Google sign-in.
   Future<void> init() async {

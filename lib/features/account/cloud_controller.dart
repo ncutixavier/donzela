@@ -52,27 +52,60 @@ class CloudController extends ChangeNotifier {
   }
 
   /// Pulls the signed-in user's data onto this phone. Returns what was found.
-  Future<RestoreResult> restore() async {
+  Future<RestoreResult> restore({void Function(double)? onProgress}) async {
     final store = _store();
-    final result = await RestoreService(_db, store).run();
+    final result = await RestoreService(_db, store).run(onProgress: onProgress);
     await _settings.load();
     return result;
   }
 
   /// Pulls public articles and health centres, so Learn and Help stay current.
-  Future<void> pullPublicContent() async {
+  /// [onProgress] reports 0 to 1 across the three reads (articles, centres, numbers).
+  Future<void> pullPublicContent({void Function(double)? onProgress}) async {
     final db = _firestore;
     if (db == null) return;
+    onProgress?.call(0);
     final articles = await FirestoreCloudStore.publicCollection(db, 'articles');
+    onProgress?.call(1 / 3);
     final centres =
         await FirestoreCloudStore.publicCollection(db, 'health_centres');
+    onProgress?.call(2 / 3);
     await _content.applyRemote(articles: articles, centres: centres);
+    final emergency = await FirestoreCloudStore.publicDoc(db, 'config', 'emergency');
+    if (emergency != null) {
+      final list = emergency['contacts'];
+      if (list is List) {
+        // Current format: the full list of contacts.
+        await _content.setEmergencyContacts([
+          for (final e in list)
+            EmergencyContact.fromJson(Map<String, dynamic>.from(e as Map)),
+        ]);
+      } else {
+        // Older format: the two fixed numbers.
+        await _content.setEmergencyContacts([
+          EmergencyContact(
+            id: 'isange',
+            name: '',
+            number: (emergency['isange'] ?? ContentRepository.defaultIsange).toString(),
+          ),
+          EmergencyContact(
+            id: 'ambulance',
+            name: '',
+            number: (emergency['ambulance'] ?? ContentRepository.defaultAmbulance).toString(),
+          ),
+        ]);
+      }
+    }
+    onProgress?.call(1);
   }
 
   /// Uploads queued changes now, when backup is on. The last-sync time is
   /// recorded only when nothing is left waiting.
-  Future<int> syncNow() async {
-    final handled = await _sync.run(backupOn: _settings.settings.backupOn);
+  Future<int> syncNow({void Function(double)? onProgress}) async {
+    final handled = await _sync.run(
+      backupOn: _settings.settings.backupOn,
+      onProgress: onProgress,
+    );
     if (_settings.settings.backupOn && await _sync.pendingCount() == 0) {
       await _settings.setLastSync(DateTime.now());
     }

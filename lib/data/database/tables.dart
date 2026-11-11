@@ -84,3 +84,14 @@ class SyncQueue extends Table {
   DateTimeColumn get createdAt => dateTime()();
   BoolColumn get synced => boolean().withDefault(const Constant(false))();
 }
+
+/// Admin content changes (articles, health centres, emergency numbers) that
+/// are saved on this phone and wait to reach the cloud. Written first, so
+/// the admin can keep working offline; sent in order when online.
+@DataClassName('ContentOutboxRow')
+class ContentOutbox extends Table {
+  IntColumn get id => integer().autoIncrement()();
+  TextColumn get kind => text()(); // article | delete_article | centre | delete_centre | emergency
+  TextColumn get payload => text()(); // JSON
+  DateTimeColumn get createdAt => dateTime()();
+}
