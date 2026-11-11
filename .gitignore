@@ -44,10 +44,12 @@ app.*.map.json
 /android/app/profile
 /android/app/release
 
-# Firebase client config. Generated per machine with `flutterfire configure`;
-# never commit them (the API key is flagged by secret scanning).
+# Firebase client config. Generated from environment variables by
+# tool/generate_firebase_config.dart. Never commit them (the API key is flagged
+# by secret scanning).
 android/app/google-services.json
 ios/Runner/GoogleService-Info.plist
 lib/firebase_options.dart
 
+# Local environment values for Firebase (see .env.example). Never commit.
 .env

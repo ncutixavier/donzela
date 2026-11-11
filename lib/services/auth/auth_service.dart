@@ -2,8 +2,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
+import '../../../firebase_options.dart' show googleWebClientId;
 import '../../core/config/admin.dart';
-import '../../core/config/google_client.dart';
 import '../cloud/profile_store.dart';
 
 /// Google sign-in for backup and restore (plan F2). Firebase is optional: when
@@ -69,7 +69,7 @@ class AuthService {
   /// Must run once before the first Google sign-in.
   Future<void> init() async {
     if (_googleReady) return;
-    await GoogleSignIn.instance.initialize(serverClientId: googleServerClientId);
+    await GoogleSignIn.instance.initialize(serverClientId: googleWebClientId);
     _googleReady = true;
   }
 

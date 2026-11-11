@@ -57,6 +57,17 @@ contraception and emergency contraception.
 - Google sign-in is used for backup and restore. Anonymous sign-in is enabled in the console but the app does not use it.
 - Firebase is optional at runtime. If it cannot start, the app runs offline with backup disabled.
 
+## Configuration (Firebase and environment)
+
+Firebase client settings are not stored in the repository. They come from environment variables:
+
+- **Locally:** copy `.env.example` to `.env` (gitignored), fill in the values from the Firebase console and Google Cloud Console, then run `dart run tool/generate_firebase_config.dart`. This writes `lib/firebase_options.dart`, `android/app/google-services.json` and `ios/Runner/GoogleService-Info.plist`, all gitignored.
+- **Without values:** the generator writes placeholders and prints a warning. The app then runs offline, and tests and CI still compile.
+- **CI:** the same names are GitHub Actions secrets (repository settings, Secrets and variables, Actions). The workflow in `.github/workflows/ci.yml` writes the files before analysis, tests and the Android build.
+- **iOS URL scheme:** `ios/Runner/Info.plist` needs the reversed iOS client ID as a URL scheme. The generator prints the value to use.
+
+Never commit `.env` or the generated files. The Google API key in them is flagged by secret scanning.
+
 ## Not yet done (see plan)
 
 - **iOS build**: `pod install` could not resolve FirebaseAnalytics 12.19.3 from the local CocoaPods spec repo, so the iOS build is unverified.
