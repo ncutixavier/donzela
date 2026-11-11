@@ -5,8 +5,11 @@ import 'package:provider/provider.dart';
 import '../../core/l10n/localization.dart';
 import '../../core/theme/app_theme.dart';
 import '../../data/database/database.dart';
+import '../../data/seed/seed_content.dart';
 import '../learn/category_labels.dart';
+import '../learn/learn_controller.dart';
 import 'admin_controller.dart';
+import 'article_publish.dart';
 
 /// Add or edit a Learn article. Only the super-admin can open this (the Learn
 /// tab shows the entry points only to the super-admin, and Firestore enforces
@@ -18,12 +21,17 @@ class ArticleEditorScreen extends StatefulWidget {
   const ArticleEditorScreen({
     super.key,
     this.existing,
+    this.source,
     required this.lang,
     required this.categories,
   });
 
   /// Null for a new article.
   final ArticleRow? existing;
+
+  /// Set when translating: the article in another language. Its text is
+  /// copied in, and the translation keeps the same id.
+  final ArticleRow? source;
   final String lang;
 
   /// Category keys offered in the picker (defaults plus existing ones).
@@ -34,14 +42,57 @@ class ArticleEditorScreen extends StatefulWidget {
 }
 
 class _ArticleEditorScreenState extends State<ArticleEditorScreen> {
-  late final _title = TextEditingController(text: widget.existing?.title ?? '');
-  late final _body = TextEditingController(text: widget.existing?.body ?? '');
-  late final _reviewer = TextEditingController(text: widget.existing?.reviewedBy ?? '');
+  late final _title = TextEditingController(
+      text: widget.existing?.title ?? widget.source?.title ?? '');
+  late final _body = TextEditingController(
+      text: widget.existing?.body ?? widget.source?.body ?? '');
+  // A translation needs its own reviewer, so the source's reviewer is not copied.
+  late final _reviewer = TextEditingController(
+      text: (widget.existing?.reviewedBy ?? '') == defaultReviewer
+          ? ''
+          : widget.existing?.reviewedBy ?? '');
   late String _lang = widget.existing?.lang ?? widget.lang;
   // The category picker's own controller, set when its field is built.
   TextEditingController? _categoryText;
   bool _preview = false;
   bool _saving = false;
+
+  /// The article in each language it exists in, for the Translations section.
+  Map<String, ArticleRow> _rows = const {};
+
+  @override
+  void initState() {
+    super.initState();
+    _loadLanguages();
+  }
+
+  Future<void> _loadLanguages() async {
+    final id = widget.existing?.id;
+    if (id == null) return;
+    final rows = await context.read<LearnController>().articlesOf(id);
+    if (mounted) setState(() => _rows = rows);
+  }
+
+  /// Opens the editor for one language of this article. A language that
+  /// does not exist yet starts as a copy of the article being edited.
+  Future<void> _openLanguage(String lang) async {
+    final article = widget.existing;
+    if (article == null) return;
+    // The existing translation (if any) is loaded before the editor opens.
+    final existing = await context.read<LearnController>().fetch(article.id, lang);
+    if (!mounted) return;
+    final changed = await Navigator.of(context).push<bool>(
+      MaterialPageRoute(
+        builder: (_) => ArticleEditorScreen(
+          existing: existing,
+          source: article,
+          lang: lang,
+          categories: widget.categories,
+        ),
+      ),
+    );
+    if (changed == true && mounted) await _loadLanguages();
+  }
 
   @override
   void dispose() {
@@ -61,6 +112,62 @@ class _ArticleEditorScreenState extends State<ArticleEditorScreen> {
     return AdminController.categoryKey(typed);
   }
 
+  String _fieldName(AppLocalizations l, String field) => switch (field) {
+        'title' => l.fieldTitle,
+        'body' => l.fieldBody,
+        'category' => l.fieldCategory,
+        _ => l.fieldReviewer,
+      };
+
+  /// Human-readable list of what is missing, per language.
+  String _problemText(AppLocalizations l, Map<String, List<String>> problems) {
+    return problems.entries.map((e) {
+      final what = e.value.contains('missing')
+          ? l.statusMissing
+          : e.value.map((f) => _fieldName(l, f)).join(', ');
+      return '${_langName(l, e.key)}: $what';
+    }).join('; ');
+  }
+
+  /// Saves this language as a draft, then publishes all languages together.
+  /// Nothing goes live unless every language is ready.
+  Future<void> _publish() async {
+    final l = AppLocalizations.of(context);
+    final messenger = ScaffoldMessenger.of(context);
+    final admin = context.read<AdminController>();
+    final id = widget.existing?.id;
+    if (id == null) return;
+    setState(() => _saving = true);
+    try {
+      await admin.saveDraft(
+            id: id,
+            lang: _lang,
+            category: _keyFor(l, _categoryText?.text ?? ''),
+            title: _title.text,
+            body: _body.text,
+            reviewer: _reviewer.text,
+          );
+      final synced = await admin.publishArticle(id);
+      if (!mounted) return;
+      messenger.showSnackBar(
+        SnackBar(content: Text(synced ? l.publishedAll : l.adminSavedLocal)),
+      );
+      Navigator.of(context).pop(true);
+    } on PublishIncomplete catch (e) {
+      if (mounted) {
+        messenger.showSnackBar(
+          SnackBar(content: Text('${l.publishNotReady}: ${_problemText(l, e.problems)}')),
+        );
+        setState(() => _saving = false);
+      }
+    } catch (_) {
+      if (mounted) {
+        messenger.showSnackBar(SnackBar(content: Text(l.authSignInFailed)));
+        setState(() => _saving = false);
+      }
+    }
+  }
+
   Future<void> _save() async {
     final l = AppLocalizations.of(context);
     final messenger = ScaffoldMessenger.of(context);
@@ -71,8 +178,8 @@ class _ArticleEditorScreenState extends State<ArticleEditorScreen> {
     }
     setState(() => _saving = true);
     try {
-      final synced = await context.read<AdminController>().saveArticle(
-            id: widget.existing?.id,
+      final synced = await context.read<AdminController>().saveDraft(
+            id: widget.existing?.id ?? widget.source?.id,
             lang: _lang,
             category: _keyFor(l, _categoryText?.text ?? ''),
             title: _title.text,
@@ -194,14 +301,72 @@ class _ArticleEditorScreenState extends State<ArticleEditorScreen> {
     );
   }
 
+  String _langName(AppLocalizations l, String lang) => switch (lang) {
+        'rw' => l.langRw,
+        'fr' => l.langFr,
+        _ => l.langEn,
+      };
+
+  String _statusText(AppLocalizations l, String lang) {
+    final row = _rows[lang];
+    if (row == null) return l.translateNow;
+    return row.reviewedBy != null ? l.statusPublished : l.statusDraft;
+  }
+
+  /// Each language of the app, with whether this article exists in it yet.
+  /// Missing ones start a translation; existing ones open for editing.
+  Widget _translationsSection(AppLocalizations l, ThemeData theme) {
+    return Card(
+      child: Padding(
+        padding: const EdgeInsets.all(AppSpace.md),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(l.translationsTitle, style: theme.textTheme.titleMedium),
+            const SizedBox(height: AppSpace.sm),
+            Wrap(
+              spacing: AppSpace.sm,
+              runSpacing: AppSpace.sm,
+              children: [
+                for (final lang in contentLanguages)
+                  ActionChip(
+                    avatar: Icon(
+                      _rows[lang]?.reviewedBy != null
+                          ? Icons.check_circle
+                          : _rows.containsKey(lang)
+                              ? Icons.edit_note
+                              : Icons.translate,
+                      size: 18,
+                      color: _rows[lang]?.reviewedBy != null
+                          ? AppColors.terracotta
+                          : AppColors.brown,
+                    ),
+                    label: Text(
+                      '${_langName(l, lang)} · ${_statusText(l, lang)}',
+                    ),
+                    onPressed: lang == _lang ? null : () => _openLanguage(lang),
+                  ),
+              ],
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final l = AppLocalizations.of(context);
     final theme = Theme.of(context);
     final editing = widget.existing != null;
+    final translating = widget.source != null && widget.existing == null;
     return Scaffold(
       appBar: AppBar(
-        title: Text(editing ? l.adminEditArticle : l.adminAddArticle),
+        title: Text(translating
+            ? l.translateArticle
+            : editing
+                ? l.adminEditArticle
+                : l.adminAddArticle),
         actions: [
           if (editing)
             IconButton(
@@ -233,7 +398,8 @@ class _ArticleEditorScreenState extends State<ArticleEditorScreen> {
           Autocomplete<String>(
             // Shows the current category; the admin can pick one or type a new one.
             initialValue: TextEditingValue(
-              text: categoryLabel(l, widget.existing?.category ?? 'mine'),
+              text: categoryLabel(
+                  l, (widget.existing ?? widget.source)?.category ?? 'mine'),
             ),
             optionsBuilder: (value) {
               final q = value.text.trim().toLowerCase();
@@ -254,6 +420,8 @@ class _ArticleEditorScreenState extends State<ArticleEditorScreen> {
             },
           ),
           const SizedBox(height: AppSpace.md),
+          if (editing) _translationsSection(l, theme),
+          const SizedBox(height: AppSpace.md),
           SegmentedButton<bool>(
             segments: [
               ButtonSegment(value: false, label: Text(l.editTab), icon: const Icon(Icons.edit_outlined)),
@@ -267,13 +435,24 @@ class _ArticleEditorScreenState extends State<ArticleEditorScreen> {
           const SizedBox(height: AppSpace.md),
           TextField(
             controller: _reviewer,
-            decoration: InputDecoration(labelText: l.fieldReviewer),
+            decoration: InputDecoration(
+              labelText: l.reviewerLabel,
+              helperText: l.reviewerHint,
+            ),
           ),
           const SizedBox(height: AppSpace.xl),
           FilledButton(
             onPressed: _saving ? null : _save,
-            child: Text(l.saveBtn),
+            child: Text(l.saveDraftBtn),
           ),
+          if (editing) ...[
+            const SizedBox(height: AppSpace.sm),
+            OutlinedButton(
+              style: OutlinedButton.styleFrom(minimumSize: const Size.fromHeight(48)),
+              onPressed: _saving ? null : _publish,
+              child: Text(l.publishAllBtn),
+            ),
+          ],
         ],
       ),
     );

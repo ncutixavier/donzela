@@ -5,6 +5,15 @@ import '../../data/repositories/content_repository.dart';
 export '../../data/repositories/content_repository.dart' show EmergencyContact;
 import '../../services/auth/auth_service.dart';
 import '../../services/cloud/content_admin_store.dart';
+import '../../data/seed/seed_content.dart';
+import 'article_publish.dart';
+
+/// Thrown when an article cannot be published yet. [problems] maps each
+/// language that is not ready to what is missing in it.
+class PublishIncomplete implements Exception {
+  PublishIncomplete(this.problems);
+  final Map<String, List<String>> problems;
+}
 
 /// Super-admin editing of the Learn and Help content.
 ///
@@ -47,7 +56,10 @@ class AdminController {
 
   /// Creates an article (when [id] is null) or updates one. Returns true when
   /// the change already reached the cloud.
-  Future<bool> saveArticle({
+  /// Saves one language as a draft. A draft is never shown to users. Saving
+  /// a language that was published takes it back to draft until the article
+  /// is published again. [reviewer] is the name for the publish step.
+  Future<bool> saveDraft({
     String? id,
     required String lang,
     required String category,
@@ -57,18 +69,62 @@ class AdminController {
   }) async {
     _requireAdmin();
     final articleId = id ?? _newId(title);
-    final reviewed = reviewer != null && reviewer.trim().isNotEmpty;
     final data = <String, dynamic>{
       'id': articleId,
       'lang': lang,
       'category': categoryKey(category),
       'title': title.trim(),
       'body': body.trim(),
-      'reviewed_by': reviewed ? reviewer.trim() : null,
-      'reviewed_on': reviewed ? DateTime.now().toIso8601String() : null,
+      'reviewed_by': null,
+      'reviewed_on': null,
+      'proposed_reviewer': _reviewerName(reviewer),
     };
     await _content.applyRemote(articles: [data], centres: const []);
     await _enqueue('article', data);
+    await flush();
+    return await pendingCount() == 0;
+  }
+
+  /// The reviewer to show: the name the admin typed, or the Donzela Team.
+  static String _reviewerName(String? typed) {
+    final t = (typed ?? '').trim();
+    return t.isEmpty ? defaultReviewer : t;
+  }
+
+  /// Publishes all languages of an article together. Throws
+  /// [PublishIncomplete] and publishes nothing unless every language is ready.
+  Future<bool> publishArticle(String id) async {
+    _requireAdmin();
+    final rows = await _content.articlesOf(id);
+    final check = PublishCheck.of({
+      for (final e in rows.entries)
+        e.key: LanguageDraft(
+          title: e.value.title,
+          body: e.value.body,
+          category: e.value.category,
+          proposedReviewer: e.value.proposedReviewer,
+        ),
+    });
+    if (!check.ok) throw PublishIncomplete(check.problems);
+
+    final now = DateTime.now();
+    final batch = <Map<String, dynamic>>[
+      for (final lang in contentLanguages)
+        {
+          'id': id,
+          'lang': lang,
+          'category': rows[lang]!.category,
+          'title': rows[lang]!.title,
+          'body': rows[lang]!.body,
+          'reviewed_by': _reviewerName(rows[lang]!.proposedReviewer),
+          'reviewed_on': now.toIso8601String(),
+          'proposed_reviewer': _reviewerName(rows[lang]!.proposedReviewer),
+        },
+    ];
+    await _content.applyRemote(articles: batch, centres: const []);
+    for (final data in batch) {
+      await _enqueue('article', data);
+    }
     await flush();
     return await pendingCount() == 0;
   }

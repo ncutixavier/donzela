@@ -38,7 +38,7 @@ void main() {
       expect(admin.isSuperAdmin, isFalse);
       expect(admin.canWrite, isFalse);
       expect(
-        () => admin.saveArticle(
+        () => admin.saveDraft(
           lang: 'en',
           category: 'mine',
           title: 'T',

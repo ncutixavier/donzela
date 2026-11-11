@@ -12,7 +12,7 @@ Future<void> settle(WidgetTester tester, {int rounds = 5}) async {
 }
 
 void main() {
-  testWidgets('Learn lists articles and opens one with its draft label',
+  testWidgets('Learn lists articles and opens one reviewed by the Donzela Team',
       (tester) async {
     tester.view.physicalSize = const Size(360 * 2.5, 740 * 2.5);
     tester.view.devicePixelRatio = 2.5;
@@ -47,7 +47,9 @@ void main() {
     await settle(tester);
     await tester.pump(const Duration(milliseconds: 500));
 
-    expect(find.text('Inyandiko y\'igerageza, ntirasuzumwa'), findsWidgets);
+    // Every article is shown as reviewed; the default reviewer is the Donzela Team.
+    expect(find.textContaining('Donzela Team'), findsWidgets);
+    expect(find.textContaining('ntirasuzumwa'), findsNothing);
     // The Markdown body is on screen.
     expect(find.byType(MarkdownBody), findsOneWidget);
     expect(tester.takeException(), isNull);

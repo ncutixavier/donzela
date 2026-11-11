@@ -1050,4 +1050,40 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get emergencyNone => 'No emergency numbers yet.';
+
+  @override
+  String get translationsTitle => 'Languages';
+
+  @override
+  String get statusPublished => 'Published';
+
+  @override
+  String get statusDraft => 'Draft';
+
+  @override
+  String get statusMissing => 'Missing';
+
+  @override
+  String get translateNow => 'Translate';
+
+  @override
+  String get translateArticle => 'Translate article';
+
+  @override
+  String get saveDraftBtn => 'Save draft';
+
+  @override
+  String get publishAllBtn => 'Publish in all languages';
+
+  @override
+  String get publishedAll => 'Published in all languages.';
+
+  @override
+  String get publishNotReady => 'Not ready to publish';
+
+  @override
+  String get reviewerLabel => 'Reviewer (this language)';
+
+  @override
+  String get reviewerHint => 'Leave empty to show Donzela Team.';
 }

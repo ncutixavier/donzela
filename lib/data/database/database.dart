@@ -32,7 +32,7 @@ class DonzelaDatabase extends _$DonzelaDatabase {
   factory DonzelaDatabase.memory() => DonzelaDatabase(NativeDatabase.memory());
 
   @override
-  int get schemaVersion => 3;
+  int get schemaVersion => 4;
 
   @override
   MigrationStrategy get migration => MigrationStrategy(
@@ -44,6 +44,10 @@ class DonzelaDatabase extends _$DonzelaDatabase {
           );
         },
         onUpgrade: (m, from, to) async {
+          if (from < 4) {
+            // v4: the reviewer named for a draft article, kept until publishing.
+            await m.addColumn(articles, articles.proposedReviewer);
+          }
           if (from < 3) {
             // v3: the content outbox for admin changes waiting for the cloud.
             await m.createTable(contentOutbox);

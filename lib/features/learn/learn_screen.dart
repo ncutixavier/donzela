@@ -8,6 +8,7 @@ import '../../core/l10n/localization.dart';
 import '../../core/theme/app_theme.dart';
 import '../../core/widgets/imigongo.dart';
 import '../admin/admin_controller.dart';
+import '../admin/article_publish.dart';
 import '../admin/article_editor_screen.dart';
 import '../account/cloud_controller.dart';
 import 'category_labels.dart';
@@ -162,7 +163,6 @@ class _LearnScreenState extends State<LearnScreen> {
                     category: categoryLabel(l, a.category),
                     title: a.title,
                     lang: lang,
-                    draft: a.reviewedBy == null,
                     onEdit: isAdmin ? () => _openEditor(a) : null,
                     onDelete: isAdmin ? () => _confirmDelete(a) : null,
                   ),
@@ -180,7 +180,6 @@ class _ArticleCard extends StatelessWidget {
     required this.category,
     required this.title,
     required this.lang,
-    required this.draft,
     this.onEdit,
     this.onDelete,
   });
@@ -189,7 +188,6 @@ class _ArticleCard extends StatelessWidget {
   final String category;
   final String title;
   final String lang;
-  final bool draft;
 
   /// Set only for the super-admin.
   final VoidCallback? onEdit;
@@ -229,10 +227,6 @@ class _ArticleCard extends StatelessWidget {
                     Text(title, style: theme.textTheme.titleMedium),
                     const SizedBox(height: 2),
                     Text(category, style: theme.textTheme.bodyMedium),
-                    if (draft) ...[
-                      const SizedBox(height: 4),
-                      _DraftBadge(text: AppLocalizations.of(context).draftBadge),
-                    ],
                   ],
                 ),
               ),
@@ -292,7 +286,6 @@ class _ArticleScreenState extends State<ArticleScreen> {
     if (a == null) {
       return Scaffold(appBar: AppBar(), body: const SizedBox.shrink());
     }
-    final draft = a.reviewedBy == null;
 
     return Scaffold(
       appBar: AppBar(
@@ -330,24 +323,22 @@ class _ArticleScreenState extends State<ArticleScreen> {
               children: [
                 Text(a.title, style: theme.textTheme.headlineMedium),
                 const SizedBox(height: AppSpace.sm),
-                if (draft)
-                  _DraftBadge(text: l.draftBadge)
-                else
-                  Row(
-                    children: [
-                      const Icon(Icons.verified_outlined, color: AppColors.sage, size: 18),
-                      const SizedBox(width: 6),
-                      Expanded(
-                        child: Text(
-                          l.reviewedBy(
-                            a.reviewedBy!,
-                            a.reviewedOn == null ? '' : l.dayMonthYear(a.reviewedOn!),
-                          ),
-                          style: const TextStyle(color: AppColors.sage, fontWeight: FontWeight.w700),
+                // Every article shown here is reviewed; the default reviewer is the Donzela Team.
+                Row(
+                  children: [
+                    const Icon(Icons.verified_outlined, color: AppColors.sage, size: 18),
+                    const SizedBox(width: 6),
+                    Expanded(
+                      child: Text(
+                        l.reviewedBy(
+                          a.reviewedBy ?? defaultReviewer,
+                          a.reviewedOn == null ? '' : l.dayMonthYear(a.reviewedOn!),
                         ),
+                        style: const TextStyle(color: AppColors.sage, fontWeight: FontWeight.w700),
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
+                ),
                 const SizedBox(height: AppSpace.lg),
                 MarkdownBody(
                   data: a.body,
@@ -369,27 +360,3 @@ class _ArticleScreenState extends State<ArticleScreen> {
   }
 }
 
-class _DraftBadge extends StatelessWidget {
-  const _DraftBadge({required this.text});
-
-  final String text;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
-      decoration: BoxDecoration(
-        color: AppColors.goldSoft,
-        borderRadius: BorderRadius.circular(AppRadius.chip),
-      ),
-      child: Text(
-        text,
-        style: const TextStyle(
-          color: AppColors.brown,
-          fontSize: 12,
-          fontWeight: FontWeight.w700,
-        ),
-      ),
-    );
-  }
-}

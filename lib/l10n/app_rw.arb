@@ -459,5 +459,17 @@
   "emergencyManage": "Nimero z'ihutirwa",
   "emergencyAdd": "Ongeraho nimero",
   "emergencyEdit": "Hindura nimero",
-  "emergencyNone": "Nta nimero z'ihutirwa zirahari."
+  "emergencyNone": "Nta nimero z'ihutirwa zirahari.",
+  "translationsTitle": "Izindi ndimi",
+  "statusPublished": "Yasohotse",
+  "statusDraft": "Yanditswe",
+  "statusMissing": "Ntiyanditswe",
+  "translateNow": "Hindura",
+  "translateArticle": "Hindura iyi nyandiko",
+  "saveDraftBtn": "Bika nk'igitabo",
+  "publishAllBtn": "Sohora mu ndimi zose",
+  "publishedAll": "Yasohotse mu ndimi zose.",
+  "publishNotReady": "Ntibishobora gusohoka",
+  "reviewerLabel": "Uwasuzumye (ururimi rwa none)",
+  "reviewerHint": "Ntugire icyo wandika: ni Donzela Team."
 }

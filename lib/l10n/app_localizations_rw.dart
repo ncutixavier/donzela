@@ -1048,4 +1048,40 @@ class AppLocalizationsRw extends AppLocalizations {
 
   @override
   String get emergencyNone => 'Nta nimero z\'ihutirwa zirahari.';
+
+  @override
+  String get translationsTitle => 'Izindi ndimi';
+
+  @override
+  String get statusPublished => 'Yasohotse';
+
+  @override
+  String get statusDraft => 'Yanditswe';
+
+  @override
+  String get statusMissing => 'Ntiyanditswe';
+
+  @override
+  String get translateNow => 'Hindura';
+
+  @override
+  String get translateArticle => 'Hindura iyi nyandiko';
+
+  @override
+  String get saveDraftBtn => 'Bika nk\'igitabo';
+
+  @override
+  String get publishAllBtn => 'Sohora mu ndimi zose';
+
+  @override
+  String get publishedAll => 'Yasohotse mu ndimi zose.';
+
+  @override
+  String get publishNotReady => 'Ntibishobora gusohoka';
+
+  @override
+  String get reviewerLabel => 'Uwasuzumye (ururimi rwa none)';
+
+  @override
+  String get reviewerHint => 'Ntugire icyo wandika: ni Donzela Team.';
 }

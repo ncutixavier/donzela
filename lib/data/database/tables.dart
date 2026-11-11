@@ -53,6 +53,10 @@ class Articles extends Table {
   TextColumn get body => text()();
   TextColumn get reviewedBy => text().nullable()();
   DateTimeColumn get reviewedOn => dateTime().nullable()();
+
+  /// Reviewer named while this language is still a draft. It becomes
+  /// [reviewedBy] only when the whole article is published.
+  TextColumn get proposedReviewer => text().nullable()();
   DateTimeColumn get updatedAt => dateTime()();
   BoolColumn get saved => boolean().withDefault(const Constant(false))();
 

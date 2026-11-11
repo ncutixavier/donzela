@@ -2037,6 +2037,78 @@ abstract class AppLocalizations {
   /// In rw, this message translates to:
   /// **'Nta nimero z\'ihutirwa zirahari.'**
   String get emergencyNone;
+
+  /// No description provided for @translationsTitle.
+  ///
+  /// In rw, this message translates to:
+  /// **'Izindi ndimi'**
+  String get translationsTitle;
+
+  /// No description provided for @statusPublished.
+  ///
+  /// In rw, this message translates to:
+  /// **'Yasohotse'**
+  String get statusPublished;
+
+  /// No description provided for @statusDraft.
+  ///
+  /// In rw, this message translates to:
+  /// **'Yanditswe'**
+  String get statusDraft;
+
+  /// No description provided for @statusMissing.
+  ///
+  /// In rw, this message translates to:
+  /// **'Ntiyanditswe'**
+  String get statusMissing;
+
+  /// No description provided for @translateNow.
+  ///
+  /// In rw, this message translates to:
+  /// **'Hindura'**
+  String get translateNow;
+
+  /// No description provided for @translateArticle.
+  ///
+  /// In rw, this message translates to:
+  /// **'Hindura iyi nyandiko'**
+  String get translateArticle;
+
+  /// No description provided for @saveDraftBtn.
+  ///
+  /// In rw, this message translates to:
+  /// **'Bika nk\'igitabo'**
+  String get saveDraftBtn;
+
+  /// No description provided for @publishAllBtn.
+  ///
+  /// In rw, this message translates to:
+  /// **'Sohora mu ndimi zose'**
+  String get publishAllBtn;
+
+  /// No description provided for @publishedAll.
+  ///
+  /// In rw, this message translates to:
+  /// **'Yasohotse mu ndimi zose.'**
+  String get publishedAll;
+
+  /// No description provided for @publishNotReady.
+  ///
+  /// In rw, this message translates to:
+  /// **'Ntibishobora gusohoka'**
+  String get publishNotReady;
+
+  /// No description provided for @reviewerLabel.
+  ///
+  /// In rw, this message translates to:
+  /// **'Uwasuzumye (ururimi rwa none)'**
+  String get reviewerLabel;
+
+  /// No description provided for @reviewerHint.
+  ///
+  /// In rw, this message translates to:
+  /// **'Ntugire icyo wandika: ni Donzela Team.'**
+  String get reviewerHint;
 }
 
 class _AppLocalizationsDelegate

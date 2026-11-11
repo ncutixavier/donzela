@@ -1058,4 +1058,40 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get emergencyNone => 'Aucun numéro d\'urgence pour l\'instant.';
+
+  @override
+  String get translationsTitle => 'Langues';
+
+  @override
+  String get statusPublished => 'Publié';
+
+  @override
+  String get statusDraft => 'Brouillon';
+
+  @override
+  String get statusMissing => 'Manquant';
+
+  @override
+  String get translateNow => 'Traduire';
+
+  @override
+  String get translateArticle => 'Traduire l\'article';
+
+  @override
+  String get saveDraftBtn => 'Enregistrer le brouillon';
+
+  @override
+  String get publishAllBtn => 'Publier dans toutes les langues';
+
+  @override
+  String get publishedAll => 'Publié dans toutes les langues.';
+
+  @override
+  String get publishNotReady => 'Pas prêt à publier';
+
+  @override
+  String get reviewerLabel => 'Relecteur (cette langue)';
+
+  @override
+  String get reviewerHint => 'Laisser vide pour afficher l\'équipe Donzela.';
 }

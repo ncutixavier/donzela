@@ -69,6 +69,9 @@ class LearnController extends ChangeNotifier {
 
   Future<ArticleRow?> fetch(String id, String lang) => _content.article(id, lang);
 
+  /// The article in each language it exists in, for the translation status.
+  Future<Map<String, ArticleRow>> articlesOf(String id) => _content.articlesOf(id);
+
   Future<void> toggleSaved(String id, String lang, bool saved) async {
     await _content.setSaved(id, lang, saved);
     await load(lang: _lang);

@@ -93,6 +93,7 @@ class ContentRepository {
       if (title == null || body == null) continue;
       final reviewedBy = a['reviewed_by'] as String?;
       final reviewedOn = DateTime.tryParse((a['reviewed_on'] ?? '').toString());
+      final proposed = a['proposed_reviewer'] as String?;
       await _db.contentDao.upsertArticle(ArticlesCompanion(
         id: Value(id),
         lang: Value(lang),
@@ -101,6 +102,7 @@ class ContentRepository {
         body: Value(body),
         reviewedBy: Value(reviewedBy == null || reviewedBy.isEmpty ? null : reviewedBy),
         reviewedOn: Value(reviewedOn),
+        proposedReviewer: Value(proposed == null || proposed.isEmpty ? null : proposed),
         updatedAt: Value(DateTime.now()),
       ));
       await _db.contentDao.indexArticle(id, lang, title, body);
@@ -225,6 +227,16 @@ class ContentRepository {
       if (d.isNotEmpty && !out.contains(d)) out.add(d);
     }
     return out;
+  }
+
+  /// The rows of one article, by language. One article is one id with one
+  /// row per language, so a translation is the same id in another language.
+  Future<Map<String, ArticleRow>> articlesOf(String id) async {
+    final rows = <String, ArticleRow>{};
+    for (final a in await _db.contentDao.everyArticle()) {
+      if (a.id == id) rows[a.lang] = a;
+    }
+    return rows;
   }
 
   /// Default categories plus any category an article already uses.

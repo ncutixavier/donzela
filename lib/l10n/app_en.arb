@@ -459,5 +459,17 @@
   "emergencyManage": "Emergency numbers",
   "emergencyAdd": "Add number",
   "emergencyEdit": "Edit number",
-  "emergencyNone": "No emergency numbers yet."
+  "emergencyNone": "No emergency numbers yet.",
+  "translationsTitle": "Languages",
+  "statusPublished": "Published",
+  "statusDraft": "Draft",
+  "statusMissing": "Missing",
+  "translateNow": "Translate",
+  "translateArticle": "Translate article",
+  "saveDraftBtn": "Save draft",
+  "publishAllBtn": "Publish in all languages",
+  "publishedAll": "Published in all languages.",
+  "publishNotReady": "Not ready to publish",
+  "reviewerLabel": "Reviewer (this language)",
+  "reviewerHint": "Leave empty to show Donzela Team."
 }
