@@ -534,5 +534,70 @@
   "lastPeriodOptional": "Vous pouvez passer cette étape et l'ajouter plus tard depuis le calendrier.",
   "refreshContent": "Actualiser les articles et l'aide",
   "accountSyncNowBody": "Vos données restent sur ce téléphone. Synchroniser envoie vos dernières modifications sur votre compte Google et enregistre l'heure de fin.",
-  "accountSyncOffBody": "Activez d'abord la sauvegarde dans les Réglages. Vos modifications pourront ensuite être envoyées sur votre compte Google."
+  "accountSyncOffBody": "Activez d'abord la sauvegarde dans les Réglages. Vos modifications pourront ensuite être envoyées sur votre compte Google.",
+  "healthTitle": "Outils santé",
+  "healthSubtitle": "Estimations rapides à partir des dates saisies. Elles se mettent à jour quand vous les modifiez.",
+  "healthSectionCycle": "Votre cycle",
+  "healthSectionPregnancy": "Grossesse",
+  "healthDisclaimer": "Ce sont des estimations, pas des conseils médicaux. Parlez à un agent de santé pour les décisions concernant votre santé.",
+  "toolNextPeriodTitle": "Prochaines règles",
+  "toolNextPeriodBody": "Quand vos prochaines règles devraient commencer, selon la durée habituelle de votre cycle.",
+  "toolFertileTitle": "Jours fertiles",
+  "toolFertileBody": "Les jours où une grossesse est possible, et quand l'ovulation est probable.",
+  "toolImplantTitle": "Période d'implantation",
+  "toolImplantBody": "Quand un embryon s'implante habituellement dans l'utérus après l'ovulation.",
+  "toolCycleLengthTitle": "Durée du cycle",
+  "toolCycleLengthBody": "Comptez les jours entre le début de deux règles.",
+  "toolDueDateTitle": "Date prévue d'accouchement",
+  "toolDueDateBody": "Date estimée d'accouchement, comptée à partir du premier jour de vos dernières règles.",
+  "toolWeeksTitle": "Semaines en mois",
+  "toolWeeksBody": "Convertissez les semaines de grossesse en mois et semaines.",
+  "healthLastPeriod": "Premier jour de vos dernières règles",
+  "healthUsualCycle": "Durée habituelle du cycle",
+  "healthPreviousPeriod": "Premier jour des règles précédentes",
+  "healthNextPeriodStart": "Premier jour des règles suivantes",
+  "healthWeeksPregnant": "Semaines de grossesse",
+  "healthWeeksUnit": "semaines",
+  "healthResultNextPeriod": "Prochaines règles vers le",
+  "healthResultOvulation": "Ovulation vers le",
+  "healthResultFertile": "Jours fertiles",
+  "healthResultImplant": "Implantation probable entre le",
+  "healthResultCycleLength": "Durée du cycle",
+  "healthResultDue": "Date prévue d'accouchement",
+  "healthResultAge": "Enceinte depuis",
+  "healthResultMonths": "Environ",
+  "healthCycleOut": "Un cycle dure en général 21 à 45 jours. Vérifiez les deux dates.",
+  "healthTo": "au",
+  "healthLess": "Diminuer",
+  "healthMore": "Augmenter",
+  "@healthDays": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
+  "healthDays": "{n} jours",
+  "@healthWeekDays": {
+    "placeholders": {
+      "weeks": {
+        "type": "int"
+      },
+      "days": {
+        "type": "int"
+      }
+    }
+  },
+  "healthWeekDays": "{weeks} semaines et {days} jours",
+  "@healthMonthsWeeks": {
+    "placeholders": {
+      "months": {
+        "type": "int"
+      },
+      "weeks": {
+        "type": "int"
+      }
+    }
+  },
+  "healthMonthsWeeks": "{months} mois et {weeks} semaines"
 }

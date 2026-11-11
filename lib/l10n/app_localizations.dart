@@ -2277,6 +2277,234 @@ abstract class AppLocalizations {
   /// In rw, this message translates to:
   /// **'Kugira ngo ibyo ukora byoherezwe kuri konte yawe, banza ushyireho backup muri Igenamiterere.'**
   String get accountSyncOffBody;
+
+  /// No description provided for @healthTitle.
+  ///
+  /// In rw, this message translates to:
+  /// **'Ibikoresho by\'ubuzima'**
+  String get healthTitle;
+
+  /// No description provided for @healthSubtitle.
+  ///
+  /// In rw, this message translates to:
+  /// **'Ibipimo bigereranya ukurikije amatariki wanditse. Bihinduka uko uyahindura.'**
+  String get healthSubtitle;
+
+  /// No description provided for @healthSectionCycle.
+  ///
+  /// In rw, this message translates to:
+  /// **'Imihango'**
+  String get healthSectionCycle;
+
+  /// No description provided for @healthSectionPregnancy.
+  ///
+  /// In rw, this message translates to:
+  /// **'Gutwita'**
+  String get healthSectionPregnancy;
+
+  /// No description provided for @healthDisclaimer.
+  ///
+  /// In rw, this message translates to:
+  /// **'Ibi ni ibipimo bigereranya, ntabwo ari inama z\'ubuvuzi. Baza umuganga ku byerekeye ubuzima bwawe.'**
+  String get healthDisclaimer;
+
+  /// No description provided for @toolNextPeriodTitle.
+  ///
+  /// In rw, this message translates to:
+  /// **'Imihango itaha'**
+  String get toolNextPeriodTitle;
+
+  /// No description provided for @toolNextPeriodBody.
+  ///
+  /// In rw, this message translates to:
+  /// **'Igihe imihango yawe itaha ishobora gutangira, ukurikije uburebure bw\'umuzunguruko wawe.'**
+  String get toolNextPeriodBody;
+
+  /// No description provided for @toolFertileTitle.
+  ///
+  /// In rw, this message translates to:
+  /// **'Iminsi yo gusama'**
+  String get toolFertileTitle;
+
+  /// No description provided for @toolFertileBody.
+  ///
+  /// In rw, this message translates to:
+  /// **'Iminsi gutwita bishoboka, n\'igihe intanga ishobora gusohoka.'**
+  String get toolFertileBody;
+
+  /// No description provided for @toolImplantTitle.
+  ///
+  /// In rw, this message translates to:
+  /// **'Igihe cyo gushinga inda'**
+  String get toolImplantTitle;
+
+  /// No description provided for @toolImplantBody.
+  ///
+  /// In rw, this message translates to:
+  /// **'Igihe intanga ishobora gushingwa mu nda nyuma yo gusohoka kw\'intanga.'**
+  String get toolImplantBody;
+
+  /// No description provided for @toolCycleLengthTitle.
+  ///
+  /// In rw, this message translates to:
+  /// **'Uburebure bw\'umuzunguruko'**
+  String get toolCycleLengthTitle;
+
+  /// No description provided for @toolCycleLengthBody.
+  ///
+  /// In rw, this message translates to:
+  /// **'Bara iminsi hagati y\'itangiriro ry\'imihango ebyiri.'**
+  String get toolCycleLengthBody;
+
+  /// No description provided for @toolDueDateTitle.
+  ///
+  /// In rw, this message translates to:
+  /// **'Itariki yo kubyara'**
+  String get toolDueDateTitle;
+
+  /// No description provided for @toolDueDateBody.
+  ///
+  /// In rw, this message translates to:
+  /// **'Itariki igereranyijwe yo kubyara, ibarwa uhereye ku itangiriro ry\'imihango yawe ya nyuma.'**
+  String get toolDueDateBody;
+
+  /// No description provided for @toolWeeksTitle.
+  ///
+  /// In rw, this message translates to:
+  /// **'Ibyumweru mu mezi'**
+  String get toolWeeksTitle;
+
+  /// No description provided for @toolWeeksBody.
+  ///
+  /// In rw, this message translates to:
+  /// **'Hindura ibyumweru byo gutwita mu mezi n\'ibyumweru.'**
+  String get toolWeeksBody;
+
+  /// No description provided for @healthLastPeriod.
+  ///
+  /// In rw, this message translates to:
+  /// **'Itangiriro ry\'imihango ya nyuma'**
+  String get healthLastPeriod;
+
+  /// No description provided for @healthUsualCycle.
+  ///
+  /// In rw, this message translates to:
+  /// **'Uburebure bw\'umuzunguruko usanzwe'**
+  String get healthUsualCycle;
+
+  /// No description provided for @healthPreviousPeriod.
+  ///
+  /// In rw, this message translates to:
+  /// **'Itangiriro ry\'imihango yabanje'**
+  String get healthPreviousPeriod;
+
+  /// No description provided for @healthNextPeriodStart.
+  ///
+  /// In rw, this message translates to:
+  /// **'Itangiriro ry\'imihango ikurikira'**
+  String get healthNextPeriodStart;
+
+  /// No description provided for @healthWeeksPregnant.
+  ///
+  /// In rw, this message translates to:
+  /// **'Ibyumweru umaze utwite'**
+  String get healthWeeksPregnant;
+
+  /// No description provided for @healthWeeksUnit.
+  ///
+  /// In rw, this message translates to:
+  /// **'ibyumweru'**
+  String get healthWeeksUnit;
+
+  /// No description provided for @healthResultNextPeriod.
+  ///
+  /// In rw, this message translates to:
+  /// **'Imihango itaha izaza hafi'**
+  String get healthResultNextPeriod;
+
+  /// No description provided for @healthResultOvulation.
+  ///
+  /// In rw, this message translates to:
+  /// **'Intanga izasohoka hafi'**
+  String get healthResultOvulation;
+
+  /// No description provided for @healthResultFertile.
+  ///
+  /// In rw, this message translates to:
+  /// **'Iminsi yo gusama'**
+  String get healthResultFertile;
+
+  /// No description provided for @healthResultImplant.
+  ///
+  /// In rw, this message translates to:
+  /// **'Gushinga inda bishobora kuba hagati ya'**
+  String get healthResultImplant;
+
+  /// No description provided for @healthResultCycleLength.
+  ///
+  /// In rw, this message translates to:
+  /// **'Uburebure bw\'umuzunguruko'**
+  String get healthResultCycleLength;
+
+  /// No description provided for @healthResultDue.
+  ///
+  /// In rw, this message translates to:
+  /// **'Itariki igereranyijwe yo kubyara'**
+  String get healthResultDue;
+
+  /// No description provided for @healthResultAge.
+  ///
+  /// In rw, this message translates to:
+  /// **'Umaze utwite'**
+  String get healthResultAge;
+
+  /// No description provided for @healthResultMonths.
+  ///
+  /// In rw, this message translates to:
+  /// **'Bingana na'**
+  String get healthResultMonths;
+
+  /// No description provided for @healthCycleOut.
+  ///
+  /// In rw, this message translates to:
+  /// **'Umuzunguruko usanzwe ufata iminsi 21 kugeza 45. Reba amatariki yombi.'**
+  String get healthCycleOut;
+
+  /// No description provided for @healthTo.
+  ///
+  /// In rw, this message translates to:
+  /// **'kugeza'**
+  String get healthTo;
+
+  /// No description provided for @healthLess.
+  ///
+  /// In rw, this message translates to:
+  /// **'Gabanya'**
+  String get healthLess;
+
+  /// No description provided for @healthMore.
+  ///
+  /// In rw, this message translates to:
+  /// **'Ongera'**
+  String get healthMore;
+
+  /// No description provided for @healthDays.
+  ///
+  /// In rw, this message translates to:
+  /// **'{n} iminsi'**
+  String healthDays(int n);
+
+  /// No description provided for @healthWeekDays.
+  ///
+  /// In rw, this message translates to:
+  /// **'ibyumweru {weeks} n\'iminsi {days}'**
+  String healthWeekDays(int weeks, int days);
+
+  /// No description provided for @healthMonthsWeeks.
+  ///
+  /// In rw, this message translates to:
+  /// **'amezi {months} n\'ibyumweru {weeks}'**
+  String healthMonthsWeeks(int months, int weeks);
 }
 
 class _AppLocalizationsDelegate

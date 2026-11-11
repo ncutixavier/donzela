@@ -534,5 +534,70 @@
   "lastPeriodOptional": "You can skip this and add it later from the calendar.",
   "refreshContent": "Refresh articles and Help",
   "accountSyncNowBody": "Your data stays on this phone. Sync now uploads your latest changes to your Google account and records when it finished.",
-  "accountSyncOffBody": "Turn on backup in Settings first. Then your changes can be uploaded to your Google account."
+  "accountSyncOffBody": "Turn on backup in Settings first. Then your changes can be uploaded to your Google account.",
+  "healthTitle": "Health tools",
+  "healthSubtitle": "Quick estimates from the dates you enter. They update as you change them.",
+  "healthSectionCycle": "Your cycle",
+  "healthSectionPregnancy": "Pregnancy",
+  "healthDisclaimer": "These are estimates, not medical advice. Talk to a health worker about decisions for your health.",
+  "toolNextPeriodTitle": "Next period",
+  "toolNextPeriodBody": "When your next period is likely to start, based on your usual cycle length.",
+  "toolFertileTitle": "Fertile days",
+  "toolFertileBody": "The days when pregnancy is possible, and when ovulation is likely.",
+  "toolImplantTitle": "Implantation window",
+  "toolImplantBody": "When an embryo would usually implant in the womb after ovulation.",
+  "toolCycleLengthTitle": "Cycle length",
+  "toolCycleLengthBody": "Count the days between the start of two periods.",
+  "toolDueDateTitle": "Due date",
+  "toolDueDateBody": "Estimated due date, counted from the first day of your last period.",
+  "toolWeeksTitle": "Weeks to months",
+  "toolWeeksBody": "Convert weeks of pregnancy into months and weeks.",
+  "healthLastPeriod": "First day of your last period",
+  "healthUsualCycle": "Usual cycle length",
+  "healthPreviousPeriod": "First day of the period before",
+  "healthNextPeriodStart": "First day of the next period",
+  "healthWeeksPregnant": "Weeks pregnant",
+  "healthWeeksUnit": "weeks",
+  "healthResultNextPeriod": "Next period around",
+  "healthResultOvulation": "Ovulation around",
+  "healthResultFertile": "Fertile days",
+  "healthResultImplant": "Implantation likely between",
+  "healthResultCycleLength": "Cycle length",
+  "healthResultDue": "Estimated due date",
+  "healthResultAge": "Pregnant for",
+  "healthResultMonths": "About",
+  "healthCycleOut": "A cycle is usually 21 to 45 days. Check the two dates.",
+  "healthTo": "to",
+  "healthLess": "Decrease",
+  "healthMore": "Increase",
+  "@healthDays": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
+  "healthDays": "{n} days",
+  "@healthWeekDays": {
+    "placeholders": {
+      "weeks": {
+        "type": "int"
+      },
+      "days": {
+        "type": "int"
+      }
+    }
+  },
+  "healthWeekDays": "{weeks} weeks and {days} days",
+  "@healthMonthsWeeks": {
+    "placeholders": {
+      "months": {
+        "type": "int"
+      },
+      "weeks": {
+        "type": "int"
+      }
+    }
+  },
+  "healthMonthsWeeks": "{months} months and {weeks} weeks"
 }

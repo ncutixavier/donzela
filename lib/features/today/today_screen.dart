@@ -135,6 +135,8 @@ class TodayScreen extends StatelessWidget {
               ],
               const SizedBox(height: AppSpace.lg),
               const SizedBox(height: AppSpace.lg),
+              const _HealthToolsCard(),
+              const SizedBox(height: AppSpace.md),
               _TipCard(phase: phase),
             ],
           ),
@@ -401,6 +403,27 @@ class _RingLegend extends StatelessWidget {
         item(AppColors.sage, l.legendOvulation, dot: true),
         item(Colors.white, l.legendToday, outline: true, dot: true),
       ],
+    );
+  }
+}
+
+/// Entry to the Health tools (calculators), kept close to the cycle on Today.
+class _HealthToolsCard extends StatelessWidget {
+  const _HealthToolsCard();
+
+  @override
+  Widget build(BuildContext context) {
+    final l = AppLocalizations.of(context);
+    final theme = Theme.of(context);
+    return Card(
+      child: ListTile(
+        contentPadding: const EdgeInsets.symmetric(horizontal: AppSpace.lg, vertical: 6),
+        leading: const Icon(Icons.health_and_safety_outlined, color: AppColors.terracotta),
+        title: Text(l.healthTitle, style: theme.textTheme.titleMedium),
+        subtitle: Text(l.healthSubtitle),
+        trailing: const Icon(Icons.chevron_right),
+        onTap: () => context.push('/health'),
+      ),
     );
   }
 }

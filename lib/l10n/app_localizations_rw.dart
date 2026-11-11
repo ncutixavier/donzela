@@ -1186,4 +1186,133 @@ class AppLocalizationsRw extends AppLocalizations {
   @override
   String get accountSyncOffBody =>
       'Kugira ngo ibyo ukora byoherezwe kuri konte yawe, banza ushyireho backup muri Igenamiterere.';
+
+  @override
+  String get healthTitle => 'Ibikoresho by\'ubuzima';
+
+  @override
+  String get healthSubtitle =>
+      'Ibipimo bigereranya ukurikije amatariki wanditse. Bihinduka uko uyahindura.';
+
+  @override
+  String get healthSectionCycle => 'Imihango';
+
+  @override
+  String get healthSectionPregnancy => 'Gutwita';
+
+  @override
+  String get healthDisclaimer =>
+      'Ibi ni ibipimo bigereranya, ntabwo ari inama z\'ubuvuzi. Baza umuganga ku byerekeye ubuzima bwawe.';
+
+  @override
+  String get toolNextPeriodTitle => 'Imihango itaha';
+
+  @override
+  String get toolNextPeriodBody =>
+      'Igihe imihango yawe itaha ishobora gutangira, ukurikije uburebure bw\'umuzunguruko wawe.';
+
+  @override
+  String get toolFertileTitle => 'Iminsi yo gusama';
+
+  @override
+  String get toolFertileBody =>
+      'Iminsi gutwita bishoboka, n\'igihe intanga ishobora gusohoka.';
+
+  @override
+  String get toolImplantTitle => 'Igihe cyo gushinga inda';
+
+  @override
+  String get toolImplantBody =>
+      'Igihe intanga ishobora gushingwa mu nda nyuma yo gusohoka kw\'intanga.';
+
+  @override
+  String get toolCycleLengthTitle => 'Uburebure bw\'umuzunguruko';
+
+  @override
+  String get toolCycleLengthBody =>
+      'Bara iminsi hagati y\'itangiriro ry\'imihango ebyiri.';
+
+  @override
+  String get toolDueDateTitle => 'Itariki yo kubyara';
+
+  @override
+  String get toolDueDateBody =>
+      'Itariki igereranyijwe yo kubyara, ibarwa uhereye ku itangiriro ry\'imihango yawe ya nyuma.';
+
+  @override
+  String get toolWeeksTitle => 'Ibyumweru mu mezi';
+
+  @override
+  String get toolWeeksBody =>
+      'Hindura ibyumweru byo gutwita mu mezi n\'ibyumweru.';
+
+  @override
+  String get healthLastPeriod => 'Itangiriro ry\'imihango ya nyuma';
+
+  @override
+  String get healthUsualCycle => 'Uburebure bw\'umuzunguruko usanzwe';
+
+  @override
+  String get healthPreviousPeriod => 'Itangiriro ry\'imihango yabanje';
+
+  @override
+  String get healthNextPeriodStart => 'Itangiriro ry\'imihango ikurikira';
+
+  @override
+  String get healthWeeksPregnant => 'Ibyumweru umaze utwite';
+
+  @override
+  String get healthWeeksUnit => 'ibyumweru';
+
+  @override
+  String get healthResultNextPeriod => 'Imihango itaha izaza hafi';
+
+  @override
+  String get healthResultOvulation => 'Intanga izasohoka hafi';
+
+  @override
+  String get healthResultFertile => 'Iminsi yo gusama';
+
+  @override
+  String get healthResultImplant => 'Gushinga inda bishobora kuba hagati ya';
+
+  @override
+  String get healthResultCycleLength => 'Uburebure bw\'umuzunguruko';
+
+  @override
+  String get healthResultDue => 'Itariki igereranyijwe yo kubyara';
+
+  @override
+  String get healthResultAge => 'Umaze utwite';
+
+  @override
+  String get healthResultMonths => 'Bingana na';
+
+  @override
+  String get healthCycleOut =>
+      'Umuzunguruko usanzwe ufata iminsi 21 kugeza 45. Reba amatariki yombi.';
+
+  @override
+  String get healthTo => 'kugeza';
+
+  @override
+  String get healthLess => 'Gabanya';
+
+  @override
+  String get healthMore => 'Ongera';
+
+  @override
+  String healthDays(int n) {
+    return '$n iminsi';
+  }
+
+  @override
+  String healthWeekDays(int weeks, int days) {
+    return 'ibyumweru $weeks n\'iminsi $days';
+  }
+
+  @override
+  String healthMonthsWeeks(int months, int weeks) {
+    return 'amezi $months n\'ibyumweru $weeks';
+  }
 }
