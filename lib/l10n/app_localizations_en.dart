@@ -110,10 +110,10 @@ class AppLocalizationsEn extends AppLocalizations {
       'A cycle runs from the first day of your period to the day before the next one. Not sure? Keep the usual numbers; Donzela will learn as you log.';
 
   @override
-  String get cycleLengthLabel => 'Cycle length';
+  String get cycleLengthLabel => 'Usual cycle length';
 
   @override
-  String get periodLengthLabel => 'Period length';
+  String get periodLengthLabel => 'Period days';
 
   @override
   String get daysUnit => 'days';
@@ -1317,4 +1317,74 @@ class AppLocalizationsEn extends AppLocalizations {
   String healthMonthsWeeks(int months, int weeks) {
     return '$months months and $weeks weeks';
   }
+
+  @override
+  String get cycleSheetTitle => 'Your cycle';
+
+  @override
+  String get cycleLastStart => 'Last period started';
+
+  @override
+  String get cycleLengthNote => 'Used until you have logged a few cycles.';
+
+  @override
+  String get cycleSheetSave => 'Save';
+
+  @override
+  String reviewedByName(String name) {
+    return 'Reviewed by $name';
+  }
+
+  @override
+  String get toolCycleCalcTitle => 'Menstrual cycle calculator';
+
+  @override
+  String get toolCycleCalcBody =>
+      'Enter the start of your last period, how long it lasts and your usual cycle length. You get ovulation, your next period, the fertile days and both cycle phases.';
+
+  @override
+  String get healthPeriodDays => 'Period lasts';
+
+  @override
+  String get healthResultPeriod => 'Next period';
+
+  @override
+  String get healthResultFollicular => 'Follicular phase';
+
+  @override
+  String get healthResultLuteal => 'Luteal phase';
+
+  @override
+  String get healthOvulationNote => 'Ovulation is most likely on this day.';
+
+  @override
+  String healthPeriodNote(int days) {
+    return 'Your period lasts $days days.';
+  }
+
+  @override
+  String get healthFertileNote =>
+      'The days pregnancy is possible: 5 days before ovulation to 1 day after.';
+
+  @override
+  String get healthFollicularNote =>
+      'From the start of your period until ovulation.';
+
+  @override
+  String get healthLutealNote =>
+      'From just after ovulation until the day before your next period.';
+
+  @override
+  String get toolPeriodCalcTitle => 'Period calculator';
+
+  @override
+  String get toolPeriodCalcBody =>
+      'When your next period is likely to start and how many days it will last.';
+
+  @override
+  String get toolOvulationTitle => 'Ovulation calculator';
+
+  @override
+  String get toolOvulationBody =>
+      'When ovulation is likely and your fertile days around it.';
 }

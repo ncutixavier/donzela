@@ -26,18 +26,16 @@ class HealthToolsScreen extends StatelessWidget {
             const SizedBox(height: AppSpace.lg),
             _SectionLabel(l.healthSectionCycle),
             for (final tool in const [
-              HealthTool.nextPeriod,
-              HealthTool.fertile,
+              HealthTool.cycleCalculator,
+              HealthTool.periodCalc,
+              HealthTool.ovulation,
               HealthTool.implant,
               HealthTool.cycleLength,
             ])
               _ToolTile(tool: tool),
             const SizedBox(height: AppSpace.lg),
             _SectionLabel(l.healthSectionPregnancy),
-            for (final tool in const [
-              HealthTool.dueDate,
-              HealthTool.weeks,
-            ])
+            for (final tool in const [HealthTool.dueDate, HealthTool.weeks])
               _ToolTile(tool: tool),
             const SizedBox(height: AppSpace.lg),
             _Disclaimer(text: l.healthDisclaimer),
@@ -48,7 +46,15 @@ class HealthToolsScreen extends StatelessWidget {
   }
 }
 
-enum HealthTool { nextPeriod, fertile, implant, cycleLength, dueDate, weeks }
+enum HealthTool {
+  cycleCalculator,
+  periodCalc,
+  ovulation,
+  implant,
+  cycleLength,
+  dueDate,
+  weeks,
+}
 
 class _SectionLabel extends StatelessWidget {
   const _SectionLabel(this.text);
@@ -57,9 +63,9 @@ class _SectionLabel extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Padding(
-        padding: const EdgeInsets.only(bottom: AppSpace.sm),
-        child: Text(text, style: Theme.of(context).textTheme.titleMedium),
-      );
+    padding: const EdgeInsets.only(bottom: AppSpace.sm),
+    child: Text(text, style: Theme.of(context).textTheme.titleMedium),
+  );
 }
 
 class _ToolTile extends StatelessWidget {
@@ -71,23 +77,55 @@ class _ToolTile extends StatelessWidget {
   Widget build(BuildContext context) {
     final l = AppLocalizations.of(context);
     final (title, body, icon) = switch (tool) {
-      HealthTool.nextPeriod => (l.toolNextPeriodTitle, l.toolNextPeriodBody, Icons.event_outlined),
-      HealthTool.fertile => (l.toolFertileTitle, l.toolFertileBody, Icons.spa_outlined),
-      HealthTool.implant => (l.toolImplantTitle, l.toolImplantBody, Icons.favorite_border),
-      HealthTool.cycleLength => (l.toolCycleLengthTitle, l.toolCycleLengthBody, Icons.straighten),
-      HealthTool.dueDate => (l.toolDueDateTitle, l.toolDueDateBody, Icons.child_care_outlined),
-      HealthTool.weeks => (l.toolWeeksTitle, l.toolWeeksBody, Icons.calendar_view_week_outlined),
+      HealthTool.cycleCalculator => (
+        l.toolCycleCalcTitle,
+        l.toolCycleCalcBody,
+        Icons.calculate_outlined,
+      ),
+      HealthTool.periodCalc => (
+        l.toolPeriodCalcTitle,
+        l.toolPeriodCalcBody,
+        Icons.event_outlined,
+      ),
+      HealthTool.ovulation => (
+        l.toolOvulationTitle,
+        l.toolOvulationBody,
+        Icons.spa_outlined,
+      ),
+      HealthTool.implant => (
+        l.toolImplantTitle,
+        l.toolImplantBody,
+        Icons.favorite_border,
+      ),
+      HealthTool.cycleLength => (
+        l.toolCycleLengthTitle,
+        l.toolCycleLengthBody,
+        Icons.straighten,
+      ),
+      HealthTool.dueDate => (
+        l.toolDueDateTitle,
+        l.toolDueDateBody,
+        Icons.child_care_outlined,
+      ),
+      HealthTool.weeks => (
+        l.toolWeeksTitle,
+        l.toolWeeksBody,
+        Icons.calendar_view_week_outlined,
+      ),
     };
     return Card(
       child: ListTile(
-        contentPadding: const EdgeInsets.symmetric(horizontal: AppSpace.lg, vertical: 6),
+        contentPadding: const EdgeInsets.symmetric(
+          horizontal: AppSpace.lg,
+          vertical: 6,
+        ),
         leading: Icon(icon, color: AppColors.terracotta),
         title: Text(title),
         subtitle: Text(body),
         trailing: const Icon(Icons.chevron_right),
-        onTap: () => Navigator.of(context).push(
-          MaterialPageRoute(builder: (_) => HealthToolPage(tool: tool)),
-        ),
+        onTap: () => Navigator.of(
+          context,
+        ).push(MaterialPageRoute(builder: (_) => HealthToolPage(tool: tool))),
       ),
     );
   }
@@ -108,6 +146,7 @@ class _HealthToolPageState extends State<HealthToolPage> {
   DateTime? _previousStart;
   DateTime? _nextStart;
   int _cycle = HealthTools.defaultCycleLength;
+  int _periodDays = HealthTools.defaultPeriodDays;
   int _weeks = 12;
   bool _prefilled = false;
 
@@ -142,8 +181,9 @@ class _HealthToolPageState extends State<HealthToolPage> {
     final theme = Theme.of(context);
     final tool = widget.tool;
     final (title, body) = switch (tool) {
-      HealthTool.nextPeriod => (l.toolNextPeriodTitle, l.toolNextPeriodBody),
-      HealthTool.fertile => (l.toolFertileTitle, l.toolFertileBody),
+      HealthTool.cycleCalculator => (l.toolCycleCalcTitle, l.toolCycleCalcBody),
+      HealthTool.periodCalc => (l.toolPeriodCalcTitle, l.toolPeriodCalcBody),
+      HealthTool.ovulation => (l.toolOvulationTitle, l.toolOvulationBody),
       HealthTool.implant => (l.toolImplantTitle, l.toolImplantBody),
       HealthTool.cycleLength => (l.toolCycleLengthTitle, l.toolCycleLengthBody),
       HealthTool.dueDate => (l.toolDueDateTitle, l.toolDueDateBody),
@@ -158,7 +198,7 @@ class _HealthToolPageState extends State<HealthToolPage> {
           children: [
             Text(body, style: theme.textTheme.bodyMedium),
             const SizedBox(height: AppSpace.lg),
-            ..._inputs(context, l, tool),
+            ..._inputs(l, tool),
             const SizedBox(height: AppSpace.lg),
             ..._results(context, l, tool),
             const SizedBox(height: AppSpace.lg),
@@ -169,12 +209,12 @@ class _HealthToolPageState extends State<HealthToolPage> {
     );
   }
 
-  List<Widget> _inputs(BuildContext context, AppLocalizations l, HealthTool tool) {
-    final lastStart = _lastStart!;
+  List<Widget> _inputs(AppLocalizations l, HealthTool tool) {
     switch (tool) {
-      case HealthTool.nextPeriod:
-      case HealthTool.fertile:
-      case HealthTool.implant:
+      case HealthTool.cycleCalculator:
+      case HealthTool.periodCalc:
+      case HealthTool.ovulation:
+        final lastStart = _lastStart!;
         return [
           _DateField(
             label: l.healthLastPeriod,
@@ -185,9 +225,42 @@ class _HealthToolPageState extends State<HealthToolPage> {
             },
           ),
           const SizedBox(height: AppSpace.md),
-          _CycleStepper(
+          _Stepper(
+            label: l.healthPeriodDays,
+            value: _periodDays,
+            min: HealthTools.minPeriodDays,
+            max: HealthTools.maxPeriodDays,
+            format: (v) => l.healthDays(v),
+            onChanged: (v) => setState(() => _periodDays = v),
+          ),
+          const SizedBox(height: AppSpace.md),
+          _Stepper(
             label: l.healthUsualCycle,
             value: _cycle,
+            min: HealthTools.minCycleLength,
+            max: HealthTools.maxCycleLength,
+            format: (v) => l.healthDays(v),
+            onChanged: (v) => setState(() => _cycle = v),
+          ),
+        ];
+      case HealthTool.implant:
+        final lastStart = _lastStart!;
+        return [
+          _DateField(
+            label: l.healthLastPeriod,
+            value: lastStart,
+            onTap: () async {
+              final d = await _pick(lastStart);
+              if (d != null) setState(() => _lastStart = dayOnly(d));
+            },
+          ),
+          const SizedBox(height: AppSpace.md),
+          _Stepper(
+            label: l.healthUsualCycle,
+            value: _cycle,
+            min: HealthTools.minCycleLength,
+            max: HealthTools.maxCycleLength,
+            format: (v) => l.healthDays(v),
             onChanged: (v) => setState(() => _cycle = v),
           ),
         ];
@@ -214,6 +287,7 @@ class _HealthToolPageState extends State<HealthToolPage> {
           ),
         ];
       case HealthTool.dueDate:
+        final lastStart = _lastStart!;
         return [
           _DateField(
             label: l.healthLastPeriod,
@@ -227,47 +301,106 @@ class _HealthToolPageState extends State<HealthToolPage> {
             },
           ),
           const SizedBox(height: AppSpace.md),
-          _CycleStepper(
+          _Stepper(
             label: l.healthUsualCycle,
             value: _cycle,
+            min: HealthTools.minCycleLength,
+            max: HealthTools.maxCycleLength,
+            format: (v) => l.healthDays(v),
             onChanged: (v) => setState(() => _cycle = v),
           ),
         ];
       case HealthTool.weeks:
         return [
-          _CycleStepper(
+          _Stepper(
             label: l.healthWeeksPregnant,
             value: _weeks,
             min: 1,
             max: HealthTools.maxPregnancyWeeks,
-            unit: l.healthWeeksUnit,
+            format: (v) => '$v ${l.healthWeeksUnit}',
             onChanged: (v) => setState(() => _weeks = v),
           ),
         ];
     }
   }
 
-  List<Widget> _results(BuildContext context, AppLocalizations l, HealthTool tool) {
+  List<Widget> _results(
+    BuildContext context,
+    AppLocalizations l,
+    HealthTool tool,
+  ) {
     final today = dayOnly(DateTime.now());
+    String range(DateTime a, DateTime b) => '${shortDate(a)} – ${shortDate(b)}';
     switch (tool) {
-      case HealthTool.nextPeriod:
+      case HealthTool.periodCalc:
+        final period = HealthTools.periodRange(
+          _lastStart!,
+          _cycle,
+          _periodDays,
+        );
         return [
-          _Result(
-            label: l.healthResultNextPeriod,
-            value: l.dayMonthYear(HealthTools.nextPeriod(_lastStart!, _cycle)),
+          _ResultCard(
+            label: l.healthResultPeriod,
+            big: range(period.from, period.to),
+            note: l.healthPeriodNote(_periodDays),
           ),
         ];
-      case HealthTool.fertile:
-        final w = HealthTools.fertileWindow(_lastStart!, _cycle);
+      case HealthTool.ovulation:
+        final ov = HealthTools.ovulation(_lastStart!, _cycle);
+        final fertile = HealthTools.fertileWindow(_lastStart!, _cycle);
         return [
-          _Result(
+          _ResultCard(
             label: l.healthResultOvulation,
-            value: l.dayMonthYear(HealthTools.ovulation(_lastStart!, _cycle)),
+            big: shortDate(ov),
+            note: l.healthOvulationNote,
           ),
           const SizedBox(height: AppSpace.md),
-          _Result(
+          _ResultCard(
             label: l.healthResultFertile,
-            value: '${l.dayMonthYear(w.from)} ${l.healthTo} ${l.dayMonthYear(w.to)}',
+            big: range(fertile.from, fertile.to),
+            note: l.healthFertileNote,
+          ),
+        ];
+      case HealthTool.cycleCalculator:
+        final last = _lastStart!;
+        final ov = HealthTools.ovulation(last, _cycle);
+        final period = HealthTools.periodRange(last, _cycle, _periodDays);
+        final fertile = HealthTools.fertileWindow(last, _cycle);
+        final follicular = HealthTools.follicularRange(last, _cycle);
+        final luteal = HealthTools.lutealRange(last, _cycle);
+        String range(DateTime a, DateTime b) =>
+            '${shortDate(a)} – ${shortDate(b)}';
+        return [
+          Wrap(
+            spacing: AppSpace.md,
+            runSpacing: AppSpace.md,
+            children: [
+              _ResultCard(
+                label: l.healthResultOvulation,
+                big: shortDate(ov),
+                note: l.healthOvulationNote,
+              ),
+              _ResultCard(
+                label: l.healthResultPeriod,
+                big: range(period.from, period.to),
+                note: l.healthPeriodNote(_periodDays),
+              ),
+              _ResultCard(
+                label: l.healthResultFertile,
+                big: range(fertile.from, fertile.to),
+                note: l.healthFertileNote,
+              ),
+              _ResultCard(
+                label: l.healthResultFollicular,
+                big: range(follicular.from, follicular.to),
+                note: l.healthFollicularNote,
+              ),
+              _ResultCard(
+                label: l.healthResultLuteal,
+                big: range(luteal.from, luteal.to),
+                note: l.healthLutealNote,
+              ),
+            ],
           ),
         ];
       case HealthTool.implant:
@@ -275,11 +408,15 @@ class _HealthToolPageState extends State<HealthToolPage> {
         return [
           _Result(
             label: l.healthResultImplant,
-            value: '${l.dayMonthYear(w.from)} ${l.healthTo} ${l.dayMonthYear(w.to)}',
+            value:
+                '${l.dayMonthYear(w.from)} ${l.healthTo} ${l.dayMonthYear(w.to)}',
           ),
         ];
       case HealthTool.cycleLength:
-        final days = HealthTools.cycleLengthBetween(_previousStart!, _nextStart!);
+        final days = HealthTools.cycleLengthBetween(
+          _previousStart!,
+          _nextStart!,
+        );
         final ok = HealthTools.isValidCycleLength(days);
         return [
           _Result(label: l.healthResultCycleLength, value: l.healthDays(days)),
@@ -293,7 +430,9 @@ class _HealthToolPageState extends State<HealthToolPage> {
         return [
           _Result(
             label: l.healthResultDue,
-            value: l.dayMonthYear(HealthTools.dueDate(_lastStart!, cycleLength: _cycle)),
+            value: l.dayMonthYear(
+              HealthTools.dueDate(_lastStart!, cycleLength: _cycle),
+            ),
           ),
           const SizedBox(height: AppSpace.md),
           _Result(
@@ -314,7 +453,11 @@ class _HealthToolPageState extends State<HealthToolPage> {
 }
 
 class _DateField extends StatelessWidget {
-  const _DateField({required this.label, required this.value, required this.onTap});
+  const _DateField({
+    required this.label,
+    required this.value,
+    required this.onTap,
+  });
 
   final String label;
   final DateTime value;
@@ -327,7 +470,10 @@ class _DateField extends StatelessWidget {
       child: ListTile(
         contentPadding: const EdgeInsets.symmetric(horizontal: AppSpace.lg),
         title: Text(label, style: Theme.of(context).textTheme.bodyMedium),
-        subtitle: Text(l.dayMonthYear(value), style: Theme.of(context).textTheme.titleMedium),
+        subtitle: Text(
+          l.dayMonthYear(value),
+          style: Theme.of(context).textTheme.titleMedium,
+        ),
         trailing: const Icon(Icons.edit_calendar_outlined),
         onTap: onTap,
       ),
@@ -335,21 +481,21 @@ class _DateField extends StatelessWidget {
   }
 }
 
-class _CycleStepper extends StatelessWidget {
-  const _CycleStepper({
+class _Stepper extends StatelessWidget {
+  const _Stepper({
     required this.label,
     required this.value,
+    required this.min,
+    required this.max,
+    required this.format,
     required this.onChanged,
-    this.min = HealthTools.minCycleLength,
-    this.max = HealthTools.maxCycleLength,
-    this.unit,
   });
 
   final String label;
   final int value;
   final int min;
   final int max;
-  final String? unit;
+  final String Function(int) format;
   final ValueChanged<int> onChanged;
 
   @override
@@ -358,7 +504,10 @@ class _CycleStepper extends StatelessWidget {
     final theme = Theme.of(context);
     return Card(
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: AppSpace.lg, vertical: AppSpace.sm),
+        padding: const EdgeInsets.symmetric(
+          horizontal: AppSpace.lg,
+          vertical: AppSpace.sm,
+        ),
         child: Row(
           children: [
             Expanded(child: Text(label, style: theme.textTheme.bodyMedium)),
@@ -370,7 +519,7 @@ class _CycleStepper extends StatelessWidget {
             SizedBox(
               width: 96,
               child: Text(
-                unit == null ? l.healthDays(value) : '$value $unit',
+                format(value),
                 textAlign: TextAlign.center,
                 style: theme.textTheme.titleMedium,
               ),
@@ -381,6 +530,43 @@ class _CycleStepper extends StatelessWidget {
               icon: const Icon(Icons.add_circle_outline),
             ),
           ],
+        ),
+      ),
+    );
+  }
+}
+
+/// One phase or event: its name, the big date or range, and a short note.
+class _ResultCard extends StatelessWidget {
+  const _ResultCard({
+    required this.label,
+    required this.big,
+    required this.note,
+  });
+
+  final String label;
+  final String big;
+  final String note;
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    return SizedBox(
+      width: 280,
+      child: Card(
+        color: AppColors.goldSoft,
+        child: Padding(
+          padding: const EdgeInsets.all(AppSpace.lg),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(label, style: theme.textTheme.bodyMedium),
+              const SizedBox(height: 6),
+              Text(big, style: theme.textTheme.headlineSmall),
+              const SizedBox(height: 6),
+              Text(note, style: theme.textTheme.bodySmall),
+            ],
+          ),
         ),
       ),
     );
@@ -420,8 +606,8 @@ class _Disclaimer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Text(
-        text,
-        style: Theme.of(context).textTheme.bodySmall,
-        textAlign: TextAlign.center,
-      );
+    text,
+    style: Theme.of(context).textTheme.bodySmall,
+    textAlign: TextAlign.center,
+  );
 }

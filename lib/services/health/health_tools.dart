@@ -49,6 +49,28 @@ class HealthTools {
     return (weeks: total ~/ 7, days: total % 7);
   }
 
+  /// Days the period itself lasts, shown as a range from the next period start.
+  static const defaultPeriodDays = 5;
+  static const minPeriodDays = 1;
+  static const maxPeriodDays = 10;
+
+  /// First and last day of the next period, counted from [periodDays].
+  static ({DateTime from, DateTime to}) periodRange(DateTime lastStart, int cycleLength, int periodDays) {
+    final start = nextPeriod(lastStart, cycleLength);
+    return (from: start, to: addDays(start, periodDays - 1));
+  }
+
+  /// The first part of the cycle: from the last period start to ovulation.
+  static ({DateTime from, DateTime to}) follicularRange(DateTime lastStart, int cycleLength) =>
+      (from: dayOnly(lastStart), to: ovulation(lastStart, cycleLength));
+
+  /// The second part of the cycle: from just after ovulation to the day before the next period.
+  static ({DateTime from, DateTime to}) lutealRange(DateTime lastStart, int cycleLength) =>
+      (
+        from: addDays(ovulation(lastStart, cycleLength), 1),
+        to: addDays(nextPeriod(lastStart, cycleLength), -1),
+      );
+
   /// Length of a cycle from the first days of two consecutive periods.
   static int cycleLengthBetween(DateTime previousStart, DateTime nextStart) =>
       daysBetween(previousStart, nextStart);

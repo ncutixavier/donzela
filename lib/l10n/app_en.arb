@@ -40,8 +40,8 @@
   "sinibukaNote": "Low confidence estimate: the date is 14 days before today.",
   "cycleLengthTitle": "How many days is your cycle?",
   "cycleLengthBody": "A cycle runs from the first day of your period to the day before the next one. Not sure? Keep the usual numbers; Donzela will learn as you log.",
-  "cycleLengthLabel": "Cycle length",
-  "periodLengthLabel": "Period length",
+  "cycleLengthLabel": "Usual cycle length",
+  "periodLengthLabel": "Period days",
   "daysUnit": "days",
   "cycleRangeNote": "Most cycles last between 21 and 35 days",
   "pinSetupTitle": "Protect Donzela",
@@ -599,5 +599,39 @@
       }
     }
   },
-  "healthMonthsWeeks": "{months} months and {weeks} weeks"
+  "healthMonthsWeeks": "{months} months and {weeks} weeks",
+  "cycleSheetTitle": "Your cycle",
+  "cycleLastStart": "Last period started",
+  "cycleLengthNote": "Used until you have logged a few cycles.",
+  "cycleSheetSave": "Save",
+  "reviewedByName": "Reviewed by {name}",
+  "@reviewedByName": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "toolCycleCalcTitle": "Menstrual cycle calculator",
+  "toolCycleCalcBody": "Enter the start of your last period, how long it lasts and your usual cycle length. You get ovulation, your next period, the fertile days and both cycle phases.",
+  "healthPeriodDays": "Period lasts",
+  "healthResultPeriod": "Next period",
+  "healthResultFollicular": "Follicular phase",
+  "healthResultLuteal": "Luteal phase",
+  "healthOvulationNote": "Ovulation is most likely on this day.",
+  "healthPeriodNote": "Your period lasts {days} days.",
+  "healthFertileNote": "The days pregnancy is possible: 5 days before ovulation to 1 day after.",
+  "healthFollicularNote": "From the start of your period until ovulation.",
+  "healthLutealNote": "From just after ovulation until the day before your next period.",
+  "@healthPeriodNote": {
+    "placeholders": {
+      "days": {
+        "type": "int"
+      }
+    }
+  },
+  "toolPeriodCalcTitle": "Period calculator",
+  "toolPeriodCalcBody": "When your next period is likely to start and how many days it will last.",
+  "toolOvulationTitle": "Ovulation calculator",
+  "toolOvulationBody": "When ovulation is likely and your fertile days around it."
 }

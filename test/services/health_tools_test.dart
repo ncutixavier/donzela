@@ -52,4 +52,19 @@ void main() {
     expect(HealthTools.isValidCycleLength(45), isTrue);
     expect(HealthTools.isValidCycleLength(46), isFalse);
   });
+
+  test('the next period range covers the usual number of days', () {
+    final r = HealthTools.periodRange(start, 28, 5);
+    expect(r.from, DateTime(2026, 11, 29));
+    expect(r.to, DateTime(2026, 12, 3));
+  });
+
+  test('follicular runs from the last period to ovulation; luteal from after ovulation to the day before the next period', () {
+    final f = HealthTools.follicularRange(start, 28);
+    expect(f.from, DateTime(2026, 11, 1));
+    expect(f.to, DateTime(2026, 11, 15));
+    final l = HealthTools.lutealRange(start, 28);
+    expect(l.from, DateTime(2026, 11, 16));
+    expect(l.to, DateTime(2026, 11, 28));
+  });
 }

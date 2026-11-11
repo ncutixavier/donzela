@@ -40,8 +40,8 @@
   "sinibukaNote": "Estimation peu fiable : la date est fixée à 14 jours avant aujourd'hui.",
   "cycleLengthTitle": "Combien de jours dure votre cycle ?",
   "cycleLengthBody": "Un cycle va du premier jour de vos règles au jour précédant les suivantes. Vous ne savez pas ? Gardez les valeurs habituelles ; Donzela apprendra au fil de vos notes.",
-  "cycleLengthLabel": "Durée du cycle",
-  "periodLengthLabel": "Durée des règles",
+  "cycleLengthLabel": "Durée habituelle du cycle",
+  "periodLengthLabel": "Jours de règles",
   "daysUnit": "jours",
   "cycleRangeNote": "La plupart des cycles durent entre 21 et 35 jours",
   "pinSetupTitle": "Protégez Donzela",
@@ -599,5 +599,39 @@
       }
     }
   },
-  "healthMonthsWeeks": "{months} mois et {weeks} semaines"
+  "healthMonthsWeeks": "{months} mois et {weeks} semaines",
+  "cycleSheetTitle": "Votre cycle",
+  "cycleLastStart": "Début des dernières règles",
+  "cycleLengthNote": "Utilisée jusqu'à ce que vous ayez enregistré quelques cycles.",
+  "cycleSheetSave": "Enregistrer",
+  "reviewedByName": "Relu par {name}",
+  "@reviewedByName": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "toolCycleCalcTitle": "Calculateur du cycle menstruel",
+  "toolCycleCalcBody": "Saisissez le début de vos dernières règles, leur durée et la durée habituelle de votre cycle. Vous obtenez l'ovulation, les prochaines règles, les jours fertiles et les deux phases du cycle.",
+  "healthPeriodDays": "Les règles durent",
+  "healthResultPeriod": "Prochaines règles",
+  "healthResultFollicular": "Phase folliculaire",
+  "healthResultLuteal": "Phase lutéale",
+  "healthOvulationNote": "L'ovulation est la plus probable ce jour-là.",
+  "healthPeriodNote": "Vos règles durent {days} jours.",
+  "healthFertileNote": "Les jours où une grossesse est possible : de 5 jours avant l'ovulation à 1 jour après.",
+  "healthFollicularNote": "Du début des règles jusqu'à l'ovulation.",
+  "healthLutealNote": "De juste après l'ovulation jusqu'à la veille des prochaines règles.",
+  "@healthPeriodNote": {
+    "placeholders": {
+      "days": {
+        "type": "int"
+      }
+    }
+  },
+  "toolPeriodCalcTitle": "Calculateur des règles",
+  "toolPeriodCalcBody": "Quand vos prochaines règles devraient commencer et combien de jours elles dureront.",
+  "toolOvulationTitle": "Calculateur d'ovulation",
+  "toolOvulationBody": "Quand l'ovulation est probable et vos jours fertiles autour."
 }

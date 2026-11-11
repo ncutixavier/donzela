@@ -283,7 +283,7 @@ abstract class AppLocalizations {
   /// No description provided for @cycleLengthLabel.
   ///
   /// In rw, this message translates to:
-  /// **'Uburebure bw\'ukwezi'**
+  /// **'Uburebure bw\'umuzunguruko'**
   String get cycleLengthLabel;
 
   /// No description provided for @periodLengthLabel.
@@ -2505,6 +2505,126 @@ abstract class AppLocalizations {
   /// In rw, this message translates to:
   /// **'amezi {months} n\'ibyumweru {weeks}'**
   String healthMonthsWeeks(int months, int weeks);
+
+  /// No description provided for @cycleSheetTitle.
+  ///
+  /// In rw, this message translates to:
+  /// **'Umuzunguruko wawe'**
+  String get cycleSheetTitle;
+
+  /// No description provided for @cycleLastStart.
+  ///
+  /// In rw, this message translates to:
+  /// **'Itangiriro ry\'imihango ya nyuma'**
+  String get cycleLastStart;
+
+  /// No description provided for @cycleLengthNote.
+  ///
+  /// In rw, this message translates to:
+  /// **'Iyi ni yo ikoreshwa kugeza wanditse imizunguruko myinshi.'**
+  String get cycleLengthNote;
+
+  /// No description provided for @cycleSheetSave.
+  ///
+  /// In rw, this message translates to:
+  /// **'Bika'**
+  String get cycleSheetSave;
+
+  /// No description provided for @reviewedByName.
+  ///
+  /// In rw, this message translates to:
+  /// **'Byasuzumwe na {name}'**
+  String reviewedByName(String name);
+
+  /// No description provided for @toolCycleCalcTitle.
+  ///
+  /// In rw, this message translates to:
+  /// **'Igenzura ry\'umuzunguruko'**
+  String get toolCycleCalcTitle;
+
+  /// No description provided for @toolCycleCalcBody.
+  ///
+  /// In rw, this message translates to:
+  /// **'Andika itangiriro ry\'imihango ya nyuma, imihango imara iminsi ingahe n\'uburebure bw\'umuzunguruko. Uzabona intanga, imihango itaha, iminsi yo gusama n\'ibyiciro byombi.'**
+  String get toolCycleCalcBody;
+
+  /// No description provided for @healthPeriodDays.
+  ///
+  /// In rw, this message translates to:
+  /// **'Imihango imara iminsi ingahe'**
+  String get healthPeriodDays;
+
+  /// No description provided for @healthResultPeriod.
+  ///
+  /// In rw, this message translates to:
+  /// **'Imihango itaha'**
+  String get healthResultPeriod;
+
+  /// No description provided for @healthResultFollicular.
+  ///
+  /// In rw, this message translates to:
+  /// **'Icyiciro cya mbere'**
+  String get healthResultFollicular;
+
+  /// No description provided for @healthResultLuteal.
+  ///
+  /// In rw, this message translates to:
+  /// **'Icyiciro cya kabiri'**
+  String get healthResultLuteal;
+
+  /// No description provided for @healthOvulationNote.
+  ///
+  /// In rw, this message translates to:
+  /// **'Intanga isohoka hafi aha.'**
+  String get healthOvulationNote;
+
+  /// No description provided for @healthPeriodNote.
+  ///
+  /// In rw, this message translates to:
+  /// **'Imihango imara iminsi {days}.'**
+  String healthPeriodNote(int days);
+
+  /// No description provided for @healthFertileNote.
+  ///
+  /// In rw, this message translates to:
+  /// **'Iminsi ushobora gusama, kuva ku minsi itanu mbere y\'intanga kugeza ku munsi umwe nyuma yayo.'**
+  String get healthFertileNote;
+
+  /// No description provided for @healthFollicularNote.
+  ///
+  /// In rw, this message translates to:
+  /// **'Kuva ku itangiriro ry\'imihango kugeza intanga isohotse.'**
+  String get healthFollicularNote;
+
+  /// No description provided for @healthLutealNote.
+  ///
+  /// In rw, this message translates to:
+  /// **'Kuva nyuma y\'intanga kugeza umunsi umwe mbere y\'imihango itaha.'**
+  String get healthLutealNote;
+
+  /// No description provided for @toolPeriodCalcTitle.
+  ///
+  /// In rw, this message translates to:
+  /// **'Igenzura ry\'imihango itaha'**
+  String get toolPeriodCalcTitle;
+
+  /// No description provided for @toolPeriodCalcBody.
+  ///
+  /// In rw, this message translates to:
+  /// **'Igihe imihango yawe itaha ishobora gutangira n\'igihe izamara.'**
+  String get toolPeriodCalcBody;
+
+  /// No description provided for @toolOvulationTitle.
+  ///
+  /// In rw, this message translates to:
+  /// **'Igenzura ry\'intanga'**
+  String get toolOvulationTitle;
+
+  /// No description provided for @toolOvulationBody.
+  ///
+  /// In rw, this message translates to:
+  /// **'Igihe intanga ishobora gusohoka n\'iminsi yo gusama.'**
+  String get toolOvulationBody;
 }
 
 class _AppLocalizationsDelegate

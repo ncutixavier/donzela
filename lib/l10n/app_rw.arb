@@ -40,7 +40,7 @@
   "sinibukaNote": "Igereranya rito: itariki ni iminsi 14 uvuye none.",
   "cycleLengthTitle": "Ukwezi kwawe kumara iminsi ingahe?",
   "cycleLengthBody": "Ukwezi gutangira ku munsi wa mbere w'imihango kugeza ku munsi ubanziriza imihango ikurikira. Ntubizi neza? Siga imibare isanzwe; Donzela izagenda yiga uko wandika.",
-  "cycleLengthLabel": "Uburebure bw'ukwezi",
+  "cycleLengthLabel": "Uburebure bw'umuzunguruko",
   "periodLengthLabel": "Iminsi y'imihango",
   "daysUnit": "iminsi",
   "cycleRangeNote": "Ukwezi kwinshi kumara hagati y'iminsi 21 na 35",
@@ -599,5 +599,39 @@
       }
     }
   },
-  "healthMonthsWeeks": "amezi {months} n'ibyumweru {weeks}"
+  "healthMonthsWeeks": "amezi {months} n'ibyumweru {weeks}",
+  "cycleSheetTitle": "Umuzunguruko wawe",
+  "cycleLastStart": "Itangiriro ry'imihango ya nyuma",
+  "cycleLengthNote": "Iyi ni yo ikoreshwa kugeza wanditse imizunguruko myinshi.",
+  "cycleSheetSave": "Bika",
+  "reviewedByName": "Byasuzumwe na {name}",
+  "@reviewedByName": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "toolCycleCalcTitle": "Igenzura ry'umuzunguruko",
+  "toolCycleCalcBody": "Andika itangiriro ry'imihango ya nyuma, imihango imara iminsi ingahe n'uburebure bw'umuzunguruko. Uzabona intanga, imihango itaha, iminsi yo gusama n'ibyiciro byombi.",
+  "healthPeriodDays": "Imihango imara iminsi ingahe",
+  "healthResultPeriod": "Imihango itaha",
+  "healthResultFollicular": "Icyiciro cya mbere",
+  "healthResultLuteal": "Icyiciro cya kabiri",
+  "healthOvulationNote": "Intanga isohoka hafi aha.",
+  "healthPeriodNote": "Imihango imara iminsi {days}.",
+  "healthFertileNote": "Iminsi ushobora gusama, kuva ku minsi itanu mbere y'intanga kugeza ku munsi umwe nyuma yayo.",
+  "healthFollicularNote": "Kuva ku itangiriro ry'imihango kugeza intanga isohotse.",
+  "healthLutealNote": "Kuva nyuma y'intanga kugeza umunsi umwe mbere y'imihango itaha.",
+  "@healthPeriodNote": {
+    "placeholders": {
+      "days": {
+        "type": "int"
+      }
+    }
+  },
+  "toolPeriodCalcTitle": "Igenzura ry'imihango itaha",
+  "toolPeriodCalcBody": "Igihe imihango yawe itaha ishobora gutangira n'igihe izamara.",
+  "toolOvulationTitle": "Igenzura ry'intanga",
+  "toolOvulationBody": "Igihe intanga ishobora gusohoka n'iminsi yo gusama."
 }

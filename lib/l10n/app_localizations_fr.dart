@@ -111,10 +111,10 @@ class AppLocalizationsFr extends AppLocalizations {
       'Un cycle va du premier jour de vos règles au jour précédant les suivantes. Vous ne savez pas ? Gardez les valeurs habituelles ; Donzela apprendra au fil de vos notes.';
 
   @override
-  String get cycleLengthLabel => 'Durée du cycle';
+  String get cycleLengthLabel => 'Durée habituelle du cycle';
 
   @override
-  String get periodLengthLabel => 'Durée des règles';
+  String get periodLengthLabel => 'Jours de règles';
 
   @override
   String get daysUnit => 'jours';
@@ -1327,4 +1327,76 @@ class AppLocalizationsFr extends AppLocalizations {
   String healthMonthsWeeks(int months, int weeks) {
     return '$months mois et $weeks semaines';
   }
+
+  @override
+  String get cycleSheetTitle => 'Votre cycle';
+
+  @override
+  String get cycleLastStart => 'Début des dernières règles';
+
+  @override
+  String get cycleLengthNote =>
+      'Utilisée jusqu\'à ce que vous ayez enregistré quelques cycles.';
+
+  @override
+  String get cycleSheetSave => 'Enregistrer';
+
+  @override
+  String reviewedByName(String name) {
+    return 'Relu par $name';
+  }
+
+  @override
+  String get toolCycleCalcTitle => 'Calculateur du cycle menstruel';
+
+  @override
+  String get toolCycleCalcBody =>
+      'Saisissez le début de vos dernières règles, leur durée et la durée habituelle de votre cycle. Vous obtenez l\'ovulation, les prochaines règles, les jours fertiles et les deux phases du cycle.';
+
+  @override
+  String get healthPeriodDays => 'Les règles durent';
+
+  @override
+  String get healthResultPeriod => 'Prochaines règles';
+
+  @override
+  String get healthResultFollicular => 'Phase folliculaire';
+
+  @override
+  String get healthResultLuteal => 'Phase lutéale';
+
+  @override
+  String get healthOvulationNote =>
+      'L\'ovulation est la plus probable ce jour-là.';
+
+  @override
+  String healthPeriodNote(int days) {
+    return 'Vos règles durent $days jours.';
+  }
+
+  @override
+  String get healthFertileNote =>
+      'Les jours où une grossesse est possible : de 5 jours avant l\'ovulation à 1 jour après.';
+
+  @override
+  String get healthFollicularNote =>
+      'Du début des règles jusqu\'à l\'ovulation.';
+
+  @override
+  String get healthLutealNote =>
+      'De juste après l\'ovulation jusqu\'à la veille des prochaines règles.';
+
+  @override
+  String get toolPeriodCalcTitle => 'Calculateur des règles';
+
+  @override
+  String get toolPeriodCalcBody =>
+      'Quand vos prochaines règles devraient commencer et combien de jours elles dureront.';
+
+  @override
+  String get toolOvulationTitle => 'Calculateur d\'ovulation';
+
+  @override
+  String get toolOvulationBody =>
+      'Quand l\'ovulation est probable et vos jours fertiles autour.';
 }
