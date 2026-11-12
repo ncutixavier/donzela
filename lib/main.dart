@@ -1,8 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'features/admin/admin_users_controller.dart';
+import 'services/cloud/profile_store.dart';
+import 'services/cloud/role_store.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
+import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -55,16 +59,23 @@ Future<Widget> buildRoot({
       firebaseReady = false;
     }
   }
-  final crash = CrashReporter(sink: firebaseReady
+  // Crashlytics has no web support, so crash reports are sent from phones only.
+  final crashOn = firebaseReady && !kIsWeb;
+  final crash = CrashReporter(sink: crashOn
       ? (type, message) => FirebaseCrashlytics.instance
           .recordError(Exception('$type: $message'), null, fatal: false)
       : null);
-  if (firebaseReady) {
+  if (crashOn) {
     crash.install();
     await FirebaseCrashlytics.instance.setCrashlyticsCollectionEnabled(true);
   }
-  final auth = AuthService(auth: firebaseReady ? FirebaseAuth.instance : null);
   final firestore = firebaseReady ? FirebaseFirestore.instance : null;
+  final auth = AuthService(
+    auth: firebaseReady ? FirebaseAuth.instance : null,
+    firestore: firestore,
+  );
+  // The admin role comes from Firestore, so it is read once at start.
+  await auth.loadAccount();
 
   // Repositories and services are created once here and passed down.
   final db = database ?? DonzelaDatabase.open();
@@ -72,7 +83,6 @@ Future<Widget> buildRoot({
   final cycleRepo = CycleRepository(db);
   final dailyRepo = DailyLogRepository(db);
   final contentRepo = ContentRepository(db);
-  await contentRepo.syncBundledContent();
 
   final analytics = AnalyticsService(
     sink: firebaseReady
@@ -84,7 +94,8 @@ Future<Widget> buildRoot({
   );
   final notifications = NotificationService();
   try {
-    if (initNotifications) await notifications.init();
+    // Local reminders are phone-only; browsers have no notification scheduler here.
+    if (initNotifications && !kIsWeb) await notifications.init();
   } catch (e) {
     // Reminders are optional; the rest of the app must still start.
     crash.record(e, null);
@@ -193,6 +204,13 @@ Future<Widget> buildRoot({
       ChangeNotifierProvider<LogsController>.value(value: logs),
       ChangeNotifierProvider<CloudController>.value(value: cloud),
       Provider<AdminController>.value(value: admin),
+      ChangeNotifierProvider<AdminUsersController>(
+        create: (_) => AdminUsersController(
+          auth: auth,
+          roles: firestore == null ? null : RoleStore(firestore),
+          profiles: firestore == null ? null : ProfileStore(firestore),
+        ),
+      ),
     ],
     child: DonzelaApp(settings: settings, lock: lock),
   );

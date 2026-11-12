@@ -57,6 +57,17 @@ contraception and emergency contraception.
 - Google sign-in is used for backup and restore. Anonymous sign-in is enabled in the console but the app does not use it.
 - Firebase is optional at runtime. If it cannot start, the app runs offline with backup disabled.
 
+## Configuration (Firebase and environment)
+
+Firebase client settings are not stored in the repository. They come from environment variables:
+
+- **Locally:** copy `.env.example` to `.env` (gitignored), fill in the values from the Firebase console and Google Cloud Console, then run `dart run tool/generate_firebase_config.dart`. This writes `lib/firebase_options.dart`, `android/app/google-services.json` and `ios/Runner/GoogleService-Info.plist`, all gitignored.
+- **Without values:** the generator writes placeholders and prints a warning. The app then runs offline, and tests and CI still compile.
+- **CI:** the same names are GitHub Actions secrets (repository settings, Secrets and variables, Actions). The workflow in `.github/workflows/ci.yml` writes the files before analysis, tests and the Android build.
+- **iOS URL scheme:** `ios/Runner/Info.plist` needs the reversed iOS client ID as a URL scheme. The generator prints the value to use.
+
+Never commit `.env` or the generated files. The Google API key in them is flagged by secret scanning.
+
 ## Not yet done (see plan)
 
 - **iOS build**: `pod install` could not resolve FirebaseAnalytics 12.19.3 from the local CocoaPods spec repo, so the iOS build is unverified.
@@ -66,3 +77,14 @@ contraception and emergency contraception.
 - **Fonts**: the mockups' Poppins and Nunito are not bundled; the system font is used.
 - **Release**: signing key, store listing, Play data-safety form and icon are not set up. Release builds currently use the debug key.
 - **Device testing**: built and tested with unit and widget tests, not yet on a 2 GB Android 8 phone.
+
+## Web deployment
+
+GitHub Actions builds, analyzes and tests the Flutter web app before deploying to Firebase Hosting (`donzela`).
+
+- Open or update a PR from this repository: deploy a unique `pr-<number>` preview and post its URL on the PR. Previews expire after 7 days. Fork PRs build and test without deploying.
+- Merge into `staging`: update the `staging` preview channel (expires after 30 days).
+- Merge into `main`: deploy the live site at https://donzela.web.app. Pushes to these branches also deploy.
+- The Web workflow can also be run manually on `staging` or `main`.
+
+Required repository secret: `FIREBASE_SERVICE_ACCOUNT_DONZELA`, containing a Firebase Hosting deployment service account JSON key. Client configuration uses the `FIREBASE_*` secrets listed above, including `FIREBASE_WEB_APP_ID` and `FIREBASE_WEB_API_KEY`. Deployment jobs check out `firebase.json` and download the exact web artifact that passed the build checks.

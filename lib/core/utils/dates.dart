@@ -34,6 +34,10 @@ String _two(int n) => n.toString().padLeft(2, '0');
 /// Time with seconds, "00:16:32".
 String timeWithSeconds(DateTime d) => '${_two(d.hour)}:${_two(d.minute)}:${_two(d.second)}';
 
+/// Date and time to the minute, "12/11/2026 11:40".
+String dateMinuteText(DateTime d) =>
+    '${_two(d.day)}/${_two(d.month)}/${d.year} ${_two(d.hour)}:${_two(d.minute)}';
+
 /// Numeric date and time, "11/12/2026 00:16:32" (day/month/year).
 String dateTimeText(DateTime d) =>
     '${_two(d.day)}/${_two(d.month)}/${d.year} ${timeWithSeconds(d)}';

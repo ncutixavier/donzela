@@ -4,8 +4,10 @@ import 'package:provider/provider.dart';
 
 import '../../core/l10n/localization.dart';
 import '../../core/theme/app_theme.dart';
+import '../../core/widgets/profile_avatar.dart';
 import '../../core/utils/dates.dart';
 import '../admin/admin_controller.dart';
+import '../admin/admin_users_screen.dart';
 import '../settings/settings_controller.dart';
 import 'cloud_controller.dart';
 
@@ -84,8 +86,44 @@ class _AccountScreenState extends State<AccountScreen> {
           _message(l.cloudUnavailable);
           return;
         }
-        await cloud.signIn();
+        final signedIn = await cloud.signIn();
+        if (signedIn && mounted) await _showSignedIn();
       });
+
+  /// Bottom sheet shown once after a successful Google sign-in.
+  Future<void> _showSignedIn() {
+    return showModalBottomSheet<void>(
+      context: context,
+      showDragHandle: true,
+      builder: (ctx) {
+        final cloud = ctx.read<CloudController>();
+        final l = AppLocalizations.of(ctx);
+        final theme = Theme.of(ctx);
+        return SafeArea(
+          child: Padding(
+            padding: const EdgeInsets.fromLTRB(AppSpace.lg, 0, AppSpace.lg, AppSpace.lg),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                ProfileAvatar(photoUrl: cloud.photoUrl, name: cloud.displayName ?? cloud.email ?? '', radius: 36),
+                const SizedBox(height: AppSpace.md),
+                Text(l.accountWelcome(cloud.displayName ?? cloud.email ?? ''),
+                    style: theme.textTheme.titleLarge, textAlign: TextAlign.center),
+                const SizedBox(height: 4),
+                Text(cloud.email ?? '', style: theme.textTheme.bodyMedium),
+                const SizedBox(height: AppSpace.lg),
+                FilledButton(
+                  onPressed: () => Navigator.of(ctx).pop(),
+                  child: Text(l.continueBtn),
+                ),
+              ],
+            ),
+          ),
+        );
+      },
+    );
+  }
 
   Future<void> _syncNow() => _run('sync', () async {
         final cloud = context.read<CloudController>();
@@ -96,10 +134,20 @@ class _AccountScreenState extends State<AccountScreen> {
         _message(pending == 0 ? l.accountSyncDone : l.accountPending(pending));
       });
 
-  // The restore is the first 60% of the bar, the public content the last 40%.
+  // Signed in: the restore is the first 60% of the bar, the public content the
+  // last 40%. Signed out: only the public articles and Help numbers are pulled.
   Future<void> _pull() => _run('pull', () async {
         final cloud = context.read<CloudController>();
         final l = AppLocalizations.of(context);
+        if (!cloud.available) {
+          _message(l.cloudUnavailable);
+          return;
+        }
+        if (!cloud.signedIn) {
+          await cloud.pullPublicContent(onProgress: _report);
+          _message(l.accountContentUpdated);
+          return;
+        }
         final result = await cloud.restore(onProgress: (p) => _report(p * 0.6));
         await cloud.pullPublicContent(onProgress: (p) => _report(0.6 + p * 0.4));
         final count = result.cycles + result.dailyLogs;
@@ -128,18 +176,49 @@ class _AccountScreenState extends State<AccountScreen> {
             Card(
               child: Padding(
                 padding: const EdgeInsets.all(AppSpace.lg),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    Text(l.accountPull, style: theme.textTheme.titleMedium),
+                    const SizedBox(height: AppSpace.sm),
+                    Text(
+                      cloud.signedIn ? l.accountPullBody : l.accountPullPublicBody,
+                      style: theme.textTheme.bodyMedium,
+                    ),
+                    const SizedBox(height: AppSpace.md),
+                    OutlinedButton(
+                      onPressed: _busy ? null : _pull,
+                      child: Text(l.accountPull),
+                    ),
+                    if (_busy && _activity == 'pull') _progressBar(l, theme),
+                  ],
+                ),
+              ),
+            ),
+            const SizedBox(height: AppSpace.md),
+            Card(
+              child: Padding(
+                padding: const EdgeInsets.all(AppSpace.lg),
                 child: cloud.signedIn
                     ? Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Row(
                             children: [
-                              const Icon(Icons.account_circle, color: AppColors.terracotta, size: 36),
+                              ProfileAvatar(
+                                photoUrl: cloud.photoUrl,
+                                name: cloud.displayName ?? cloud.email ?? '',
+                                radius: 22,
+                              ),
                               const SizedBox(width: AppSpace.md),
                               Expanded(
-                                child: Text(
-                                  cloud.email ?? '',
-                                  style: theme.textTheme.titleMedium,
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    if (cloud.displayName != null)
+                                      Text(cloud.displayName!, style: theme.textTheme.titleMedium),
+                                    Text(cloud.email ?? '', style: theme.textTheme.bodyMedium),
+                                  ],
                                 ),
                               ),
                             ],
@@ -171,6 +250,20 @@ class _AccountScreenState extends State<AccountScreen> {
                       ),
               ),
             ),
+            if (context.read<AdminController>().isRootAdmin) ...[
+              Card(
+                child: ListTile(
+                  leading: const Icon(Icons.admin_panel_settings_outlined, color: AppColors.terracotta),
+                  title: Text(l.adminUsersTitle),
+                  subtitle: Text(l.adminUsersBody),
+                  trailing: const Icon(Icons.chevron_right),
+                  onTap: () => Navigator.of(context).push(
+                    MaterialPageRoute(builder: (_) => const AdminUsersScreen()),
+                  ),
+                ),
+              ),
+              const SizedBox(height: AppSpace.md),
+            ],
             if (cloud.signedIn && context.read<AdminController>().isSuperAdmin) ...[
               const SizedBox(height: AppSpace.md),
               Card(
@@ -197,6 +290,11 @@ class _AccountScreenState extends State<AccountScreen> {
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
                       Text(l.accountSyncNow, style: theme.textTheme.titleMedium),
+                      const SizedBox(height: 4),
+                      Text(
+                        settings.backupOn ? l.accountSyncNowBody : l.accountSyncOffBody,
+                        style: theme.textTheme.bodyMedium,
+                      ),
                       const SizedBox(height: AppSpace.sm),
                       if (settings.backupOn)
                         FilledButton(
@@ -209,26 +307,6 @@ class _AccountScreenState extends State<AccountScreen> {
                           child: Text(l.accountTurnOnBackup),
                         ),
                       if (_busy && _activity == 'sync') _progressBar(l, theme),
-                    ],
-                  ),
-                ),
-              ),
-              const SizedBox(height: AppSpace.md),
-              Card(
-                child: Padding(
-                  padding: const EdgeInsets.all(AppSpace.lg),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: [
-                      Text(l.accountPull, style: theme.textTheme.titleMedium),
-                      const SizedBox(height: AppSpace.sm),
-                      Text(l.accountPullBody, style: theme.textTheme.bodyMedium),
-                      const SizedBox(height: AppSpace.md),
-                      OutlinedButton(
-                        onPressed: _busy ? null : _pull,
-                        child: Text(l.accountPull),
-                      ),
-                      if (_busy && _activity == 'pull') _progressBar(l, theme),
                     ],
                   ),
                 ),
@@ -249,3 +327,4 @@ class _AccountScreenState extends State<AccountScreen> {
     );
   }
 }
+

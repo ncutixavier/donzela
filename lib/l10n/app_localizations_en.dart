@@ -110,10 +110,10 @@ class AppLocalizationsEn extends AppLocalizations {
       'A cycle runs from the first day of your period to the day before the next one. Not sure? Keep the usual numbers; Donzela will learn as you log.';
 
   @override
-  String get cycleLengthLabel => 'Cycle length';
+  String get cycleLengthLabel => 'Usual cycle length';
 
   @override
-  String get periodLengthLabel => 'Period length';
+  String get periodLengthLabel => 'Period days';
 
   @override
   String get daysUnit => 'days';
@@ -695,7 +695,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get d7 => 'Sunday';
 
   @override
-  String get appFooter => 'Donzela 1.0 · Made in Kigali by Hova AI';
+  String get appFooter => 'Donzela 1.0 · Made in Kigali';
 
   @override
   String get logToday => 'Log today';
@@ -1050,4 +1050,341 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get emergencyNone => 'No emergency numbers yet.';
+
+  @override
+  String get translationsTitle => 'Languages';
+
+  @override
+  String get statusPublished => 'Published';
+
+  @override
+  String get statusDraft => 'Draft';
+
+  @override
+  String get statusMissing => 'Missing';
+
+  @override
+  String get translateNow => 'Translate';
+
+  @override
+  String get translateArticle => 'Translate article';
+
+  @override
+  String get saveDraftBtn => 'Save draft';
+
+  @override
+  String get publishAllBtn => 'Publish in all languages';
+
+  @override
+  String get publishedAll => 'Published in all languages.';
+
+  @override
+  String get publishNotReady => 'Not ready to publish';
+
+  @override
+  String get reviewerLabel => 'Reviewer (this language)';
+
+  @override
+  String get reviewerHint => 'Leave empty to show Donzela Team.';
+
+  @override
+  String writtenBy(String name) {
+    return 'Written by $name';
+  }
+
+  @override
+  String get accountPullPublicBody =>
+      'Get the latest articles and Help numbers from Donzela.';
+
+  @override
+  String get accountContentUpdated =>
+      'Latest articles and Help information are up to date.';
+
+  @override
+  String get adminUsersTitle => 'Admins';
+
+  @override
+  String get adminUsersBody =>
+      'Admins can edit Learn and Help. A person becomes admin when you add their email here.';
+
+  @override
+  String get adminUsersEmailLabel => 'Google email';
+
+  @override
+  String get adminUsersEmailHint => 'For example: name@gmail.com';
+
+  @override
+  String get adminUsersAdd => 'Add admin';
+
+  @override
+  String get adminUsersListTitle => 'People with admin rights';
+
+  @override
+  String get adminUsersNone => 'No other admins yet.';
+
+  @override
+  String get adminUsersRemove => 'Remove admin';
+
+  @override
+  String get adminUsersRemoveTitle => 'Remove this admin?';
+
+  @override
+  String get adminUsersInvalid => 'Enter a valid email';
+
+  @override
+  String get adminUsersOwner =>
+      'This is the owner account and cannot be removed';
+
+  @override
+  String get adminUsersRoleOwner => 'Owner';
+
+  @override
+  String get adminUsersRoleAdmin => 'Admin';
+
+  @override
+  String get adminUsersRoleUser => 'Member';
+
+  @override
+  String get adminUsersMakeAdmin => 'Make admin';
+
+  @override
+  String accountWelcome(String name) {
+    return 'Welcome, $name';
+  }
+
+  @override
+  String createdOn(String date) {
+    return 'Created $date';
+  }
+
+  @override
+  String publishedOn(String date) {
+    return 'Published $date';
+  }
+
+  @override
+  String updatedOn(String date) {
+    return 'Updated $date';
+  }
+
+  @override
+  String get onboardingPullContent => 'Get latest articles and Help info';
+
+  @override
+  String get contentPullFailed =>
+      'Could not get the latest content. Check your connection.';
+
+  @override
+  String get lastPeriodOptional =>
+      'You can skip this and add it later from the calendar.';
+
+  @override
+  String get refreshContent => 'Refresh articles and Help';
+
+  @override
+  String get accountSyncNowBody =>
+      'Your data stays on this phone. Sync now uploads your latest changes to your Google account and records when it finished.';
+
+  @override
+  String get accountSyncOffBody =>
+      'Turn on backup in Settings first. Then your changes can be uploaded to your Google account.';
+
+  @override
+  String get healthTitle => 'Health tools';
+
+  @override
+  String get healthSubtitle =>
+      'Quick estimates from the dates you enter. They update as you change them.';
+
+  @override
+  String get healthSectionCycle => 'Your cycle';
+
+  @override
+  String get healthSectionPregnancy => 'Pregnancy';
+
+  @override
+  String get healthDisclaimer =>
+      'These are estimates, not medical advice. Talk to a health worker about decisions for your health.';
+
+  @override
+  String get toolNextPeriodTitle => 'Next period';
+
+  @override
+  String get toolNextPeriodBody =>
+      'When your next period is likely to start, based on your usual cycle length.';
+
+  @override
+  String get toolFertileTitle => 'Fertile days';
+
+  @override
+  String get toolFertileBody =>
+      'The days when pregnancy is possible, and when ovulation is likely.';
+
+  @override
+  String get toolImplantTitle => 'Implantation window';
+
+  @override
+  String get toolImplantBody =>
+      'When an embryo would usually implant in the womb after ovulation.';
+
+  @override
+  String get toolCycleLengthTitle => 'Cycle length';
+
+  @override
+  String get toolCycleLengthBody =>
+      'Count the days between the start of two periods.';
+
+  @override
+  String get toolDueDateTitle => 'Due date';
+
+  @override
+  String get toolDueDateBody =>
+      'Estimated due date, counted from the first day of your last period.';
+
+  @override
+  String get toolWeeksTitle => 'Weeks to months';
+
+  @override
+  String get toolWeeksBody =>
+      'Convert weeks of pregnancy into months and weeks.';
+
+  @override
+  String get healthLastPeriod => 'First day of your last period';
+
+  @override
+  String get healthUsualCycle => 'Usual cycle length';
+
+  @override
+  String get healthPreviousPeriod => 'First day of the period before';
+
+  @override
+  String get healthNextPeriodStart => 'First day of the next period';
+
+  @override
+  String get healthWeeksPregnant => 'Weeks pregnant';
+
+  @override
+  String get healthWeeksUnit => 'weeks';
+
+  @override
+  String get healthResultNextPeriod => 'Next period around';
+
+  @override
+  String get healthResultOvulation => 'Ovulation around';
+
+  @override
+  String get healthResultFertile => 'Fertile days';
+
+  @override
+  String get healthResultImplant => 'Implantation likely between';
+
+  @override
+  String get healthResultCycleLength => 'Cycle length';
+
+  @override
+  String get healthResultDue => 'Estimated due date';
+
+  @override
+  String get healthResultAge => 'Pregnant for';
+
+  @override
+  String get healthResultMonths => 'About';
+
+  @override
+  String get healthCycleOut =>
+      'A cycle is usually 21 to 45 days. Check the two dates.';
+
+  @override
+  String get healthTo => 'to';
+
+  @override
+  String get healthLess => 'Decrease';
+
+  @override
+  String get healthMore => 'Increase';
+
+  @override
+  String healthDays(int n) {
+    return '$n days';
+  }
+
+  @override
+  String healthWeekDays(int weeks, int days) {
+    return '$weeks weeks and $days days';
+  }
+
+  @override
+  String healthMonthsWeeks(int months, int weeks) {
+    return '$months months and $weeks weeks';
+  }
+
+  @override
+  String get cycleSheetTitle => 'Your cycle';
+
+  @override
+  String get cycleLastStart => 'Last period started';
+
+  @override
+  String get cycleLengthNote => 'Used until you have logged a few cycles.';
+
+  @override
+  String get cycleSheetSave => 'Save';
+
+  @override
+  String reviewedByName(String name) {
+    return 'Reviewed by $name';
+  }
+
+  @override
+  String get toolCycleCalcTitle => 'Menstrual cycle calculator';
+
+  @override
+  String get toolCycleCalcBody =>
+      'Enter the start of your last period, how long it lasts and your usual cycle length. You get ovulation, your next period, the fertile days and both cycle phases.';
+
+  @override
+  String get healthPeriodDays => 'Period lasts';
+
+  @override
+  String get healthResultPeriod => 'Next period';
+
+  @override
+  String get healthResultFollicular => 'Follicular phase';
+
+  @override
+  String get healthResultLuteal => 'Luteal phase';
+
+  @override
+  String get healthOvulationNote => 'Ovulation is most likely on this day.';
+
+  @override
+  String healthPeriodNote(int days) {
+    return 'Your period lasts $days days.';
+  }
+
+  @override
+  String get healthFertileNote =>
+      'The days pregnancy is possible: 5 days before ovulation to 1 day after.';
+
+  @override
+  String get healthFollicularNote =>
+      'From the start of your period until ovulation.';
+
+  @override
+  String get healthLutealNote =>
+      'From just after ovulation until the day before your next period.';
+
+  @override
+  String get toolPeriodCalcTitle => 'Period calculator';
+
+  @override
+  String get toolPeriodCalcBody =>
+      'When your next period is likely to start and how many days it will last.';
+
+  @override
+  String get toolOvulationTitle => 'Ovulation calculator';
+
+  @override
+  String get toolOvulationBody =>
+      'When ovulation is likely and your fertile days around it.';
 }

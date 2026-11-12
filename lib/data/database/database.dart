@@ -1,11 +1,7 @@
-import 'dart:io';
-
 import 'package:drift/drift.dart';
-import 'package:drift/native.dart';
-import 'package:path/path.dart' as p;
-import 'package:path_provider/path_provider.dart';
 
 import 'daos.dart';
+import 'open_native.dart' if (dart.library.js_interop) 'open_web.dart';
 import 'tables.dart';
 
 part 'database.g.dart';
@@ -19,20 +15,14 @@ part 'database.g.dart';
 class DonzelaDatabase extends _$DonzelaDatabase {
   DonzelaDatabase(super.e);
 
-  /// Opens the on-disk database in the app documents folder.
-  factory DonzelaDatabase.open() {
-    return DonzelaDatabase(LazyDatabase(() async {
-      final dir = await getApplicationDocumentsDirectory();
-      final file = File(p.join(dir.path, 'donzela.sqlite'));
-      return NativeDatabase.createInBackground(file);
-    }));
-  }
+  /// Opens the on-disk database (SQLite file on the phone, WebAssembly in the browser).
+  factory DonzelaDatabase.open() => DonzelaDatabase(openConnection());
 
   /// In-memory database for tests.
-  factory DonzelaDatabase.memory() => DonzelaDatabase(NativeDatabase.memory());
+  factory DonzelaDatabase.memory() => DonzelaDatabase(openMemory());
 
   @override
-  int get schemaVersion => 3;
+  int get schemaVersion => 6;
 
   @override
   MigrationStrategy get migration => MigrationStrategy(
@@ -44,6 +34,18 @@ class DonzelaDatabase extends _$DonzelaDatabase {
           );
         },
         onUpgrade: (m, from, to) async {
+          if (from < 6) {
+            // v6: when each article was first created.
+            await m.addColumn(articles, articles.createdAt);
+          }
+          if (from < 5) {
+            // v5: who wrote the article.
+            await m.addColumn(articles, articles.author);
+          }
+          if (from < 4) {
+            // v4: the reviewer named for a draft article, kept until publishing.
+            await m.addColumn(articles, articles.proposedReviewer);
+          }
           if (from < 3) {
             // v3: the content outbox for admin changes waiting for the cloud.
             await m.createTable(contentOutbox);

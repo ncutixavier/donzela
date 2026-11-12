@@ -40,7 +40,7 @@
   "sinibukaNote": "Igereranya rito: itariki ni iminsi 14 uvuye none.",
   "cycleLengthTitle": "Ukwezi kwawe kumara iminsi ingahe?",
   "cycleLengthBody": "Ukwezi gutangira ku munsi wa mbere w'imihango kugeza ku munsi ubanziriza imihango ikurikira. Ntubizi neza? Siga imibare isanzwe; Donzela izagenda yiga uko wandika.",
-  "cycleLengthLabel": "Uburebure bw'ukwezi",
+  "cycleLengthLabel": "Uburebure bw'umuzunguruko",
   "periodLengthLabel": "Iminsi y'imihango",
   "daysUnit": "iminsi",
   "cycleRangeNote": "Ukwezi kwinshi kumara hagati y'iminsi 21 na 35",
@@ -267,7 +267,7 @@
   "d5": "gatanu",
   "d6": "gatandatu",
   "d7": "cyumweru",
-  "appFooter": "Donzela 1.0 · Yakozwe i Kigali na Hova AI",
+  "appFooter": "Donzela 1.0 · Yakozwe i Kigali",
   "logToday": "Andika uyu munsi",
   "draftBadge": "Inyandiko y'igerageza, ntirasuzumwa",
   "logsTitle": "Ibyo nanditse",
@@ -394,9 +394,9 @@
       }
     }
   },
-  "accountSyncNow": "Sangiza ubu",
+  "accountSyncNow": "Ohereza amakuru",
   "accountSyncDone": "Byasangijwe.",
-  "accountPull": "Gusubiza amakuru mashya",
+  "accountPull": "Kurura amakuru mashya",
   "accountPullBody": "Zana amakuru yawe, ibyanditswe, uburyo wakoresheje n'amakuru mashya ku bigo nderabuzima n'inyandiko. Ubikora wowe ubwawe.",
   "accountPulled": "Byagarutse: {n}",
   "@accountPulled": {
@@ -407,7 +407,7 @@
     }
   },
   "accountNothingNew": "Nta kintu gishya.",
-  "accountTurnOnBackup": "Fungura kopi",
+  "accountTurnOnBackup": "Ohereza amakuru mu bubiko",
   "accountBusy": "Biragenda...",
   "adminBadge": "Umuyobozi mukuru",
   "adminOnlyBadgeBody": "Uri umuyobozi mukuru: ushobora kongeramo, guhindura no gusiba inyandiko za Learn n'ibyo muri Help.",
@@ -459,5 +459,179 @@
   "emergencyManage": "Nimero z'ihutirwa",
   "emergencyAdd": "Ongeraho nimero",
   "emergencyEdit": "Hindura nimero",
-  "emergencyNone": "Nta nimero z'ihutirwa zirahari."
+  "emergencyNone": "Nta nimero z'ihutirwa zirahari.",
+  "translationsTitle": "Izindi ndimi",
+  "statusPublished": "Yasohotse",
+  "statusDraft": "Yanditswe",
+  "statusMissing": "Ntiyanditswe",
+  "translateNow": "Hindura",
+  "translateArticle": "Hindura iyi nyandiko",
+  "saveDraftBtn": "Bika nk'igitabo",
+  "publishAllBtn": "Sohora mu ndimi zose",
+  "publishedAll": "Yasohotse mu ndimi zose.",
+  "publishNotReady": "Ntibishobora gusohoka",
+  "reviewerLabel": "Uwasuzumye (ururimi rwa none)",
+  "reviewerHint": "Ntugire icyo wandika: ni Donzela Team.",
+  "writtenBy": "Yanditswe na {name}",
+  "@writtenBy": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "accountPullPublicBody": "Fata amakuru mashya ku ngingo z'ubufasha no ku nyandiko",
+  "accountContentUpdated": "Amakuru mashya y'inyandiko n'ubufasha yamaze kuzanwa.",
+  "adminUsersTitle": "Abayobozi",
+  "adminUsersBody": "Abayobozi bashobora guhindura Learn na Help. Umuntu ahabwa ubu burenganzira igihe wanditse imeri ye hano.",
+  "adminUsersEmailLabel": "Imeri ya Google",
+  "adminUsersEmailHint": "Urugero: izina@gmail.com",
+  "adminUsersAdd": "Ongeraho umuyobozi",
+  "adminUsersListTitle": "Abafite uburenganzira",
+  "adminUsersNone": "Nta bandi bayobozi bongeweho.",
+  "adminUsersRemove": "Kuramo umuyobozi",
+  "adminUsersRemoveTitle": "Kuramo uyu muyobozi?",
+  "adminUsersInvalid": "Andika imeri nyayo",
+  "adminUsersOwner": "Iyi ni imeri ya nyirubwite, ntishobora gukurwaho",
+  "adminUsersRoleOwner": "Nyir'urugo",
+  "adminUsersRoleAdmin": "Umuyobozi",
+  "adminUsersRoleUser": "Umunyamuryango",
+  "adminUsersMakeAdmin": "Shyira umuyobozi",
+  "accountWelcome": "Murakaza neza, {name}",
+  "@accountWelcome": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "createdOn": "Yatangiwe {date}",
+  "@createdOn": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "publishedOn": "Yasohotse {date}",
+  "@publishedOn": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "updatedOn": "Yavuguruwe {date}",
+  "@updatedOn": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "onboardingPullContent": "Kuramo inyandiko n'ubufasha bya none",
+  "contentPullFailed": "Ntibyakunze kuramo amakuru. Reba internet yawe.",
+  "lastPeriodOptional": "Ushobora kubisiga none cyangwa ukabyongera nyuma kuri kalendari.",
+  "refreshContent": "Kuvugurura inyandiko n'ubufasha",
+  "accountSyncNowBody": "Ibyo wanditse bisigara kuri telefone yawe. Kanda hano ubu bioherezwa kuri konte yawe ya Google, kandi igihe byarangiriye kirandikwa.",
+  "accountSyncOffBody": "Kugira ngo ibyo ukora byoherezwe kuri konte yawe, banza ushyireho backup muri Igenamiterere.",
+  "healthTitle": "Ibikoresho by'ubuzima",
+  "healthSubtitle": "Ibipimo bigereranya ukurikije amatariki wanditse. Bihinduka uko uyahindura.",
+  "healthSectionCycle": "Imihango",
+  "healthSectionPregnancy": "Gutwita",
+  "healthDisclaimer": "Ibi ni ibipimo bigereranya, ntabwo ari inama z'ubuvuzi. Baza umuganga ku byerekeye ubuzima bwawe.",
+  "toolNextPeriodTitle": "Imihango itaha",
+  "toolNextPeriodBody": "Igihe imihango yawe itaha ishobora gutangira, ukurikije uburebure bw'umuzunguruko wawe.",
+  "toolFertileTitle": "Iminsi yo gusama",
+  "toolFertileBody": "Iminsi gutwita bishoboka, n'igihe intanga ishobora gusohoka.",
+  "toolImplantTitle": "Igihe cyo gushinga inda",
+  "toolImplantBody": "Igihe intanga ishobora gushingwa mu nda nyuma yo gusohoka kw'intanga.",
+  "toolCycleLengthTitle": "Uburebure bw'umuzunguruko",
+  "toolCycleLengthBody": "Bara iminsi hagati y'itangiriro ry'imihango ebyiri.",
+  "toolDueDateTitle": "Itariki yo kubyara",
+  "toolDueDateBody": "Itariki igereranyijwe yo kubyara, ibarwa uhereye ku itangiriro ry'imihango yawe ya nyuma.",
+  "toolWeeksTitle": "Ibyumweru mu mezi",
+  "toolWeeksBody": "Hindura ibyumweru byo gutwita mu mezi n'ibyumweru.",
+  "healthLastPeriod": "Itangiriro ry'imihango ya nyuma",
+  "healthUsualCycle": "Uburebure bw'umuzunguruko usanzwe",
+  "healthPreviousPeriod": "Itangiriro ry'imihango yabanje",
+  "healthNextPeriodStart": "Itangiriro ry'imihango ikurikira",
+  "healthWeeksPregnant": "Ibyumweru umaze utwite",
+  "healthWeeksUnit": "ibyumweru",
+  "healthResultNextPeriod": "Imihango itaha izaza hafi",
+  "healthResultOvulation": "Intanga izasohoka hafi",
+  "healthResultFertile": "Iminsi yo gusama",
+  "healthResultImplant": "Gushinga inda bishobora kuba hagati ya",
+  "healthResultCycleLength": "Uburebure bw'umuzunguruko",
+  "healthResultDue": "Itariki igereranyijwe yo kubyara",
+  "healthResultAge": "Umaze utwite",
+  "healthResultMonths": "Bingana na",
+  "healthCycleOut": "Umuzunguruko usanzwe ufata iminsi 21 kugeza 45. Reba amatariki yombi.",
+  "healthTo": "kugeza",
+  "healthLess": "Gabanya",
+  "healthMore": "Ongera",
+  "@healthDays": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
+  "healthDays": "{n} iminsi",
+  "@healthWeekDays": {
+    "placeholders": {
+      "weeks": {
+        "type": "int"
+      },
+      "days": {
+        "type": "int"
+      }
+    }
+  },
+  "healthWeekDays": "ibyumweru {weeks} n'iminsi {days}",
+  "@healthMonthsWeeks": {
+    "placeholders": {
+      "months": {
+        "type": "int"
+      },
+      "weeks": {
+        "type": "int"
+      }
+    }
+  },
+  "healthMonthsWeeks": "amezi {months} n'ibyumweru {weeks}",
+  "cycleSheetTitle": "Umuzunguruko wawe",
+  "cycleLastStart": "Itangiriro ry'imihango ya nyuma",
+  "cycleLengthNote": "Iyi ni yo ikoreshwa kugeza wanditse imizunguruko myinshi.",
+  "cycleSheetSave": "Bika",
+  "reviewedByName": "Byasuzumwe na {name}",
+  "@reviewedByName": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "toolCycleCalcTitle": "Igenzura ry'umuzunguruko",
+  "toolCycleCalcBody": "Andika itangiriro ry'imihango ya nyuma, imihango imara iminsi ingahe n'uburebure bw'umuzunguruko. Uzabona intanga, imihango itaha, iminsi yo gusama n'ibyiciro byombi.",
+  "healthPeriodDays": "Imihango imara iminsi ingahe",
+  "healthResultPeriod": "Imihango itaha",
+  "healthResultFollicular": "Icyiciro cya mbere",
+  "healthResultLuteal": "Icyiciro cya kabiri",
+  "healthOvulationNote": "Intanga isohoka hafi aha.",
+  "healthPeriodNote": "Imihango imara iminsi {days}.",
+  "healthFertileNote": "Iminsi ushobora gusama, kuva ku minsi itanu mbere y'intanga kugeza ku munsi umwe nyuma yayo.",
+  "healthFollicularNote": "Kuva ku itangiriro ry'imihango kugeza intanga isohotse.",
+  "healthLutealNote": "Kuva nyuma y'intanga kugeza umunsi umwe mbere y'imihango itaha.",
+  "@healthPeriodNote": {
+    "placeholders": {
+      "days": {
+        "type": "int"
+      }
+    }
+  },
+  "toolPeriodCalcTitle": "Igenzura ry'imihango itaha",
+  "toolPeriodCalcBody": "Igihe imihango yawe itaha ishobora gutangira n'igihe izamara.",
+  "toolOvulationTitle": "Igenzura ry'intanga",
+  "toolOvulationBody": "Igihe intanga ishobora gusohoka n'iminsi yo gusama."
 }

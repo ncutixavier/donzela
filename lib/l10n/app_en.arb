@@ -40,8 +40,8 @@
   "sinibukaNote": "Low confidence estimate: the date is 14 days before today.",
   "cycleLengthTitle": "How many days is your cycle?",
   "cycleLengthBody": "A cycle runs from the first day of your period to the day before the next one. Not sure? Keep the usual numbers; Donzela will learn as you log.",
-  "cycleLengthLabel": "Cycle length",
-  "periodLengthLabel": "Period length",
+  "cycleLengthLabel": "Usual cycle length",
+  "periodLengthLabel": "Period days",
   "daysUnit": "days",
   "cycleRangeNote": "Most cycles last between 21 and 35 days",
   "pinSetupTitle": "Protect Donzela",
@@ -267,7 +267,7 @@
   "d5": "Friday",
   "d6": "Saturday",
   "d7": "Sunday",
-  "appFooter": "Donzela 1.0 · Made in Kigali by Hova AI",
+  "appFooter": "Donzela 1.0 · Made in Kigali",
   "logToday": "Log today",
   "draftBadge": "Draft, not yet reviewed",
   "logsTitle": "Your logs",
@@ -459,5 +459,179 @@
   "emergencyManage": "Emergency numbers",
   "emergencyAdd": "Add number",
   "emergencyEdit": "Edit number",
-  "emergencyNone": "No emergency numbers yet."
+  "emergencyNone": "No emergency numbers yet.",
+  "translationsTitle": "Languages",
+  "statusPublished": "Published",
+  "statusDraft": "Draft",
+  "statusMissing": "Missing",
+  "translateNow": "Translate",
+  "translateArticle": "Translate article",
+  "saveDraftBtn": "Save draft",
+  "publishAllBtn": "Publish in all languages",
+  "publishedAll": "Published in all languages.",
+  "publishNotReady": "Not ready to publish",
+  "reviewerLabel": "Reviewer (this language)",
+  "reviewerHint": "Leave empty to show Donzela Team.",
+  "writtenBy": "Written by {name}",
+  "@writtenBy": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "accountPullPublicBody": "Get the latest articles and Help numbers from Donzela.",
+  "accountContentUpdated": "Latest articles and Help information are up to date.",
+  "adminUsersTitle": "Admins",
+  "adminUsersBody": "Admins can edit Learn and Help. A person becomes admin when you add their email here.",
+  "adminUsersEmailLabel": "Google email",
+  "adminUsersEmailHint": "For example: name@gmail.com",
+  "adminUsersAdd": "Add admin",
+  "adminUsersListTitle": "People with admin rights",
+  "adminUsersNone": "No other admins yet.",
+  "adminUsersRemove": "Remove admin",
+  "adminUsersRemoveTitle": "Remove this admin?",
+  "adminUsersInvalid": "Enter a valid email",
+  "adminUsersOwner": "This is the owner account and cannot be removed",
+  "adminUsersRoleOwner": "Owner",
+  "adminUsersRoleAdmin": "Admin",
+  "adminUsersRoleUser": "Member",
+  "adminUsersMakeAdmin": "Make admin",
+  "accountWelcome": "Welcome, {name}",
+  "@accountWelcome": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "createdOn": "Created {date}",
+  "@createdOn": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "publishedOn": "Published {date}",
+  "@publishedOn": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "updatedOn": "Updated {date}",
+  "@updatedOn": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "onboardingPullContent": "Get latest articles and Help info",
+  "contentPullFailed": "Could not get the latest content. Check your connection.",
+  "lastPeriodOptional": "You can skip this and add it later from the calendar.",
+  "refreshContent": "Refresh articles and Help",
+  "accountSyncNowBody": "Your data stays on this phone. Sync now uploads your latest changes to your Google account and records when it finished.",
+  "accountSyncOffBody": "Turn on backup in Settings first. Then your changes can be uploaded to your Google account.",
+  "healthTitle": "Health tools",
+  "healthSubtitle": "Quick estimates from the dates you enter. They update as you change them.",
+  "healthSectionCycle": "Your cycle",
+  "healthSectionPregnancy": "Pregnancy",
+  "healthDisclaimer": "These are estimates, not medical advice. Talk to a health worker about decisions for your health.",
+  "toolNextPeriodTitle": "Next period",
+  "toolNextPeriodBody": "When your next period is likely to start, based on your usual cycle length.",
+  "toolFertileTitle": "Fertile days",
+  "toolFertileBody": "The days when pregnancy is possible, and when ovulation is likely.",
+  "toolImplantTitle": "Implantation window",
+  "toolImplantBody": "When an embryo would usually implant in the womb after ovulation.",
+  "toolCycleLengthTitle": "Cycle length",
+  "toolCycleLengthBody": "Count the days between the start of two periods.",
+  "toolDueDateTitle": "Due date",
+  "toolDueDateBody": "Estimated due date, counted from the first day of your last period.",
+  "toolWeeksTitle": "Weeks to months",
+  "toolWeeksBody": "Convert weeks of pregnancy into months and weeks.",
+  "healthLastPeriod": "First day of your last period",
+  "healthUsualCycle": "Usual cycle length",
+  "healthPreviousPeriod": "First day of the period before",
+  "healthNextPeriodStart": "First day of the next period",
+  "healthWeeksPregnant": "Weeks pregnant",
+  "healthWeeksUnit": "weeks",
+  "healthResultNextPeriod": "Next period around",
+  "healthResultOvulation": "Ovulation around",
+  "healthResultFertile": "Fertile days",
+  "healthResultImplant": "Implantation likely between",
+  "healthResultCycleLength": "Cycle length",
+  "healthResultDue": "Estimated due date",
+  "healthResultAge": "Pregnant for",
+  "healthResultMonths": "About",
+  "healthCycleOut": "A cycle is usually 21 to 45 days. Check the two dates.",
+  "healthTo": "to",
+  "healthLess": "Decrease",
+  "healthMore": "Increase",
+  "@healthDays": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
+  "healthDays": "{n} days",
+  "@healthWeekDays": {
+    "placeholders": {
+      "weeks": {
+        "type": "int"
+      },
+      "days": {
+        "type": "int"
+      }
+    }
+  },
+  "healthWeekDays": "{weeks} weeks and {days} days",
+  "@healthMonthsWeeks": {
+    "placeholders": {
+      "months": {
+        "type": "int"
+      },
+      "weeks": {
+        "type": "int"
+      }
+    }
+  },
+  "healthMonthsWeeks": "{months} months and {weeks} weeks",
+  "cycleSheetTitle": "Your cycle",
+  "cycleLastStart": "Last period started",
+  "cycleLengthNote": "Used until you have logged a few cycles.",
+  "cycleSheetSave": "Save",
+  "reviewedByName": "Reviewed by {name}",
+  "@reviewedByName": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "toolCycleCalcTitle": "Menstrual cycle calculator",
+  "toolCycleCalcBody": "Enter the start of your last period, how long it lasts and your usual cycle length. You get ovulation, your next period, the fertile days and both cycle phases.",
+  "healthPeriodDays": "Period lasts",
+  "healthResultPeriod": "Next period",
+  "healthResultFollicular": "Follicular phase",
+  "healthResultLuteal": "Luteal phase",
+  "healthOvulationNote": "Ovulation is most likely on this day.",
+  "healthPeriodNote": "Your period lasts {days} days.",
+  "healthFertileNote": "The days pregnancy is possible: 5 days before ovulation to 1 day after.",
+  "healthFollicularNote": "From the start of your period until ovulation.",
+  "healthLutealNote": "From just after ovulation until the day before your next period.",
+  "@healthPeriodNote": {
+    "placeholders": {
+      "days": {
+        "type": "int"
+      }
+    }
+  },
+  "toolPeriodCalcTitle": "Period calculator",
+  "toolPeriodCalcBody": "When your next period is likely to start and how many days it will last.",
+  "toolOvulationTitle": "Ovulation calculator",
+  "toolOvulationBody": "When ovulation is likely and your fertile days around it."
 }
