@@ -40,8 +40,8 @@
   "sinibukaNote": "Estimation peu fiable : la date est fixée à 14 jours avant aujourd'hui.",
   "cycleLengthTitle": "Combien de jours dure votre cycle ?",
   "cycleLengthBody": "Un cycle va du premier jour de vos règles au jour précédant les suivantes. Vous ne savez pas ? Gardez les valeurs habituelles ; Donzela apprendra au fil de vos notes.",
-  "cycleLengthLabel": "Durée du cycle",
-  "periodLengthLabel": "Durée des règles",
+  "cycleLengthLabel": "Durée habituelle du cycle",
+  "periodLengthLabel": "Jours de règles",
   "daysUnit": "jours",
   "cycleRangeNote": "La plupart des cycles durent entre 21 et 35 jours",
   "pinSetupTitle": "Protégez Donzela",
@@ -534,5 +534,104 @@
   "lastPeriodOptional": "Vous pouvez passer cette étape et l'ajouter plus tard depuis le calendrier.",
   "refreshContent": "Actualiser les articles et l'aide",
   "accountSyncNowBody": "Vos données restent sur ce téléphone. Synchroniser envoie vos dernières modifications sur votre compte Google et enregistre l'heure de fin.",
-  "accountSyncOffBody": "Activez d'abord la sauvegarde dans les Réglages. Vos modifications pourront ensuite être envoyées sur votre compte Google."
+  "accountSyncOffBody": "Activez d'abord la sauvegarde dans les Réglages. Vos modifications pourront ensuite être envoyées sur votre compte Google.",
+  "healthTitle": "Outils santé",
+  "healthSubtitle": "Estimations rapides à partir des dates saisies. Elles se mettent à jour quand vous les modifiez.",
+  "healthSectionCycle": "Votre cycle",
+  "healthSectionPregnancy": "Grossesse",
+  "healthDisclaimer": "Ce sont des estimations, pas des conseils médicaux. Parlez à un agent de santé pour les décisions concernant votre santé.",
+  "toolNextPeriodTitle": "Prochaines règles",
+  "toolNextPeriodBody": "Quand vos prochaines règles devraient commencer, selon la durée habituelle de votre cycle.",
+  "toolFertileTitle": "Jours fertiles",
+  "toolFertileBody": "Les jours où une grossesse est possible, et quand l'ovulation est probable.",
+  "toolImplantTitle": "Période d'implantation",
+  "toolImplantBody": "Quand un embryon s'implante habituellement dans l'utérus après l'ovulation.",
+  "toolCycleLengthTitle": "Durée du cycle",
+  "toolCycleLengthBody": "Comptez les jours entre le début de deux règles.",
+  "toolDueDateTitle": "Date prévue d'accouchement",
+  "toolDueDateBody": "Date estimée d'accouchement, comptée à partir du premier jour de vos dernières règles.",
+  "toolWeeksTitle": "Semaines en mois",
+  "toolWeeksBody": "Convertissez les semaines de grossesse en mois et semaines.",
+  "healthLastPeriod": "Premier jour de vos dernières règles",
+  "healthUsualCycle": "Durée habituelle du cycle",
+  "healthPreviousPeriod": "Premier jour des règles précédentes",
+  "healthNextPeriodStart": "Premier jour des règles suivantes",
+  "healthWeeksPregnant": "Semaines de grossesse",
+  "healthWeeksUnit": "semaines",
+  "healthResultNextPeriod": "Prochaines règles vers le",
+  "healthResultOvulation": "Ovulation vers le",
+  "healthResultFertile": "Jours fertiles",
+  "healthResultImplant": "Implantation probable entre le",
+  "healthResultCycleLength": "Durée du cycle",
+  "healthResultDue": "Date prévue d'accouchement",
+  "healthResultAge": "Enceinte depuis",
+  "healthResultMonths": "Environ",
+  "healthCycleOut": "Un cycle dure en général 21 à 45 jours. Vérifiez les deux dates.",
+  "healthTo": "au",
+  "healthLess": "Diminuer",
+  "healthMore": "Augmenter",
+  "@healthDays": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
+  "healthDays": "{n} jours",
+  "@healthWeekDays": {
+    "placeholders": {
+      "weeks": {
+        "type": "int"
+      },
+      "days": {
+        "type": "int"
+      }
+    }
+  },
+  "healthWeekDays": "{weeks} semaines et {days} jours",
+  "@healthMonthsWeeks": {
+    "placeholders": {
+      "months": {
+        "type": "int"
+      },
+      "weeks": {
+        "type": "int"
+      }
+    }
+  },
+  "healthMonthsWeeks": "{months} mois et {weeks} semaines",
+  "cycleSheetTitle": "Votre cycle",
+  "cycleLastStart": "Début des dernières règles",
+  "cycleLengthNote": "Utilisée jusqu'à ce que vous ayez enregistré quelques cycles.",
+  "cycleSheetSave": "Enregistrer",
+  "reviewedByName": "Relu par {name}",
+  "@reviewedByName": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "toolCycleCalcTitle": "Calculateur du cycle menstruel",
+  "toolCycleCalcBody": "Saisissez le début de vos dernières règles, leur durée et la durée habituelle de votre cycle. Vous obtenez l'ovulation, les prochaines règles, les jours fertiles et les deux phases du cycle.",
+  "healthPeriodDays": "Les règles durent",
+  "healthResultPeriod": "Prochaines règles",
+  "healthResultFollicular": "Phase folliculaire",
+  "healthResultLuteal": "Phase lutéale",
+  "healthOvulationNote": "L'ovulation est la plus probable ce jour-là.",
+  "healthPeriodNote": "Vos règles durent {days} jours.",
+  "healthFertileNote": "Les jours où une grossesse est possible : de 5 jours avant l'ovulation à 1 jour après.",
+  "healthFollicularNote": "Du début des règles jusqu'à l'ovulation.",
+  "healthLutealNote": "De juste après l'ovulation jusqu'à la veille des prochaines règles.",
+  "@healthPeriodNote": {
+    "placeholders": {
+      "days": {
+        "type": "int"
+      }
+    }
+  },
+  "toolPeriodCalcTitle": "Calculateur des règles",
+  "toolPeriodCalcBody": "Quand vos prochaines règles devraient commencer et combien de jours elles dureront.",
+  "toolOvulationTitle": "Calculateur d'ovulation",
+  "toolOvulationBody": "Quand l'ovulation est probable et vos jours fertiles autour."
 }

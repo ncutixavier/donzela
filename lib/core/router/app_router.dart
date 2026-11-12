@@ -8,6 +8,7 @@ import '../../features/learn/learn_screen.dart';
 import '../../features/lock/lock_controller.dart';
 import '../../features/lock/lock_screen.dart';
 import '../../features/logs/logs_screen.dart';
+import '../../features/health/health_tools_screen.dart';
 import '../../features/onboarding/onboarding_screens.dart';
 import '../../features/report/report_screen.dart';
 import '../../features/settings/privacy_screen.dart';
@@ -101,6 +102,13 @@ GoRouter buildRouter({
         pageBuilder: (context, state) => sharedAxisPage(
           key: state.pageKey,
           child: const LogsScreen(),
+        ),
+      ),
+      GoRoute(
+        path: '/health',
+        pageBuilder: (context, state) => sharedAxisPage(
+          key: state.pageKey,
+          child: const HealthToolsScreen(),
         ),
       ),
       GoRoute(

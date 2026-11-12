@@ -6,6 +6,7 @@ import 'package:provider/provider.dart';
 
 import '../../core/l10n/localization.dart';
 import '../../core/theme/app_theme.dart';
+import '../../core/utils/dates.dart';
 import '../../core/widgets/imigongo.dart';
 import '../admin/admin_controller.dart';
 import '../admin/article_publish.dart';
@@ -39,7 +40,9 @@ class _LearnScreenState extends State<LearnScreen> {
     // Loading notifies listeners, which must not happen during build.
     // The super-admin also sees unreviewed articles, so they can finish them.
     final isAdmin = context.read<AdminController>().isSuperAdmin;
-    WidgetsBinding.instance.addPostFrameCallback((_) => ctrl.load(lang: lang, showDrafts: isAdmin));
+    WidgetsBinding.instance.addPostFrameCallback(
+      (_) => ctrl.load(lang: lang, showDrafts: isAdmin),
+    );
   }
 
   @override
@@ -70,7 +73,10 @@ class _LearnScreenState extends State<LearnScreen> {
         title: Text(l.logDeleteTitle),
         content: Text(l.adminDeleteBody),
         actions: [
-          TextButton(onPressed: () => Navigator.pop(ctx, false), child: Text(l.cancelBtn)),
+          TextButton(
+            onPressed: () => Navigator.pop(ctx, false),
+            child: Text(l.cancelBtn),
+          ),
           FilledButton(
             style: FilledButton.styleFrom(backgroundColor: AppColors.danger),
             onPressed: () => Navigator.pop(ctx, true),
@@ -95,7 +101,10 @@ class _LearnScreenState extends State<LearnScreen> {
     if (ok) {
       final lang = Localizations.localeOf(context).languageCode;
       final isAdmin = context.read<AdminController>().isSuperAdmin;
-      await context.read<LearnController>().load(lang: lang, showDrafts: isAdmin);
+      await context.read<LearnController>().load(
+        lang: lang,
+        showDrafts: isAdmin,
+      );
     }
   }
 
@@ -129,13 +138,19 @@ class _LearnScreenState extends State<LearnScreen> {
             Row(
               children: [
                 Expanded(
-                  child: Text(l.learnTitle, style: Theme.of(context).textTheme.headlineMedium),
+                  child: Text(
+                    l.learnTitle,
+                    style: Theme.of(context).textTheme.headlineMedium,
+                  ),
                 ),
                 RefreshContentButton(busy: _refreshing, onPressed: _refresh),
               ],
             ),
             const SizedBox(height: 4),
-            Text(l.learnSubtitle, style: Theme.of(context).textTheme.bodyMedium),
+            Text(
+              l.learnSubtitle,
+              style: Theme.of(context).textTheme.bodyMedium,
+            ),
             const SizedBox(height: AppSpace.lg),
             TextField(
               controller: _search,
@@ -157,7 +172,9 @@ class _LearnScreenState extends State<LearnScreen> {
                     selected: ctrl.category == key,
                     selectedColor: AppColors.brown,
                     labelStyle: TextStyle(
-                      color: ctrl.category == key ? Colors.white : AppColors.ink,
+                      color: ctrl.category == key
+                          ? Colors.white
+                          : AppColors.ink,
                       fontWeight: FontWeight.w700,
                     ),
                     onSelected: (_) => ctrl.setCategory(key),
@@ -166,16 +183,20 @@ class _LearnScreenState extends State<LearnScreen> {
             ),
             const SizedBox(height: AppSpace.lg),
             if (ctrl.loading)
-              const Center(child: Padding(
-                padding: EdgeInsets.all(AppSpace.xl),
-                child: CircularProgressIndicator(),
-              ))
+              const Center(
+                child: Padding(
+                  padding: EdgeInsets.all(AppSpace.xl),
+                  child: CircularProgressIndicator(),
+                ),
+              )
             else if (ctrl.articles.isEmpty)
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: AppSpace.xl),
-                child: Text(l.noArticles,
-                    textAlign: TextAlign.center,
-                    style: Theme.of(context).textTheme.bodyMedium),
+                child: Text(
+                  l.noArticles,
+                  textAlign: TextAlign.center,
+                  style: Theme.of(context).textTheme.bodyMedium,
+                ),
               )
             else
               for (final a in ctrl.articles)
@@ -225,7 +246,9 @@ class _ArticleCard extends StatelessWidget {
       openElevation: 0,
       closedColor: AppColors.surface,
       openColor: AppColors.cream,
-      closedShape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(AppRadius.card)),
+      closedShape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(AppRadius.card),
+      ),
       closedBuilder: (context, open) => InkWell(
         borderRadius: BorderRadius.circular(AppRadius.card),
         onTap: open,
@@ -240,7 +263,10 @@ class _ArticleCard extends StatelessWidget {
                   color: AppColors.blush,
                   borderRadius: BorderRadius.circular(AppRadius.control),
                 ),
-                child: const Icon(Icons.menu_book_outlined, color: AppColors.brown),
+                child: const Icon(
+                  Icons.menu_book_outlined,
+                  color: AppColors.brown,
+                ),
               ),
               const SizedBox(width: AppSpace.md),
               Expanded(
@@ -261,7 +287,10 @@ class _ArticleCard extends StatelessWidget {
                 ),
                 IconButton(
                   tooltip: AppLocalizations.of(context).deleteBtn,
-                  icon: const Icon(Icons.delete_outline, color: AppColors.danger),
+                  icon: const Icon(
+                    Icons.delete_outline,
+                    color: AppColors.danger,
+                  ),
                   onPressed: onDelete,
                 ),
               ],
@@ -295,7 +324,9 @@ class _ArticleScreenState extends State<ArticleScreen> {
     super.didChangeDependencies();
     if (_loaded) return;
     _loaded = true;
-    context.read<LearnController>().open(widget.articleId, widget.lang).then((a) {
+    context.read<LearnController>().open(widget.articleId, widget.lang).then((
+      a,
+    ) {
       if (mounted) setState(() => _article = a);
     });
   }
@@ -333,9 +364,18 @@ class _ArticleScreenState extends State<ArticleScreen> {
             color: AppColors.brown,
             child: const Stack(
               children: [
-                Positioned(top: 0, left: 0, right: 0, child: ZigzagBand(height: 14)),
-                Positioned(bottom: 0, left: 0, right: 0,
-                    child: ZigzagBand(height: 14, color: AppColors.terracotta)),
+                Positioned(
+                  top: 0,
+                  left: 0,
+                  right: 0,
+                  child: ZigzagBand(height: 14),
+                ),
+                Positioned(
+                  bottom: 0,
+                  left: 0,
+                  right: 0,
+                  child: ZigzagBand(height: 14, color: AppColors.terracotta),
+                ),
               ],
             ),
           ),
@@ -349,38 +389,43 @@ class _ArticleScreenState extends State<ArticleScreen> {
                 // Every article shown here is reviewed; the default reviewer is the Donzela Team.
                 Row(
                   children: [
-                    const Icon(Icons.verified_outlined, color: AppColors.sage, size: 18),
+                    const Icon(
+                      Icons.verified_outlined,
+                      color: AppColors.sage,
+                      size: 18,
+                    ),
                     const SizedBox(width: 6),
                     Expanded(
                       child: Text(
-                        l.reviewedBy(
-                          a.reviewedBy ?? defaultReviewer,
-                          a.reviewedOn == null ? '' : l.dayMonthYear(a.reviewedOn!),
+                        l.reviewedByName(a.reviewedBy ?? defaultReviewer),
+                        style: const TextStyle(
+                          color: AppColors.sage,
+                          fontWeight: FontWeight.w700,
                         ),
-                        style: const TextStyle(color: AppColors.sage, fontWeight: FontWeight.w700),
                       ),
                     ),
                   ],
                 ),
                 if (a.author != null) ...[
                   const SizedBox(height: 4),
-                  Text(l.writtenBy(a.author!), style: theme.textTheme.bodyMedium),
+                  Text(
+                    l.writtenBy(a.author!),
+                    style: theme.textTheme.bodyMedium,
+                  ),
                 ],
-                const SizedBox(height: 4),
-                Text(
-                  [
-                    if (a.createdAt != null) l.createdOn(l.dayMonthYear(a.createdAt!)),
-                    if (a.reviewedOn != null) l.publishedOn(l.dayMonthYear(a.reviewedOn!)),
-                    l.updatedOn(l.dayMonthYear(a.updatedAt)),
-                  ].join(' · '),
-                  style: theme.textTheme.bodySmall,
-                ),
+                if (a.createdAt != null) ...[
+                  const SizedBox(height: 4),
+                  Text(
+                    l.createdOn(dateMinuteText(a.createdAt!)),
+                    style: theme.textTheme.bodySmall,
+                  ),
+                ],
                 const SizedBox(height: AppSpace.lg),
                 MarkdownBody(
                   data: a.body,
-                  styleSheet: MarkdownStyleSheet.fromTheme(theme).copyWith(
-                    p: theme.textTheme.bodyLarge,
-                  ),
+                  styleSheet: MarkdownStyleSheet.fromTheme(
+                    theme,
+                  ).copyWith(p: theme.textTheme.bodyLarge),
                 ),
                 const SizedBox(height: AppSpace.xl),
                 FilledButton(
@@ -395,4 +440,3 @@ class _ArticleScreenState extends State<ArticleScreen> {
     );
   }
 }
-

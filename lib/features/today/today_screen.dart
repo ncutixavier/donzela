@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+
+import 'cycle_sheet.dart';
 import 'package:provider/provider.dart';
 
 import '../../core/l10n/localization.dart';
@@ -35,7 +37,12 @@ class TodayScreen extends StatelessWidget {
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
-          padding: const EdgeInsets.fromLTRB(AppSpace.lg, AppSpace.md, AppSpace.lg, AppSpace.xl),
+          padding: const EdgeInsets.fromLTRB(
+            AppSpace.lg,
+            AppSpace.md,
+            AppSpace.lg,
+            AppSpace.xl,
+          ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
@@ -45,7 +52,10 @@ class TodayScreen extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(l.longDate(today), style: Theme.of(context).textTheme.bodyMedium),
+                        Text(
+                          l.longDate(today),
+                          style: Theme.of(context).textTheme.bodyMedium,
+                        ),
                         Text(
                           name.isEmpty ? greeting : '$greeting, $name',
                           style: Theme.of(context).textTheme.titleLarge,
@@ -62,15 +72,19 @@ class TodayScreen extends StatelessWidget {
               ),
               const SizedBox(height: AppSpace.lg),
               Center(
-                child: CycleRing(
-                  prediction: prediction,
-                  periodLength: settings.periodLength,
-                  today: today,
-                  child: _RingCentre(
+                child: GestureDetector(
+                  behavior: HitTestBehavior.opaque,
+                  onTap: () => showCycleSheet(context),
+                  child: CycleRing(
                     prediction: prediction,
+                    periodLength: settings.periodLength,
                     today: today,
-                    phase: phase,
-                    firstUse: firstUse,
+                    child: _RingCentre(
+                      prediction: prediction,
+                      today: today,
+                      phase: phase,
+                      firstUse: firstUse,
+                    ),
                   ),
                 ),
               ),
@@ -84,18 +98,23 @@ class TodayScreen extends StatelessWidget {
                 const SizedBox(height: AppSpace.sm),
                 Center(
                   child: Text(
-                    l.todayLoggedLine(_logSummary(
-                      l,
-                      InsightsService.mergeByDay(cycles.logsFor(today)).first,
-                    )),
+                    l.todayLoggedLine(
+                      _logSummary(
+                        l,
+                        InsightsService.mergeByDay(cycles.logsFor(today)).first,
+                      ),
+                    ),
                     textAlign: TextAlign.center,
                     style: Theme.of(context).textTheme.bodyMedium,
                   ),
                 ),
               ],
               const SizedBox(height: AppSpace.lg),
-              Center(child: _NextPeriodLine(prediction: prediction, today: today)),
-              if (prediction.fertileStart != null && prediction.fertileEnd != null) ...[
+              Center(
+                child: _NextPeriodLine(prediction: prediction, today: today),
+              ),
+              if (prediction.fertileStart != null &&
+                  prediction.fertileEnd != null) ...[
                 const SizedBox(height: AppSpace.xs),
                 Center(
                   child: Text(
@@ -111,8 +130,12 @@ class TodayScreen extends StatelessWidget {
               Center(
                 child: TextButton(
                   onPressed: () => context.push('/logs'),
-                  child: Text(l.insightsShortcut,
-                      style: const TextStyle(decoration: TextDecoration.underline)),
+                  child: Text(
+                    l.insightsShortcut,
+                    style: const TextStyle(
+                      decoration: TextDecoration.underline,
+                    ),
+                  ),
                 ),
               ),
               const SizedBox(height: AppSpace.sm),
@@ -120,7 +143,9 @@ class TodayScreen extends StatelessWidget {
                 child: Text(
                   l.estimatesOnly,
                   textAlign: TextAlign.center,
-                  style: Theme.of(context).textTheme.bodyMedium?.copyWith(fontSize: 12),
+                  style: Theme.of(
+                    context,
+                  ).textTheme.bodyMedium?.copyWith(fontSize: 12),
                 ),
               ),
               const SizedBox(height: AppSpace.md),
@@ -135,6 +160,8 @@ class TodayScreen extends StatelessWidget {
               ],
               const SizedBox(height: AppSpace.lg),
               const SizedBox(height: AppSpace.lg),
+              const _HealthToolsCard(),
+              const SizedBox(height: AppSpace.md),
               _TipCard(phase: phase),
             ],
           ),
@@ -185,12 +212,22 @@ class _RingCentre extends StatelessWidget {
           Text(l.todayCycleDay, style: theme.textTheme.bodyMedium),
           Text(
             prediction.cycleDay == null ? '–' : '${prediction.cycleDay}',
-            style: theme.textTheme.headlineMedium?.copyWith(fontSize: 56, height: 1),
+            style: theme.textTheme.headlineMedium?.copyWith(
+              fontSize: 56,
+              height: 1,
+            ),
           ),
           const SizedBox(height: AppSpace.sm),
-          _Chip(label: l.firstEstimate, color: AppColors.goldSoft, textColor: AppColors.brown),
+          _Chip(
+            label: l.firstEstimate,
+            color: AppColors.goldSoft,
+            textColor: AppColors.brown,
+          ),
           const SizedBox(height: AppSpace.xs),
-          Text(l.estimateChip, style: theme.textTheme.bodyMedium?.copyWith(fontSize: 12)),
+          Text(
+            l.estimateChip,
+            style: theme.textTheme.bodyMedium?.copyWith(fontSize: 12),
+          ),
         ],
       );
     }
@@ -210,14 +247,24 @@ class _RingCentre extends StatelessWidget {
         if (!late && days != null) ...[
           Text(
             '$days',
-            style: theme.textTheme.headlineMedium?.copyWith(fontSize: 52, height: 1.05),
+            style: theme.textTheme.headlineMedium?.copyWith(
+              fontSize: 52,
+              height: 1.05,
+            ),
           ),
           Text(l.centreDaysUnit, style: theme.textTheme.bodyMedium),
         ],
         const SizedBox(height: AppSpace.sm),
-        _Chip(label: _phaseLabel(l, phase), color: _phaseColor(phase), textColor: AppColors.brown),
+        _Chip(
+          label: _phaseLabel(l, phase),
+          color: _phaseColor(phase),
+          textColor: AppColors.brown,
+        ),
         const SizedBox(height: AppSpace.xs),
-        Text(l.estimateChip, style: theme.textTheme.bodyMedium?.copyWith(fontSize: 12)),
+        Text(
+          l.estimateChip,
+          style: theme.textTheme.bodyMedium?.copyWith(fontSize: 12),
+        ),
       ],
     );
   }
@@ -249,7 +296,11 @@ class _NextPeriodLine extends StatelessWidget {
 }
 
 class _InfoCard extends StatelessWidget {
-  const _InfoCard({required this.text, required this.onTap, required this.linkText});
+  const _InfoCard({
+    required this.text,
+    required this.onTap,
+    required this.linkText,
+  });
 
   final String text;
   final VoidCallback onTap;
@@ -268,8 +319,10 @@ class _InfoCard extends StatelessWidget {
             TextButton(
               style: TextButton.styleFrom(padding: EdgeInsets.zero),
               onPressed: onTap,
-              child: Text(linkText,
-                  style: const TextStyle(decoration: TextDecoration.underline)),
+              child: Text(
+                linkText,
+                style: const TextStyle(decoration: TextDecoration.underline),
+              ),
             ),
           ],
         ),
@@ -300,24 +353,40 @@ class _TipCard extends StatelessWidget {
             Positioned(
               right: 0,
               top: 0,
-              child: SizedBox(width: 90, child: ZigzagBand(height: 60, color: AppColors.terracotta)),
+              child: SizedBox(
+                width: 90,
+                child: ZigzagBand(height: 60, color: AppColors.terracotta),
+              ),
             ),
             Padding(
               padding: const EdgeInsets.only(right: 60),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(l.tipTitle,
-                      style: const TextStyle(
-                          color: AppColors.gold, fontWeight: FontWeight.w800)),
+                  Text(
+                    l.tipTitle,
+                    style: const TextStyle(
+                      color: AppColors.gold,
+                      fontWeight: FontWeight.w800,
+                    ),
+                  ),
                   const SizedBox(height: AppSpace.sm),
-                  Text(body, style: const TextStyle(color: AppColors.cream, height: 1.4)),
+                  Text(
+                    body,
+                    style: const TextStyle(color: AppColors.cream, height: 1.4),
+                  ),
                   TextButton(
                     style: TextButton.styleFrom(
-                        padding: EdgeInsets.zero, foregroundColor: AppColors.gold),
+                      padding: EdgeInsets.zero,
+                      foregroundColor: AppColors.gold,
+                    ),
                     onPressed: () => context.go('/learn'),
-                    child: Text(l.readMore,
-                        style: const TextStyle(decoration: TextDecoration.underline)),
+                    child: Text(
+                      l.readMore,
+                      style: const TextStyle(
+                        decoration: TextDecoration.underline,
+                      ),
+                    ),
                   ),
                 ],
               ),
@@ -330,7 +399,11 @@ class _TipCard extends StatelessWidget {
 }
 
 class _Chip extends StatelessWidget {
-  const _Chip({required this.label, required this.color, required this.textColor});
+  const _Chip({
+    required this.label,
+    required this.color,
+    required this.textColor,
+  });
 
   final String label;
   final Color color;
@@ -340,28 +413,37 @@ class _Chip extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
-      decoration: BoxDecoration(color: color, borderRadius: BorderRadius.circular(AppRadius.chip)),
-      child: Text(label,
-          style: TextStyle(color: textColor, fontWeight: FontWeight.w700, fontSize: 13)),
+      decoration: BoxDecoration(
+        color: color,
+        borderRadius: BorderRadius.circular(AppRadius.chip),
+      ),
+      child: Text(
+        label,
+        style: TextStyle(
+          color: textColor,
+          fontWeight: FontWeight.w700,
+          fontSize: 13,
+        ),
+      ),
     );
   }
 }
 
 String _phaseLabel(AppLocalizations l, DayPhase p) => switch (p) {
-      DayPhase.period => l.phasePeriod,
-      DayPhase.predictedPeriod => l.phasePredictedPeriod,
-      DayPhase.fertile => l.phaseFertile,
-      DayPhase.ovulation => l.phaseOvulation,
-      DayPhase.normal => l.phaseNormal,
-    };
+  DayPhase.period => l.phasePeriod,
+  DayPhase.predictedPeriod => l.phasePredictedPeriod,
+  DayPhase.fertile => l.phaseFertile,
+  DayPhase.ovulation => l.phaseOvulation,
+  DayPhase.normal => l.phaseNormal,
+};
 
 Color _phaseColor(DayPhase p) => switch (p) {
-      DayPhase.period => AppColors.blush,
-      DayPhase.predictedPeriod => AppColors.blushSoft,
-      DayPhase.fertile => AppColors.goldSoft,
-      DayPhase.ovulation => AppColors.sageSoft,
-      DayPhase.normal => AppColors.sand,
-    };
+  DayPhase.period => AppColors.blush,
+  DayPhase.predictedPeriod => AppColors.blushSoft,
+  DayPhase.fertile => AppColors.goldSoft,
+  DayPhase.ovulation => AppColors.sageSoft,
+  DayPhase.normal => AppColors.sand,
+};
 
 /// Explains the colours of the cycle ring, so each arc has a label.
 class _RingLegend extends StatelessWidget {
@@ -370,8 +452,15 @@ class _RingLegend extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final l = AppLocalizations.of(context);
-    final style = Theme.of(context).textTheme.bodyMedium?.copyWith(fontSize: 13);
-    Widget item(Color color, String label, {bool outline = false, bool dot = false}) {
+    final style = Theme.of(
+      context,
+    ).textTheme.bodyMedium?.copyWith(fontSize: 13);
+    Widget item(
+      Color color,
+      String label, {
+      bool outline = false,
+      bool dot = false,
+    }) {
       return Row(
         mainAxisSize: MainAxisSize.min,
         children: [
@@ -382,7 +471,9 @@ class _RingLegend extends StatelessWidget {
               color: color,
               shape: dot ? BoxShape.circle : BoxShape.rectangle,
               borderRadius: dot ? null : BorderRadius.circular(4),
-              border: outline ? Border.all(color: AppColors.brown, width: 2) : null,
+              border: outline
+                  ? Border.all(color: AppColors.brown, width: 2)
+                  : null,
             ),
           ),
           const SizedBox(width: 6),
@@ -401,6 +492,33 @@ class _RingLegend extends StatelessWidget {
         item(AppColors.sage, l.legendOvulation, dot: true),
         item(Colors.white, l.legendToday, outline: true, dot: true),
       ],
+    );
+  }
+}
+
+/// Entry to the Health tools (calculators), kept close to the cycle on Today.
+class _HealthToolsCard extends StatelessWidget {
+  const _HealthToolsCard();
+
+  @override
+  Widget build(BuildContext context) {
+    final l = AppLocalizations.of(context);
+    final theme = Theme.of(context);
+    return Card(
+      child: ListTile(
+        contentPadding: const EdgeInsets.symmetric(
+          horizontal: AppSpace.lg,
+          vertical: 6,
+        ),
+        leading: const Icon(
+          Icons.health_and_safety_outlined,
+          color: AppColors.terracotta,
+        ),
+        title: Text(l.healthTitle, style: theme.textTheme.titleMedium),
+        subtitle: Text(l.healthSubtitle),
+        trailing: const Icon(Icons.chevron_right),
+        onTap: () => context.push('/health'),
+      ),
     );
   }
 }
