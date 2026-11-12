@@ -77,3 +77,14 @@ Never commit `.env` or the generated files. The Google API key in them is flagge
 - **Fonts**: the mockups' Poppins and Nunito are not bundled; the system font is used.
 - **Release**: signing key, store listing, Play data-safety form and icon are not set up. Release builds currently use the debug key.
 - **Device testing**: built and tested with unit and widget tests, not yet on a 2 GB Android 8 phone.
+
+## Web deployment
+
+GitHub Actions builds, analyzes and tests the Flutter web app before deploying to Firebase Hosting (`donzela`).
+
+- Open or update a PR from this repository: deploy a unique `pr-<number>` preview and post its URL on the PR. Previews expire after 7 days. Fork PRs build and test without deploying.
+- Merge into `staging`: update the `staging` preview channel (expires after 30 days).
+- Merge into `main`: deploy the live site at https://donzela.web.app. Pushes to these branches also deploy.
+- The Web workflow can also be run manually on `staging` or `main`.
+
+Required repository secret: `FIREBASE_SERVICE_ACCOUNT_DONZELA`, containing a Firebase Hosting deployment service account JSON key. Client configuration uses the `FIREBASE_*` secrets listed above, including `FIREBASE_WEB_APP_ID` and `FIREBASE_WEB_API_KEY`. Deployment jobs check out `firebase.json` and download the exact web artifact that passed the build checks.

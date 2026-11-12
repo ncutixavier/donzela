@@ -1,7 +1,7 @@
 name: Web
 
-# Builds and tests the web app on every pull request. When a pull request is
-# merged, it is deployed to Firebase Hosting:
+# Builds, tests and deploys a unique preview for same-repository pull requests.
+# Merges (push events) deploy the tested build to Firebase Hosting:
 #   merged into staging -> staging preview channel (30 days)
 #   merged into main    -> live site (donzela.web.app)
 # Pull requests from forks have no secrets, so they only build and test.
@@ -10,10 +10,19 @@ on:
   push:
     branches: [staging, main]
   pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: web-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 
 jobs:
   build:
     runs-on: ubuntu-latest
+    timeout-minutes: 20
     env:
       FIREBASE_PROJECT_ID: ${{ secrets.FIREBASE_PROJECT_ID }}
       FIREBASE_MESSAGING_SENDER_ID: ${{ secrets.FIREBASE_MESSAGING_SENDER_ID }}
@@ -60,15 +69,19 @@ jobs:
         with:
           name: web
           path: build/web
+          if-no-files-found: error
+          retention-days: 7
 
   deploy-staging:
-    if: github.event_name == 'push' && github.ref == 'refs/heads/staging'
+    if: github.event_name != 'pull_request' && github.ref == 'refs/heads/staging'
     needs: build
     runs-on: ubuntu-latest
     permissions:
       contents: read
       checks: write
     steps:
+      - uses: actions/checkout@v4
+
       - uses: actions/download-artifact@v4
         with:
           name: web
@@ -83,13 +96,15 @@ jobs:
           expires: 30d
 
   deploy-live:
-    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
     needs: build
     runs-on: ubuntu-latest
     permissions:
       contents: read
       checks: write
     steps:
+      - uses: actions/checkout@v4
+
       - uses: actions/download-artifact@v4
         with:
           name: web
@@ -101,3 +116,28 @@ jobs:
           firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_DONZELA }}
           projectId: donzela
           channelId: live
+
+  deploy-preview:
+    if: github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.repository
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      checks: write
+      pull-requests: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/download-artifact@v4
+        with:
+          name: web
+          path: build/web
+
+      - name: Deploy PR preview
+        uses: FirebaseExtended/action-hosting-deploy@v0
+        with:
+          repoToken: ${{ secrets.GITHUB_TOKEN }}
+          firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_DONZELA }}
+          projectId: donzela
+          channelId: pr-${{ github.event.pull_request.number }}
+          expires: 7d
